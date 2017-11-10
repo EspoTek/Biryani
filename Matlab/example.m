@@ -1,1 +1,1 @@
-parse_wireshark_dissect('packet_dissect.c', 'dataStage.h', 'dataStage')
+parse_wireshark_dissect('packet_dissect.c', 'synamps_config.h', 'stage2')
