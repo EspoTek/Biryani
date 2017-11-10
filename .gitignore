@@ -1,0 +1,8 @@
+
+Qt/BIRYANI7/.qmake.stash
+*.user
+Qt/BIRYANI7/debug/*
+Qt/BIRYANI7/release/*
+Qt/BIRYANI7/Makefile
+Qt/BIRYANI7/Makefile.Release
+Qt/BIRYANI7/Makefile.Debug
