@@ -1,7 +1,4 @@
 function [] = parse_wireshark_dissect(fname, outputName_h, identifier)
-clear all
-clc
-
 %identifier = 'stage2'
 %fname = 'emg.contents'
 %outputDir = 'C:\Users\cesposito\Documents\Qt\BIRYANI7'
