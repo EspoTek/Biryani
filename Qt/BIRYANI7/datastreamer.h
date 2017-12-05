@@ -8,6 +8,8 @@
 #include "userdefinedproperties.h"
 #include "usbinterface.h"
 
+class packetBuffer;
+
 //Number of ms between checks for new data
 #define CHECK_INTERVAL 1
 
@@ -24,6 +26,8 @@ private:
     double extractedSamples[NUM_DATA_CHANNELS][LENGTH_DATA_PACKET/NUM_DATA_CHANNELS];
     void extractData(unsigned char* buffer);
     void drawBuffer(void);
+    unsigned char *buffer;
+    packetBuffer *internalPacketStash;
 signals:
 
 public slots:

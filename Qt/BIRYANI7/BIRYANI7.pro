@@ -31,7 +31,9 @@ SOURCES += main.cpp\
     usbinterface.cpp \
     datastreamer.cpp \
     qcustomplot.cpp \
-    streamingdisplay.cpp
+    streamingdisplay.cpp \
+    packetbuffer.cpp \
+    o1buffer.cpp
 
 HEADERS  += mainwindow.h\
         synamps_config.h \
@@ -41,7 +43,9 @@ HEADERS  += mainwindow.h\
     userdefinedproperties.h \
     datastreamer.h \
     qcustomplot.h \
-    streamingdisplay.h
+    streamingdisplay.h \
+    packetbuffer.h \
+    o1buffer.h
 
 DEFINES += "BIRYANI7_TARGET_DEVICE=SYNAMPS2"
 
