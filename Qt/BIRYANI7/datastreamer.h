@@ -23,11 +23,11 @@ private:
     QTimer *checkTimer = NULL;
     bool drawNext = false;
     usbInterface *libusb_interface;
-    double extractedSamples[NUM_DATA_CHANNELS][LENGTH_DATA_PACKET/NUM_DATA_CHANNELS];
     void extractData(unsigned char* buffer);
     void drawBuffer(void);
     unsigned char *buffer;
     packetBuffer *internalPacketStash;
+    QVector<double> *decodedPacketStreams[NUM_DATA_CHANNELS];
 signals:
 
 public slots:

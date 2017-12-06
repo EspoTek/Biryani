@@ -8,16 +8,24 @@
 //Count 2 integer
 int c2i(unsigned char* count){
     //first byte is lowest 8 bits, third byte is highest.
-    return count[0] + 0x100*count[1] + 0x10000*count[2];
+    return count[0] + 256*count[1] + 65536*count[2];
 }
 
 //This function takes a sequence of subpackets (supposedly), and checks to see whether it could actually be a valid sequence
 bool isSubPacketSequence(subPacket *spArray, int num2check){
     for(int i=1;i<num2check;i++){
         //Valid subpackets should have an incrementing count field between each subpacket
-        if((c2i((spArray[i].count))-c2i((spArray[i-1].count))) != 1) return false;
+        int count_a = c2i(spArray[i-1].count);
+        int count_b = c2i(spArray[i].count);
+        if((count_b - count_a) != 1){
+            qDebug("Inter-packet difference of %d, i=%d", (c2i((spArray[i].count))-c2i((spArray[i-1].count))), i);
+            return false;
+        }
         //The final byte should be unchanged.
-        if(spArray[i].finalByte != EXPECTED_FINAL_BYTE) return false;
+        if(spArray[i].finalByte != EXPECTED_FINAL_BYTE){
+            qDebug("Final Byte is not 0x%02x, i=%d", EXPECTED_FINAL_BYTE, i);
+            return false;
+        }
     }
     //No problems found
     return true;
@@ -63,16 +71,23 @@ unsigned char* packetBuffer::getPacket(unsigned int position){
 }
 
 //This function extracts the necessary subpackets from the packets and places them in the o1buffer internally
-void packetBuffer::decodePacket(unsigned int position){
+void packetBuffer::decodePacket(){
+    qDebug() << "packetBuffer::decodePacket()";
     unsigned char* beginPacketPointer = (unsigned char *) &storageBuffer[0][lastPacketIndex()];
     //Do not start decoding at the start of the packet.  The first byte could be halfway through a subpacket!
     subPacket *subPacketPointer = (subPacket*) (beginPacketPointer + packetStartOffset);
 
-    //Do not start the decoding process until we have a packet whole first byte is also the first byte of a valid subpacket.
     if(!startingPacketFound){
-        if(isSubPacketSequence(subPacketPointer, 32)){  //32 things in a row that look like subpackets should indicate a subpacket stream.  If it looks like a duck, and quacks like a duck...
-            startingPacketFound = true;
-        } else return; //If it is a valid sequence, keep going.  Else, return.
+        //It's highly probably that we've started in a random position mid-subpacket.
+        //This code should find where, specifically.
+        for(int i=0; i<sizeof(subPacket); i++){
+            if(isSubPacketSequence(subPacketPointer, 32)){  //32 things in a row that look like subpackets should indicate a subpacket stream.  If it looks like a duck, and quacks like a duck...
+                startingPacketFound = true;
+                break;
+            }
+            packetStartOffset++;
+            subPacket *subPacketPointer = (subPacket*) (beginPacketPointer + packetStartOffset);
+        }
     }
 
     //subPacketPointer should be pointing to the first whole subpacket in the stream.
@@ -119,4 +134,9 @@ unsigned int packetBuffer::lastPacketIndex(){
         temp += NUM_PACKETS_KEPT;
     }
     return temp;
+}
+
+QVector<double>** packetBuffer::getDownSampledChannelData(double sampleRate, int mode){
+    qDebug() << "Address is" << buffer_CH[0]->mostRecentAddress;
+    return NULL;
 }

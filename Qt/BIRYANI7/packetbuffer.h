@@ -18,10 +18,11 @@ public:
     unsigned char* getPacket(unsigned int position);
     bool ready();
     o1buffer *buffer_CH[NUM_DATA_CHANNELS];
+    QVector<double>** getDownSampledChannelData(double sampleRate, int mode);
+    void decodePacket();
 private:
     unsigned char storageBuffer[LENGTH_DATA_PACKET][NUM_PACKETS_KEPT];
     unsigned int nextPacketIndex = 0;
-    void decodePacket(unsigned int position);
     bool startingPacketFound = false;
     unsigned int lastPacketIndex();
     unsigned int packetStartOffset = 0;

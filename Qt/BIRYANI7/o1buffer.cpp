@@ -23,6 +23,7 @@ void o1buffer::add(int value, int address){
     }
     //Assign the value
     buffer[address] = value;
+    updateMostRecentAddress(address);
 }
 
 int o1buffer::get(int address){
@@ -35,4 +36,14 @@ int o1buffer::get(int address){
     }
     //Return the value
     return buffer[address];
+}
+
+void o1buffer::updateMostRecentAddress(int newAddress){
+    //qDebug("o1buffer::updateMostRecentAddress(%d)", newAddress);
+    if(mostRecentAddress = 0x00ffffff){
+        mostRecentAddress = newAddress;
+    }
+    else{
+        mostRecentAddress = (newAddress>mostRecentAddress) ? newAddress : mostRecentAddress;
+    }
 }

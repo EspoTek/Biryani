@@ -28,11 +28,15 @@ dataStreamer::~dataStreamer(){
 
 //This is called every CHECK_INTERVAL milliseconds.
 void dataStreamer::checkTimerTick(void){
-    qDebug() << "checkTimerTick";
+    static int tickCount = 0;
+    tickCount++;
+    qDebug() << "checkTimerTick" << tickCount;
     int bytes_transferred;
+    //Synchronous call, need to draw immediately after.
     libusb_interface->transfer_bulk(true, 0x06, buffer, buffer, LENGTH_DATA_PACKET, &bytes_transferred);
     if(bytes_transferred){
         extractData(buffer);
+        drawBuffer();
         drawNext = true;
     }
     if((bytes_transferred == 0) && drawNext){
@@ -45,8 +49,11 @@ void dataStreamer::checkTimerTick(void){
 void dataStreamer::extractData(unsigned char *buffer){
     qDebug() << "dataStreamer::extractData(unsigned char *buffer)";
     internalPacketStash->addPacket(buffer);
+    internalPacketStash->decodePacket();
+    qDebug() << "ready?" << internalPacketStash->ready();
 }
 
 void dataStreamer::drawBuffer(){
+    internalPacketStash->getDownSampledChannelData(0,0);
     qDebug() << "dataStreamer::drawBuffer()";
 }

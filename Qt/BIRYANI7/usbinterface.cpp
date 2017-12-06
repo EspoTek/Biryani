@@ -77,7 +77,7 @@ int usbInterface::transfer_bulk(bool dir_is_in, unsigned char endpoint, const un
     error = libusb_bulk_transfer(handle, (dir_is_in ? (0x80 | endpoint) : endpoint), buffer, (int)data_length, transferred, timeout);
 
     if(*(transferred) != data_length){
-        qFatal("ERROR: Expected transfer of length %u, actually got length of %d", data_length, *(transferred));
+        qDebug("WARNING: Expected transfer of length %u, actually got length of %d", data_length, *(transferred));
         return -69;
     }
     if(dir_is_in){
