@@ -25,6 +25,7 @@ private:
 
 signals:
 private slots:
+    void drawThis(QVector<double>** x, QVector<double>** y, int numSamples, int numChannels);
 };
 
 #endif // STREAMINGDISPLAY_H

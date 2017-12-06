@@ -19,6 +19,12 @@ dataStreamer::dataStreamer(QWidget *parent, usbInterface *interface) : QWidget(p
     checkTimer->start(CHECK_INTERVAL);
     connect(checkTimer, SIGNAL(timeout()), this, SLOT(checkTimerTick()));
     buffer = (unsigned char *) malloc(LENGTH_DATA_PACKET);
+
+    plot_xaxis.resize(MAX_CONVERTED_SAMPLES_STORED);
+    for (int i=0;i<NUM_DATA_CHANNELS;i++){
+        xaxis_array[i] = &plot_xaxis;
+    }
+
 }
 
 dataStreamer::~dataStreamer(){
@@ -54,6 +60,17 @@ void dataStreamer::extractData(unsigned char *buffer){
 }
 
 void dataStreamer::drawBuffer(){
-    internalPacketStash->getDownSampledChannelData(0,0);
     qDebug() << "dataStreamer::drawBuffer()";
+    double sampleRate = 2000;
+    int mode = 0;
+    double delay = 0.01;
+    double timeWindow = 1;
+    int length;
+    QVector<double> **decodedPacketStreams = internalPacketStash->getDownSampledChannelData(sampleRate, mode, delay, timeWindow, &length);
+
+    //Most recent sample is the zeroth element.
+    for (int i=0;i<length;i++){
+        plot_xaxis.replace(i, -delay-timeWindow+(((double)i)/sampleRate));
+    }
+    pleaseDraw(xaxis_array, decodedPacketStreams, length, NUM_DATA_CHANNELS);
 }

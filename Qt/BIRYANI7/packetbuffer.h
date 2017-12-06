@@ -18,7 +18,7 @@ public:
     unsigned char* getPacket(unsigned int position);
     bool ready();
     o1buffer *buffer_CH[NUM_DATA_CHANNELS];
-    QVector<double>** getDownSampledChannelData(double sampleRate, int mode);
+    QVector<double>** getDownSampledChannelData(double sampleRate_hz, int mode, double delay_seconds, double timeWindow_seconds, int* length);
     void decodePacket();
 private:
     unsigned char storageBuffer[LENGTH_DATA_PACKET][NUM_PACKETS_KEPT];
@@ -28,6 +28,7 @@ private:
     unsigned int packetStartOffset = 0;
     unsigned char *interPacketBuffer;
     subPacket *tempSubPacket;
+    QVector<double>* sampledPacketStreams[NUM_DATA_CHANNELS];
 signals:
 
 public slots:

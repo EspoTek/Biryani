@@ -27,8 +27,10 @@ private:
     void drawBuffer(void);
     unsigned char *buffer;
     packetBuffer *internalPacketStash;
-    QVector<double> *decodedPacketStreams[NUM_DATA_CHANNELS];
+    QVector<double> plot_xaxis;
+    QVector<double> *xaxis_array[NUM_DATA_CHANNELS];
 signals:
+    void pleaseDraw(QVector<double>** x, QVector<double>** y, int numSamples, int numChannels);
 
 public slots:
     void checkTimerTick(void);

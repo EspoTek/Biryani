@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     libusb_interface_main = new usbInterface(SYNAMPS2_MAIN_VID, SYNAMPS2_MAIN_PID);
     libusb_interface_preinit = new usbInterface(SYNAMPS2_PREINIT_VID, SYNAMPS2_PREINIT_PID);
     qDebug() << "subPacket is of size" << sizeof(subPacket);
+    qDebug() << "You just chucked in a meme value of 25000 as the max sample rate.";
     qDebug() << "You cheated in subPacket.  It will crash when the address gets too high!";
 }
 

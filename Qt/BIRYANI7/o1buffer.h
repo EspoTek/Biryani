@@ -2,8 +2,10 @@
 #define O1BUFFER_H
 
 #include <QObject>
-#define NUM_SAMPLES_PER_CHANNEL 16777215 //2^24 - 1.  Highest number that can be stored in the 24 bit address.
-#define SAMPLE_DELAY 2048 //Small (~0.1s) delay, in case the packets arrive out of order
+#include <QVector>
+#define NUM_SAMPLES_PER_CHANNEL 16777215 //AKA buffer size, in words.
+//16777215 = 2^24 - 1.  Highest number that can be stored in the 24 bit address.
+#define DEFAULT_CONVERTED_STREAM_SIZE 4096
 
 class o1buffer : public QObject
 {
@@ -14,9 +16,10 @@ public:
     void add(int value, int address);
     int get(int address);
     int mostRecentAddress = 0;
+    QVector<double> *getMany_nofilter(int numToGet, int interval_samples, int delay_sample);
 private:
     int *buffer;
-    QVector<double> *convertedStream;
+    QVector<double> convertedStream;
     void updateMostRecentAddress(int newAddress);
 signals:
 

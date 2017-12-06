@@ -51,8 +51,6 @@ DEFINES += "BIRYANI7_TARGET_DEVICE=SYNAMPS2"
 
 #Libusb for Windows.
 win32{
-
-    #libusbk include
     contains(QT_ARCH, i386) {
         message("Cannot build for Windows on x86 platforms!")
     } else {

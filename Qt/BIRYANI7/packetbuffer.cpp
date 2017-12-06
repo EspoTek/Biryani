@@ -136,7 +136,24 @@ unsigned int packetBuffer::lastPacketIndex(){
     return temp;
 }
 
-QVector<double>** packetBuffer::getDownSampledChannelData(double sampleRate, int mode){
+QVector<double>** packetBuffer::getDownSampledChannelData(double sampleRate_hz, int mode, double delay_seconds, double timeWindow_seconds, int* length){
+    qDebug() << "packetBuffer::getDownSampledChannelData";
     qDebug() << "Address is" << buffer_CH[0]->mostRecentAddress;
-    return NULL;
+
+    if(mode != 0){
+        qFatal("Only mode 0 is supported ATM!!");
+    }
+
+    double interval_samples = MAX_SAMPLES_PER_SECOND / sampleRate_hz;
+    double delay_samples = round(MAX_SAMPLES_PER_SECOND * delay_seconds);
+    double numToGet = round(timeWindow_seconds * sampleRate_hz);
+
+    *(length) = (int)numToGet;
+
+    qDebug("interval_samples\t%f\ndelay_samples\t%f\nnumToGet\t%f\n", interval_samples, delay_samples, numToGet);
+
+    for (int i=0;i<NUM_DATA_CHANNELS;i++){
+        sampledPacketStreams[i] = buffer_CH[i]->getMany_nofilter(numToGet, interval_samples, delay_samples);
+    }
+    return sampledPacketStreams;
 }
