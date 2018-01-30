@@ -29,6 +29,14 @@ end
 for i = 1:length(fileNameArray)
     fprintf('\nConverting file: %s', fileNameArray{i});
     
+    %Make sure the current file is not already bcf formatted
+    temp = fileNameArray{i};
+    if(temp(end-3:end) == '.bcf')
+        fprintf('\nFile is already in .bcf format.  Continuing.\n');
+        continue;
+    end
+    
+    
     %Load the File
     fprintf('\nLoading file to memory...');
     fid = fopen(['_c_files/' fileNameArray{i}], 'r');
@@ -54,19 +62,14 @@ for i = 1:length(fileNameArray)
         outputFileName = outputFileName(1:dotPosition(1)-1);
     end
     
-    %'_c_files/'
-    outputFileName = [outputFileName '.bcf'];
+    outputFileName = ['_c_files/' outputFileName '.bcf'];
     fid = fopen(outputFileName, 'w');
     fprintf('   Complete!');
     
     fprintf('\nSaving the data to file...');
         fwrite(fid, formatted_string);
         fclose(fid);
-    fprintf('   Complete!\nData saved to %s', outputFileName);
-    
-    fprintf('\nConversion Complete!\n');
-    
+    fprintf('   Complete!\nData saved to: %s\n', outputFileName);
 end
 
-
-%parse_wireshark_dissect('packet_dissect.c', 'synamps_config.h', 'stage2')
+fprintf('\n\nOperation Complete!  No more files remaining\n\n');
