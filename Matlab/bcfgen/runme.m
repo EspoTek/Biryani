@@ -1,7 +1,7 @@
 %Warning before cleanup
-%warningString = sprintf('\n\nThe MATLAB Workspace and Command Window will be cleared if you continue.\n\nPress Ctrl+C to cancel or any key to continue!');
-%warning(warningString);
-%pause()
+warningString = sprintf('\n\nThe MATLAB Workspace and Command Window will be cleared if you continue.\n\nPress Ctrl+C to cancel or any key to continue!');
+warning(warningString);
+pause()
 
 %Cleanup
 clear all

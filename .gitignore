@@ -6,3 +6,9 @@ Qt/BIRYANI7/release/*
 Qt/BIRYANI7/Makefile
 Qt/BIRYANI7/Makefile.Release
 Qt/BIRYANI7/Makefile.Debug
+cpp-generic/demo/biryani-demo/Makefile.Debug
+cpp-generic/demo/biryani-demo/Makefile.Release
+*.exe
+*.obj
+cpp-generic/demo/biryani-demo/release/mainwindow.obj
+*.bcf

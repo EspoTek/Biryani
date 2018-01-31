@@ -40,6 +40,7 @@ void MainWindow::on_loadFileButton_clicked()
 
     if(!retVal){
         qDebug() << "No file selected";
+        return;
     }
 
     QStringList tempList = dialog.selectedFiles();
@@ -47,4 +48,5 @@ void MainWindow::on_loadFileButton_clicked()
     char *fileName = temp.toLocal8Bit().data();
 
     cfgHandler->loadFile(fileName);
+    qDebug() << "Test Point";
 }

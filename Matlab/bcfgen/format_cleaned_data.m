@@ -1,7 +1,7 @@
 function [outputString] = format_cleaned_data(cleanString)
 
 %Variables for phase tracking
-phase2str = {'PHASE_1_INIT', 'PHASE_2_DATA', 'PHASE_3_CLEANUP'};
+phase2str = {'PHASE_1_CONFIG', 'PHASE_2_DATA', 'PHASE_3_CLEANUP'};
 currentPhase = 1;
 dataPhaseCharacterised = 0;
 
@@ -40,6 +40,8 @@ headerString = sprintf('Biryani 7 Configuration File Version 0.9\n');
 phase1String = char([]);
 phase2String = [phase2str{2} ' ' num2str(data_packet_length) sprintf('\n')];
 phase3String = char([]);
+
+num_lines = 1; %1 line for the phase 2 information.  Other lines added in the loop.
 
 fprintf('Formatting data to be compatible with Biryani 7...');
 %Format data and write to output string
@@ -81,6 +83,7 @@ for i = 1:num_packets
                 packetData_output = [packetData_output dec2hex(packetData(current_byte)) ' '];
             end
             phase1String = [phase1String phase2str{1} ' ' num2str(len_numeric) ' ' packetData_output sprintf('\n')];
+            num_lines = num_lines + 1;
         case 2
             %nothing!
         case 3
@@ -89,10 +92,13 @@ for i = 1:num_packets
                 packetData_output = [packetData_output dec2hex(packetData(current_byte)) ' '];
             end
             phase3String = [phase3String phase2str{3} ' ' num2str(len_numeric) ' ' packetData_output sprintf('\n')];
+            num_lines = num_lines + 1;
         otherwise 
             error('Cannot write to output string.  Phase invalid!')
     end
 end
 
+numLinesString = sprintf('NUM_LINES %d\n', num_lines);
+
 fprintf('   Complete!');
-outputString = [headerString phase1String phase2String phase3String];
+outputString = [headerString numLinesString phase1String phase2String phase3String];
