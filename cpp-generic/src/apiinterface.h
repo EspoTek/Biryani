@@ -18,6 +18,7 @@ public:
     apiInterface();
     void testAction();
     int loadFile(char *fname);
+    int initialiseSynamps2Device();
 private:
     //Internal object pointers
     configurationFileHandler *fileHandler;

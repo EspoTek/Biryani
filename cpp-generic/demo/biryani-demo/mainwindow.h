@@ -21,6 +21,10 @@ private slots:
 
     void on_testActionButton_clicked();
 
+    void on_initialiseAmplifierButton_clicked();
+
+    void on_debugLevelSspinBox_valueChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
     apiInterface *generic_api;

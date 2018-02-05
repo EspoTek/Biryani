@@ -30,7 +30,7 @@ int usbInterface::setup(int bInterface){
         return error;
     }
 
-    libusb_set_debug(ctx, 2);
+    libusb_set_debug(ctx, debug_level/100);
 
     //Open the device and get a handle for it.
     //Note that this implementation can't handle multiple headboxes.

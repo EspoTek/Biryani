@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include "libusb.h"
+#include "api_defines.h"
 
 class usbInterface
 {

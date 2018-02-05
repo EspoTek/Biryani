@@ -17,7 +17,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     generic_api = new apiInterface();
-    setbuf(stdout, NULL);
 }
 
 MainWindow::~MainWindow()
@@ -48,10 +47,19 @@ void MainWindow::on_loadFileButton_clicked()
     char *fileName = temp.toLocal8Bit().data();
 
     generic_api->loadFile(fileName);
-    qDebug() << "Test Point";
 }
 
 void MainWindow::on_testActionButton_clicked()
 {
     generic_api->testAction();
+}
+
+void MainWindow::on_initialiseAmplifierButton_clicked()
+{
+    generic_api->initialiseSynamps2Device();
+}
+
+void MainWindow::on_debugLevelSspinBox_valueChanged(int arg1)
+{
+    debug_level = arg1;
 }

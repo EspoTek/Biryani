@@ -13,10 +13,13 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpinBox>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
@@ -29,7 +32,11 @@ class Ui_MainWindow
 public:
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout;
+    QHBoxLayout *horizontalLayout;
+    QLabel *debugLevelLabel;
+    QSpinBox *debugLevelSspinBox;
     QPushButton *loadFileButton;
+    QPushButton *initialiseAmplifierButton;
     QPushButton *testActionButton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
@@ -46,10 +53,32 @@ public:
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        debugLevelLabel = new QLabel(centralWidget);
+        debugLevelLabel->setObjectName(QStringLiteral("debugLevelLabel"));
+
+        horizontalLayout->addWidget(debugLevelLabel);
+
+        debugLevelSspinBox = new QSpinBox(centralWidget);
+        debugLevelSspinBox->setObjectName(QStringLiteral("debugLevelSspinBox"));
+        debugLevelSspinBox->setMaximum(1000);
+
+        horizontalLayout->addWidget(debugLevelSspinBox);
+
+
+        verticalLayout->addLayout(horizontalLayout);
+
         loadFileButton = new QPushButton(centralWidget);
         loadFileButton->setObjectName(QStringLiteral("loadFileButton"));
 
         verticalLayout->addWidget(loadFileButton);
+
+        initialiseAmplifierButton = new QPushButton(centralWidget);
+        initialiseAmplifierButton->setObjectName(QStringLiteral("initialiseAmplifierButton"));
+
+        verticalLayout->addWidget(initialiseAmplifierButton);
 
         testActionButton = new QPushButton(centralWidget);
         testActionButton->setObjectName(QStringLiteral("testActionButton"));
@@ -76,7 +105,9 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
+        debugLevelLabel->setText(QApplication::translate("MainWindow", "Debug Level", Q_NULLPTR));
         loadFileButton->setText(QApplication::translate("MainWindow", "Load File", Q_NULLPTR));
+        initialiseAmplifierButton->setText(QApplication::translate("MainWindow", "Initialise Amplifier", Q_NULLPTR));
         testActionButton->setText(QApplication::translate("MainWindow", "Test Action", Q_NULLPTR));
     } // retranslateUi
 

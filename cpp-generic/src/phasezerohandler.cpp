@@ -30,9 +30,11 @@ int phaseZeroHandler::checkIfAlreadyInitialised(){
         return error;
     }
 
+    libusb_set_debug(ctx, debug_level/100);
+
     //Initialise the device list.
     num_usb_devices = libusb_get_device_list(ctx, &list);
-    printf("num_usb_devices = %d\n", num_usb_devices);
+    printf_verbose("num_usb_devices = %d\n", num_usb_devices);
 
     //Iterate over the list and search for the "Synamps 2 (Uninitialised)" device
     for(int i=0; i<num_usb_devices; i++){
@@ -45,15 +47,15 @@ int phaseZeroHandler::checkIfAlreadyInitialised(){
         libusb_get_device_descriptor(current_device, current_descriptor);
         current_vid = current_descriptor->idVendor;
         current_pid = current_descriptor->idProduct;
-        printf("\nDevice %d\nVID=0x%04x\nPID=0x%04x\n", i, current_vid, current_pid);
+        printf_verbose("\nDevice %d\nVID=0x%04x\nPID=0x%04x\n", i, current_vid, current_pid);
         if(current_vid == SYNAMPS2_UNINITIALISED_VID && current_pid == SYNAMPS2_UNINITIALISED_PID){
-            printf("Synamps2 (uninitialised) device\n");
+            printf_verbose("Synamps2 (uninitialised) device\n");
             synamps2_connection_state = 0;
         }  else if (current_vid == SYNAMPS2_MAIN_VID && current_pid == SYNAMPS2_MAIN_PID){
-            printf("Synamps2 (main) device\n");
+            printf_verbose("Synamps2 (main) device\n");
             synamps2_connection_state = 1;
         } else {
-            printf("Other device\n");
+            printf_verbose("Other device\n");
         }
     }
 
@@ -70,11 +72,11 @@ int phaseZeroHandler::checkIfAlreadyInitialised(){
 //After this is done, it will enumerate as 0B6E/0006 and be ready for initialisation.
 //This function creates a chain of packets that sends the aforementioned configuration/firmware data.
 int phaseZeroHandler::createInitPattern(void){
-    printf("createinitPattern\n");
+    printf_verbose("phaseZeroHandler::createInitPattern()\n");
 
     //We don't want to run this function twice!
     if(initPattern.size()){
-        printf("initPattern already contains %d elements!  Returning...\n", initPattern.size());
+        printf_verbose("initPattern already contains %d elements!  Returning...\n", initPattern.size());
         return 1;
     }
 
@@ -119,8 +121,8 @@ int phaseZeroHandler::createInitPattern(void){
         //Now all that's left to check is that the command is vendor-0xa0
         //First condition checks bmRequestType to ensure it's vendor; second checks that it's of type 0xa0
         if(((packet[28] & 0x60) != 0x40) || (packet[29] != 0xa0)){
-            if((packet[28] & 0x60) != 0x40) printf("Packet %d is not of type vendor!\n", packetNumber);
-            if(packet[29] != 0xa0) printf("Packet %d does not have bRequest of 0xa0\n", packetNumber);
+            if((packet[28] & 0x60) != 0x40) printf_verbose("Packet %d is not of type vendor!\n", packetNumber);
+            if(packet[29] != 0xa0) printf_verbose("Packet %d does not have bRequest of 0xa0\n", packetNumber);
             continue;
         }
 
@@ -140,7 +142,7 @@ int phaseZeroHandler::createInitPattern(void){
         currentTransfer->wIndex = packet[32] + 0x100*packet[33];
         currentTransfer->data_length = packet[34] + 0x100*packet[35];
     }
-    printf("initPattern.size() = %d\n", initPattern.size());
+    printf_verbose("initPattern.size() = %d\n", initPattern.size());
 
     return 0;
 }
@@ -161,8 +163,8 @@ int phaseZeroHandler::sendInitPattern(){
         error = pattern->at(i)->transmit();
         if(error)
         {
-            printf("Error sending transfer #%d.  Error code: 0x%08x; %s\n", i, error, libusb_error_name(error));
-        } else printf("Transfer #%d sent successfully!\n", i);
+            fprintf(stderr, "Error sending transfer #%d.  Error code: 0x%08x; %s\n", i, error, libusb_error_name(error));
+        } else printf_verbose("Transfer #%d sent successfully!\n", i);
     }
     return 0;
 }
