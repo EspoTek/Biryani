@@ -11,9 +11,11 @@ if(fgets_returned != tempString){ \
 } else current_line++; \
 
 
-configurationFileHandler::configurationFileHandler()
+configurationFileHandler::configurationFileHandler(std::vector<rawPacket> *ptr_phase1_raw_in, int *ptr_phase2_length_in, std::vector<rawPacket> *ptr_phase3_raw_in)
 {
-
+    ptr_phase1_raw = ptr_phase1_raw_in;
+    ptr_phase2_length = ptr_phase2_length_in;
+    ptr_phase3_raw = ptr_phase3_raw_in;
 }
 
 int configurationFileHandler::loadFile(char *fname){
@@ -79,14 +81,14 @@ int configurationFileHandler::loadFile(char *fname){
             //Phase 1 packet
             printf("Phase 1 Packet!\n");
             fill_raw_packet_structure(&rawPacket_temp, tempString, 1);
-            phase1_raw.push_back(rawPacket_temp);
+            ptr_phase1_raw->push_back(rawPacket_temp);
         } else if(!strncmp(tempString, "PHASE_2_DATA", 12)) {
             printf("Phase 2 Packet!\n");
-            sscanf(tempString, "PHASE_2_DATA %d", &phase2_length);
+            sscanf(tempString, "PHASE_2_DATA %d", ptr_phase2_length);
         } else if(!strncmp(tempString, "PHASE_3_CLEANUP", 15)) {
             printf("Phase 3 Packet!\n");
             fill_raw_packet_structure(&rawPacket_temp, tempString, 3);
-            phase3_raw.push_back(rawPacket_temp);
+            ptr_phase3_raw->push_back(rawPacket_temp);
         } else {
             printf("Invalid Phase!\n");
             return 4;

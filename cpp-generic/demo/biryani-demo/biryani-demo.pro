@@ -25,12 +25,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    ../../src/configurationfilehandler.cpp
+    ../../src/configurationfilehandler.cpp \
+    ../../src/apiinterface.cpp
 
 HEADERS  += mainwindow.h \
     ../../src/configurationfilehandler.h \
     ../../src/global_constants.h \
-    ../../src/rawpacket.h
+    ../../src/rawpacket.h \
+    ../../src/apiinterface.h
 
 INCLUDEPATH += ../../src
 

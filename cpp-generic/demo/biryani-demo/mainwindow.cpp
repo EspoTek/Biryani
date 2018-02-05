@@ -8,7 +8,7 @@
 #include <QStandardPaths>
 
 //Generic Includes
-#include "configurationfilehandler.h"
+#include "apiinterface.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    cfgHandler = new configurationFileHandler();
+    generic_api = new apiInterface();
     setbuf(stdout, NULL);
 }
 
@@ -47,6 +47,6 @@ void MainWindow::on_loadFileButton_clicked()
     QString temp = tempList.first();
     char *fileName = temp.toLocal8Bit().data();
 
-    cfgHandler->loadFile(fileName);
+    generic_api->loadFile(fileName);
     qDebug() << "Test Point";
 }

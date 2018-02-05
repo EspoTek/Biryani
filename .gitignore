@@ -15,3 +15,5 @@ cpp-generic/demo/biryani-demo/release/mainwindow.obj
 *.exe
 *.obj
 *.obj
+cpp-generic/demo/biryani-demo/Makefile.Release
+cpp-generic/demo/biryani-demo/Makefile.Debug

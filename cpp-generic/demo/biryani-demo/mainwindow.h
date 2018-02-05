@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-class configurationFileHandler;
+class apiInterface;
 
 namespace Ui {
 class MainWindow;
@@ -21,7 +21,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    configurationFileHandler *cfgHandler;
+    apiInterface *generic_api;
 };
 
 #endif // MAINWINDOW_H
