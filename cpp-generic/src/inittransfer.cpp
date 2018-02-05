@@ -1,5 +1,4 @@
 #include "inittransfer.h"
-#include <QDebug>
 
 //initTransfer is a class that holds information about a single USB transfer used to initialise (or preinitialise) the Synamps2 device.
 //There's also a method to initiate the transfer.
@@ -11,7 +10,7 @@ initTransfer::initTransfer(usbInterface *interface)
 
 //This function will prompt the usbInterface to transfer the packet in the appropriate way
 int initTransfer::transmit(){
-    qDebug() << "initTransfer::transmit()";
+    printf("initTransfer::transmit()\n");
     int error;
     const unsigned char *expected_data = NULL;
     unsigned char *buffer = (unsigned char*) malloc(data_length);
@@ -33,7 +32,7 @@ int initTransfer::transmit(){
             error = libusb_interface->transfer_bulk(direction_is_in, endpoint, expected_data, buffer, data_length, &transferred);
             break;
         default:
-            qFatal("initPacket::transmit() does not know how to handle transfers of type 0x%02x!", transfer_type);
+            fprintf(stderr, "initPacket::transmit() does not know how to handle transfers of type 0x%02x!", transfer_type);
     }
 
     free(buffer);

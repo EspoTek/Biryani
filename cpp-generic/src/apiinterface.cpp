@@ -16,4 +16,6 @@ int apiInterface::loadFile(char *fname){
 void apiInterface::testAction(){
     p0handler = new phaseZeroHandler();
     p0handler->checkIfAlreadyInitialised();
+    p0handler->createInitPattern();
+    p0handler->sendInitPattern();
 }

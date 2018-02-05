@@ -4,10 +4,11 @@
 
 #include "api_defines.h"
 #include "synamps_init.h"
+#include "inittransfer.h"
 
 phaseZeroHandler::phaseZeroHandler()
 {
-
+    phase0_interface = new usbInterface(SYNAMPS2_UNINITIALISED_VID, SYNAMPS2_UNINITIALISED_PID);
 }
 
 //Return values: -1 is unconnected, 0 is connected but not initialised, 1 is connected and initialised
@@ -68,14 +69,15 @@ int phaseZeroHandler::checkIfAlreadyInitialised(){
 //You then need to send some configuration or firmware (?) data to the device using vendor command 0xa0.
 //After this is done, it will enumerate as 0B6E/0006 and be ready for initialisation.
 //This function creates a chain of packets that sends the aforementioned configuration/firmware data.
-int phaseZeroHandler::createPreinitPattern(void){
-    printf("createPreinitPattern\n");
+int phaseZeroHandler::createInitPattern(void){
+    printf("createinitPattern\n");
 
     //We don't want to run this function twice!
-    if(preinitPattern.size()){
-        qDebug("initPattern already contains %d elements!", preinitPattern.size());
-        return;
+    if(initPattern.size()){
+        printf("initPattern already contains %d elements!  Returning...\n", initPattern.size());
+        return 1;
     }
+
     initTransfer *currentTransfer = NULL;
     unsigned int packetNumber = 0;
     bool enteredDataStage = false;
@@ -88,9 +90,9 @@ int phaseZeroHandler::createPreinitPattern(void){
 
     //This function needs to iterate over all packets.
     //Those that are not control-vendor command 0xa0 should be ignored.
-    for(packetNumber = 0; packetNumber<NUM_WIRESHARK_PACKETS_stage1; packetNumber++){
-        packetLength = wireshark_packet_lengths_stage1[packetNumber];
-        packet = wireshark_packets_stage1[packetNumber];
+    for(packetNumber = 0; packetNumber<NUM_WIRESHARK_PACKETS_phase0; packetNumber++){
+        packetLength = wireshark_packet_lengths_phase0[packetNumber];
+        packet = wireshark_packets_phase0[packetNumber];
         pseudoHeaderLength = packet[0];
         transfer_type = packet[22];
 
@@ -117,15 +119,15 @@ int phaseZeroHandler::createPreinitPattern(void){
         //Now all that's left to check is that the command is vendor-0xa0
         //First condition checks bmRequestType to ensure it's vendor; second checks that it's of type 0xa0
         if(((packet[28] & 0x60) != 0x40) || (packet[29] != 0xa0)){
-            if((packet[28] & 0x60) != 0x40) qDebug("Packet %d is not of type vendor!", packetNumber);
-            if(packet[29] != 0xa0) qDebug("Packet %d does not have bRequest of 0xa0\n", packetNumber);
+            if((packet[28] & 0x60) != 0x40) printf("Packet %d is not of type vendor!\n", packetNumber);
+            if(packet[29] != 0xa0) printf("Packet %d does not have bRequest of 0xa0\n", packetNumber);
             continue;
         }
 
         //If it's reached this stage, it's the setup stage for a control transfer of vendor type 0xa0.
         //Lets allocate it's packet!
-        currentTransfer = new initTransfer(libusb_interface_preinit);
-        preinitPattern.push_back(currentTransfer);
+        currentTransfer = new initTransfer(phase0_interface);
+        initPattern.push_back(currentTransfer);
         current_packet_is_0xa0 = true;
 
         //These fields only need to be set once per transfer, during the setup stage
@@ -138,6 +140,30 @@ int phaseZeroHandler::createPreinitPattern(void){
         currentTransfer->wIndex = packet[32] + 0x100*packet[33];
         currentTransfer->data_length = packet[34] + 0x100*packet[35];
     }
-    qDebug() << preinitPattern.size();
+    printf("initPattern.size() = %d\n", initPattern.size());
+
+    return 0;
+}
+
+int phaseZeroHandler::sendInitPattern(){
+    int error;
+    int bInterface = 0;
+    std::vector<initTransfer*> *pattern = &initPattern;
+
+    //Setup the USB device!
+    if(phase0_interface->setup(bInterface)){
+        //Error printing is handled internally by usbInterface::setup().
+        return error;
+    }
+
+    //Actually send the packets!
+    for(int i=0; i<pattern->size(); i++){
+        error = pattern->at(i)->transmit();
+        if(error)
+        {
+            printf("Error sending transfer #%d.  Error code: 0x%08x; %s\n", i, error, libusb_error_name(error));
+        } else printf("Transfer #%d sent successfully!\n", i);
+    }
+    return 0;
 }
 

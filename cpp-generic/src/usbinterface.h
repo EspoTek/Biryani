@@ -1,6 +1,8 @@
 #ifndef USBINTERFACE_H
 #define USBINTERFACE_H
 
+#include <vector>
+#include <iostream>
 #include "libusb.h"
 
 class usbInterface
