@@ -2,6 +2,7 @@
 #include "configurationfilehandler.h"
 #include "usbinterface.h"
 #include "phasezerohandler.h"
+#include "phaseonehandler.h"
 
 int debug_level = 0;
 
@@ -10,16 +11,25 @@ apiInterface::apiInterface()
     fileHandler = new configurationFileHandler(&phase1_raw, &phase2_length, &phase3_raw);
     usbHandler = new usbInterface(SYNAMPS2_MAIN_VID, SYNAMPS2_MAIN_PID);
     p0handler = new phaseZeroHandler();
+    p1handler = new phaseOneHandler(&phase1_raw);
+
+    //Remove buffering from printf() statements.  Slower, but at least they will be in the right order.
     setbuf(stdout, NULL);
     setbuf(stderr, NULL);
 }
 
-int apiInterface::loadFile(char *fname){
-    return fileHandler->loadFile(fname);
-}
-
 void apiInterface::testAction(){
     printf("Performing Test Action...\n");
+    p1handler->createPattern();
+}
+
+void apiInterface::setDebugLevel(int new_debug_level_in){
+    debug_level = new_debug_level_in;
+    printf("Debug Level changed to %d\n", debug_level);
+}
+
+int apiInterface::loadFile(char *fname){
+    return fileHandler->loadFile(fname);
 }
 
 
@@ -34,21 +44,22 @@ int apiInterface::initialiseSynamps2Device(){
             return -420;
         case 0:
             printf("Synamps2 device connected but not ready.  Connecting...\n");
-            error = p0handler->createInitPattern();
+            error = p0handler->createPattern();
             if(error){
                 fprintf(stderr, "ERROR in p0handler->createInitPattern(): 0x%08x", error);
                 return error;
             }
-            error = p0handler->sendInitPattern();
+            error = p0handler->sendPattern();
             if(error){
                 fprintf(stderr, "ERROR in p0handler->sendInitPattern(): 0x%08x", error);
                 return error;
             }
             return 0;
         case 1:
-            printf("Synamps2 device connected and ready.  Returning.\n");
+            printf("Synamps2 device already connected and ready.  Returning without initialising.\n");
             return 420;
         default:
             fprintf(stderr, "ERROR in initialiseSynamps2Device(), amplifer status invalid", error);
+            return -69;
     }
 }

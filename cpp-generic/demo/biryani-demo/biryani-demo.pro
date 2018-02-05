@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     ../../src/apiinterface.cpp \
     ../../src/phasezerohandler.cpp \
     ../../src/usbinterface.cpp \
-    ../../src/inittransfer.cpp
+    ../../src/inittransfer.cpp \
+    ../../src/phaseonehandler.cpp
 
 HEADERS  += mainwindow.h \
     ../../src/configurationfilehandler.h \
@@ -39,7 +40,8 @@ HEADERS  += mainwindow.h \
     ../../src/api_defines.h \
     ../../src/usbinterface.h \
     ../../src/synamps_init.h \
-    ../../src/inittransfer.h
+    ../../src/inittransfer.h \
+    ../../src/phaseonehandler.h
 
 INCLUDEPATH += ../../src
 

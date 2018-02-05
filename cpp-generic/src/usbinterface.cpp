@@ -1,5 +1,4 @@
 #include "usbinterface.h"
-#include <stdio.h>
 
 //usbInterface handles the more "to the metal" aspects of sending the transfers over USB.
 //Basically, this means wrapping around libusb and ensuring the right parts of the transfer are sent to the right function.

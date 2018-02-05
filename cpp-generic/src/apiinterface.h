@@ -1,12 +1,11 @@
 #ifndef APIINTERFACE_H
 #define APIINTERFACE_H
 
-#include <vector>
-#include <iostream>
 #include "api_defines.h"
 
 class configurationFileHandler;
 class phaseZeroHandler;
+class phaseOneHandler;
 class usbInterface;
 
 //apiInterface is the main class of the Biryani 7 API.
@@ -17,12 +16,14 @@ class apiInterface
 public:
     apiInterface();
     void testAction();
+    void setDebugLevel(int new_debug_level_in);
     int loadFile(char *fname);
     int initialiseSynamps2Device();
 private:
     //Internal object pointers
     configurationFileHandler *fileHandler;
     phaseZeroHandler *p0handler;
+    phaseOneHandler *p1handler;
     usbInterface *usbHandler;
 
     //"Global" (within API) variables

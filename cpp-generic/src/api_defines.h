@@ -7,11 +7,18 @@
 #define SYNAMPS2_UNINITIALISED_VID 0x0B6E
 #define SYNAMPS2_UNINITIALISED_PID 0x0005
 
+//Global includes
+#include <vector>
+#include <iostream>
+#include <stdio.h>
+
+
 //rawPacket struct definition
 typedef struct rawPacket{
     unsigned char *dataPointer;
     int length;
 }rawPacket;
+
 
 //Debugging
 #define DEBUG_LEVEL_VERBOSE 300

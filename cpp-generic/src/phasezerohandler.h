@@ -1,8 +1,7 @@
 #ifndef PHASEZEROHANDLER_H
 #define PHASEZEROHANDLER_H
 
-#include <vector>
-#include <iostream>
+#include "api_defines.h"
 
 class initTransfer;
 class usbInterface;
@@ -12,8 +11,8 @@ class phaseZeroHandler
 public:
     phaseZeroHandler();
     int checkIfAlreadyInitialised();
-    int createInitPattern(void);
-    int sendInitPattern(void);
+    int createPattern(void);
+    int sendPattern(void);
 private:
     std::vector<initTransfer*> initPattern;
     usbInterface * phase0_interface;

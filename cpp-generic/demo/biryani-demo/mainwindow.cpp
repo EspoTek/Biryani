@@ -61,5 +61,5 @@ void MainWindow::on_initialiseAmplifierButton_clicked()
 
 void MainWindow::on_debugLevelSspinBox_valueChanged(int arg1)
 {
-    debug_level = arg1;
+    generic_api->setDebugLevel(arg1);
 }

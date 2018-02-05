@@ -1,6 +1,5 @@
 #include "phasezerohandler.h"
 #include "libusb.h"
-#include <stdio.h>
 
 #include "api_defines.h"
 #include "synamps_init.h"
@@ -9,6 +8,9 @@
 phaseZeroHandler::phaseZeroHandler()
 {
     phase0_interface = new usbInterface(SYNAMPS2_UNINITIALISED_VID, SYNAMPS2_UNINITIALISED_PID);
+    if(phase0_interface == NULL){
+        fprintf(stderr, "FATAL ERROR: phase1_interface is NULL\n");
+    }
 }
 
 //Return values: -1 is unconnected, 0 is connected but not initialised, 1 is connected and initialised
@@ -71,7 +73,7 @@ int phaseZeroHandler::checkIfAlreadyInitialised(){
 //You then need to send some configuration or firmware (?) data to the device using vendor command 0xa0.
 //After this is done, it will enumerate as 0B6E/0006 and be ready for initialisation.
 //This function creates a chain of packets that sends the aforementioned configuration/firmware data.
-int phaseZeroHandler::createInitPattern(void){
+int phaseZeroHandler::createPattern(void){
     printf_verbose("phaseZeroHandler::createInitPattern()\n");
 
     //We don't want to run this function twice!
@@ -147,7 +149,7 @@ int phaseZeroHandler::createInitPattern(void){
     return 0;
 }
 
-int phaseZeroHandler::sendInitPattern(){
+int phaseZeroHandler::sendPattern(){
     int error;
     int bInterface = 0;
     std::vector<initTransfer*> *pattern = &initPattern;

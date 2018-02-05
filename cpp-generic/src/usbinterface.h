@@ -1,8 +1,6 @@
 #ifndef USBINTERFACE_H
 #define USBINTERFACE_H
 
-#include <vector>
-#include <iostream>
 #include "libusb.h"
 #include "api_defines.h"
 
