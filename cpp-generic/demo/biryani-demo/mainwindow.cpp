@@ -50,3 +50,8 @@ void MainWindow::on_loadFileButton_clicked()
     generic_api->loadFile(fileName);
     qDebug() << "Test Point";
 }
+
+void MainWindow::on_testActionButton_clicked()
+{
+    generic_api->testAction();
+}

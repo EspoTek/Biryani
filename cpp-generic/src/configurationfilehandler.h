@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <iostream>
-#include "rawpacket.h"
+#include "api_defines.h"
 
 //This class handles the reading and parsing of .bcf files.
 //No actual processing of data is handled here.

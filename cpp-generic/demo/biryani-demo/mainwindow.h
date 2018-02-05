@@ -19,6 +19,8 @@ public:
 private slots:
     void on_loadFileButton_clicked();
 
+    void on_testActionButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     apiInterface *generic_api;

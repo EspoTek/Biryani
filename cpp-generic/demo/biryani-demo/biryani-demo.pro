@@ -26,14 +26,32 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += main.cpp\
         mainwindow.cpp \
     ../../src/configurationfilehandler.cpp \
-    ../../src/apiinterface.cpp
+    ../../src/apiinterface.cpp \
+    ../../src/phasezerohandler.cpp \
+    ../../src/usbinterface.cpp \
+    ../../src/inittransfer.cpp
 
 HEADERS  += mainwindow.h \
     ../../src/configurationfilehandler.h \
     ../../src/global_constants.h \
-    ../../src/rawpacket.h \
-    ../../src/apiinterface.h
+    ../../src/apiinterface.h \
+    ../../src/phasezerohandler.h \
+    ../../src/api_defines.h \
+    ../../src/usbinterface.h \
+    ../../src/synamps_init.h \
+    ../../src/inittransfer.h
 
 INCLUDEPATH += ../../src
+
+#Libusb for Windows.
+win32{
+    contains(QT_ARCH, i386) {
+        message("Cannot build for Windows on x86 platforms!")
+    } else {
+        message("Building for Windows (x64)")
+        INCLUDEPATH += $$PWD/lib/win64/libusb/include/libusb-1.0
+        LIBS += -L$$PWD/lib/win64/libusb/dll -llibusb-1.0
+    }
+}
 
 FORMS    += mainwindow.ui
