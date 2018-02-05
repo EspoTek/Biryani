@@ -29,7 +29,8 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h \
     ../../src/configurationfilehandler.h \
-    ../../src/global_constants.h
+    ../../src/global_constants.h \
+    ../../src/rawpacket.h
 
 INCLUDEPATH += ../../src
 

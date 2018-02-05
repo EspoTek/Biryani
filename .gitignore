@@ -12,3 +12,6 @@ cpp-generic/demo/biryani-demo/Makefile.Release
 *.obj
 cpp-generic/demo/biryani-demo/release/mainwindow.obj
 *.bcf
+*.exe
+*.obj
+*.obj

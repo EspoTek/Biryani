@@ -3,11 +3,7 @@
 
 #include <vector>
 #include <iostream>
-
-typedef struct rawPacket{
-    unsigned char *dataPointer;
-    int length;
-}rawPacket;
+#include "rawpacket.h"
 
 class configurationFileHandler
 {
