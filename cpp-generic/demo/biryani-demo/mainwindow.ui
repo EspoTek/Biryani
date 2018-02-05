@@ -48,6 +48,13 @@
      </widget>
     </item>
     <item>
+     <widget class="QPushButton" name="configureAmplifierButton">
+      <property name="text">
+       <string>Configure Amplifier</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QPushButton" name="testActionButton">
       <property name="text">
        <string>Test Action</string>

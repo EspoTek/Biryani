@@ -55,7 +55,7 @@ int usbInterface::transfer_control(bool dir_is_in, const unsigned char *expected
     unsigned int timeout = 2000;
 
     //The actual call to libusb
-    printf("libusb_control_transfer(handle, %02x, %02x, %04x, %04x, buffer, %04x, %u\n)", bmRequestType, bRequest, wValue, wIndex, wLength, timeout);
+    printf_verbose("libusb_control_transfer(handle, %02x, %02x, %04x, %04x, buffer, %04x, %u\n)", bmRequestType, bRequest, wValue, wIndex, wLength, timeout);
     error = libusb_control_transfer(handle, bmRequestType, bRequest, wValue, wIndex, buffer, wLength, timeout);
     if(error) return error;
 
@@ -72,7 +72,7 @@ int usbInterface::transfer_bulk(bool dir_is_in, unsigned char endpoint, const un
 
     unsigned int timeout = 2000;
 
-    printf("libusb_bulk_transfer(handle, 0x%02x, buffer, %u, transferred, %u\n);", (dir_is_in ? (0x80 | endpoint) : endpoint), data_length, timeout);
+    printf_verbose("libusb_bulk_transfer(handle, 0x%02x, buffer, %u, transferred, %u\n);", (dir_is_in ? (0x80 | endpoint) : endpoint), data_length, timeout);
     error = libusb_bulk_transfer(handle, (dir_is_in ? (0x80 | endpoint) : endpoint), buffer, (int)data_length, transferred, timeout);
 
     if(*(transferred) != data_length){

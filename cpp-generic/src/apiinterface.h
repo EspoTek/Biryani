@@ -19,6 +19,7 @@ public:
     void setDebugLevel(int new_debug_level_in);
     int loadFile(char *fname);
     int initialiseSynamps2Device();
+    int configureSynamps2Device();
 private:
     //Internal object pointers
     configurationFileHandler *fileHandler;

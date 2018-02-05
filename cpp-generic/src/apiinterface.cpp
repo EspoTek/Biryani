@@ -20,7 +20,6 @@ apiInterface::apiInterface()
 
 void apiInterface::testAction(){
     printf("Performing Test Action...\n");
-    p1handler->createPattern();
 }
 
 void apiInterface::setDebugLevel(int new_debug_level_in){
@@ -63,3 +62,20 @@ int apiInterface::initialiseSynamps2Device(){
             return -69;
     }
 }
+
+int apiInterface::configureSynamps2Device(){
+    int error;
+
+    error = p1handler->createPattern();
+    if(error < 0){
+        fprintf(stderr, "ERROR %d in p1handler->createPattern().  Aborting...\n", error);
+        return error;
+    }
+    error = p1handler->sendPattern();
+    if(error < 0){
+        fprintf(stderr, "ERROR %d in p1handler->sendPattern().  Aborting...\n", error);
+        return error+1000;
+    }
+    return 0;
+}
+

@@ -13,7 +13,6 @@ phaseOneHandler::phaseOneHandler(std::vector<rawPacket> *phase1_raw_in)
 
 //This function creates a chain of packets that, when sent one after another, will configure a (ready) Synamps2 device.
 int phaseOneHandler::createPattern(void){
-
     //Check if a file has been loaded
     if(!phase1_raw->size()){
         fprintf(stderr, "\nERROR: No phase 1 packets detected.  Configuration cannot be performed.  It's possible that no .bcf file has been loaded, or the file that was loaded does not contain the correct data.\nIn the case of the latter, open your .pcap in Wireshark to verify that valid packets are there, and also open the .bcf file in Notepad or another text editor to verify that the data has been converted correctly.\nThe .bcf should contain at least one line that begins with PHASE_1_CONFIG followed by at least two numbers.\nThe documentation contains an example of what a good .pcap looks like.\n\n");
@@ -91,5 +90,27 @@ int phaseOneHandler::createPattern(void){
         }
     }
     printf_verbose("configPattern.size() = %d\n", configPattern.size());
+    return 0;
+}
+
+int phaseOneHandler::sendPattern(){
+    int error;
+    int bInterface = 0;
+    std::vector<initTransfer*> *pattern = &configPattern;
+
+    //Setup the USB device!
+    if(phase1_interface->setup(bInterface)){
+        //Error printing is handled internally by usbInterface::setup().
+        return error;
+    }
+
+    //Actually send the packets!
+    for(int i=0; i<pattern->size(); i++){
+        error = pattern->at(i)->transmit();
+        if(error)
+        {
+            fprintf(stderr, "Error sending transfer #%d.  Error code: 0x%08x; %s\n", i, error, libusb_error_name(error));
+        } else printf_verbose("Transfer #%d sent successfully!\n", i);
+    }
     return 0;
 }

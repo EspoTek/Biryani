@@ -63,3 +63,8 @@ void MainWindow::on_debugLevelSspinBox_valueChanged(int arg1)
 {
     generic_api->setDebugLevel(arg1);
 }
+
+void MainWindow::on_configureAmplifierButton_clicked()
+{
+    generic_api->configureSynamps2Device();
+}

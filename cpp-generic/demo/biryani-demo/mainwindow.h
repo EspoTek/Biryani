@@ -25,6 +25,8 @@ private slots:
 
     void on_debugLevelSspinBox_valueChanged(int arg1);
 
+    void on_configureAmplifierButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     apiInterface *generic_api;

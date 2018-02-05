@@ -11,6 +11,7 @@ class phaseOneHandler
 public:
     phaseOneHandler(std::vector<rawPacket> *phase1_raw_in);
     int createPattern();
+    int sendPattern();
 private:
     std::vector<initTransfer*> configPattern;
     std::vector<rawPacket> *phase1_raw;

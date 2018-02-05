@@ -10,7 +10,7 @@ initTransfer::initTransfer(usbInterface *interface)
 
 //This function will prompt the usbInterface to transfer the packet in the appropriate way
 int initTransfer::transmit(){
-    printf("initTransfer::transmit()\n");
+    printf_verbose("initTransfer::transmit()\n");
     int error;
     const unsigned char *expected_data = NULL;
     unsigned char *buffer = (unsigned char*) malloc(data_length);

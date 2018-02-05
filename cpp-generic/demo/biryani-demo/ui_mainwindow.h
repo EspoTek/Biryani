@@ -37,6 +37,7 @@ public:
     QSpinBox *debugLevelSspinBox;
     QPushButton *loadFileButton;
     QPushButton *initialiseAmplifierButton;
+    QPushButton *configureAmplifierButton;
     QPushButton *testActionButton;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
@@ -80,6 +81,11 @@ public:
 
         verticalLayout->addWidget(initialiseAmplifierButton);
 
+        configureAmplifierButton = new QPushButton(centralWidget);
+        configureAmplifierButton->setObjectName(QStringLiteral("configureAmplifierButton"));
+
+        verticalLayout->addWidget(configureAmplifierButton);
+
         testActionButton = new QPushButton(centralWidget);
         testActionButton->setObjectName(QStringLiteral("testActionButton"));
 
@@ -108,6 +114,7 @@ public:
         debugLevelLabel->setText(QApplication::translate("MainWindow", "Debug Level", Q_NULLPTR));
         loadFileButton->setText(QApplication::translate("MainWindow", "Load File", Q_NULLPTR));
         initialiseAmplifierButton->setText(QApplication::translate("MainWindow", "Initialise Amplifier", Q_NULLPTR));
+        configureAmplifierButton->setText(QApplication::translate("MainWindow", "Configure Amplifier", Q_NULLPTR));
         testActionButton->setText(QApplication::translate("MainWindow", "Test Action", Q_NULLPTR));
     } // retranslateUi
 
