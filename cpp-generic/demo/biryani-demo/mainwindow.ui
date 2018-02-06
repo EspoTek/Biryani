@@ -6,67 +6,74 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>540</width>
-    <height>360</height>
+    <width>890</width>
+    <height>472</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
+     <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QLabel" name="debugLevelLabel">
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLabel" name="debugLevelLabel">
+          <property name="text">
+           <string>Debug Level</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="debugLevelSspinBox">
+          <property name="maximum">
+           <number>1000</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QPushButton" name="loadFileButton">
         <property name="text">
-         <string>Debug Level</string>
+         <string>Load File</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QSpinBox" name="debugLevelSspinBox">
-        <property name="maximum">
-         <number>1000</number>
+       <widget class="QPushButton" name="initialiseAmplifierButton">
+        <property name="text">
+         <string>Initialise Amplifier</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="configureAmplifierButton">
+        <property name="text">
+         <string>Configure Amplifier</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="testActionButton">
+        <property name="text">
+         <string>Test Action</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="testAction2Button">
+        <property name="text">
+         <string>Test Action 2</string>
         </property>
        </widget>
       </item>
      </layout>
     </item>
     <item>
-     <widget class="QPushButton" name="loadFileButton">
-      <property name="text">
-       <string>Load File</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="initialiseAmplifierButton">
-      <property name="text">
-       <string>Initialise Amplifier</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="configureAmplifierButton">
-      <property name="text">
-       <string>Configure Amplifier</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="testActionButton">
-      <property name="text">
-       <string>Test Action</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="testAction2Button">
-      <property name="text">
-       <string>Test Action 2</string>
-      </property>
-     </widget>
+     <widget class="QCustomPlot" name="plotAxes" native="true"/>
     </item>
    </layout>
   </widget>
@@ -75,7 +82,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>540</width>
+     <width>890</width>
      <height>21</height>
     </rect>
    </property>
@@ -91,6 +98,14 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

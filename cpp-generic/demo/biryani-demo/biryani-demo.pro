@@ -6,7 +6,8 @@
 
 QT       += core gui
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
+
 
 TARGET = biryani-demo
 TEMPLATE = app
@@ -31,7 +32,8 @@ SOURCES += main.cpp\
     ../../src/usbinterface.cpp \
     ../../src/inittransfer.cpp \
     ../../src/phaseonehandler.cpp \
-    ../../src/phasetwohandler.cpp
+    ../../src/phasetwohandler.cpp \
+    qcustomplot.cpp
 
 HEADERS  += mainwindow.h \
     ../../src/configurationfilehandler.h \
@@ -44,7 +46,8 @@ HEADERS  += mainwindow.h \
     ../../src/inittransfer.h \
     ../../src/phaseonehandler.h \
     ../../src/phasetwohandler.h \
-    ../../src/phasetwothreading.h
+    ../../src/phasetwothreading.h \
+    qcustomplot.h
 
 INCLUDEPATH += ../../src
 

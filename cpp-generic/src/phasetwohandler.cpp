@@ -48,6 +48,7 @@ void workerFunction(){
             std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(toc - tic);
             printf("Packet #%d received after a %fms delay.  %d bytes transferred\n", packetCount, time_span * 1000, bytes_transferred);
             packetCount++;
+            //std::this_thread::sleep_for(std::chrono::milliseconds(10));
         }
     }
 }

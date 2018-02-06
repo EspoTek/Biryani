@@ -220,6 +220,7 @@ Makefile: biryani-demo.pro C:\Qt\5.8\msvc2013_64\mkspecs\win32-msvc2013\qmake.co
 		C:\Qt\5.8\msvc2013_64\mkspecs\features\lex.prf \
 		biryani-demo.pro \
 		C:\Qt\5.8\msvc2013_64\lib\qtmain.prl \
+		C:\Qt\5.8\msvc2013_64\lib\Qt5PrintSupport.prl \
 		C:\Qt\5.8\msvc2013_64\lib\Qt5Widgets.prl \
 		C:\Qt\5.8\msvc2013_64\lib\Qt5Gui.prl \
 		C:\Qt\5.8\msvc2013_64\lib\Qt5Core.prl
@@ -371,6 +372,7 @@ C:\Qt\5.8\msvc2013_64\mkspecs\features\yacc.prf:
 C:\Qt\5.8\msvc2013_64\mkspecs\features\lex.prf:
 biryani-demo.pro:
 C:\Qt\5.8\msvc2013_64\lib\qtmain.prl:
+C:\Qt\5.8\msvc2013_64\lib\Qt5PrintSupport.prl:
 C:\Qt\5.8\msvc2013_64\lib\Qt5Widgets.prl:
 C:\Qt\5.8\msvc2013_64\lib\Qt5Gui.prl:
 C:\Qt\5.8\msvc2013_64\lib\Qt5Core.prl:
