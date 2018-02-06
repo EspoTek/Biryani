@@ -27,6 +27,8 @@ private slots:
 
     void on_configureAmplifierButton_clicked();
 
+    void on_testAction2Button_clicked();
+
 private:
     Ui::MainWindow *ui;
     apiInterface *generic_api;

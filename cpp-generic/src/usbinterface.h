@@ -12,6 +12,7 @@ public:
     int transfer_control(bool dir_is_in, const unsigned char *expected_data, unsigned char *buffer, unsigned char bmRequestType, unsigned char bRequest, unsigned short wValue, unsigned short wIndex, unsigned short wLength);
     int transfer_bulk(bool dir_is_in, unsigned char endpoint, const unsigned char *expected_data, unsigned char *buffer, unsigned int data_length, int *transferred);
     int transfer_compare(const unsigned char *constBuffer, unsigned char *variableBuffer, unsigned int length);
+    bool ready = false;
 private:
     libusb_context *ctx = NULL;
     libusb_device_handle *handle = NULL;

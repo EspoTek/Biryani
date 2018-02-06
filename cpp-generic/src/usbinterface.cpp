@@ -45,6 +45,7 @@ int usbInterface::setup(int bInterface){
         return error;
     }
 
+    ready = true;
     return 0;
 }
 

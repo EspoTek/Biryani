@@ -39,6 +39,7 @@ public:
     QPushButton *initialiseAmplifierButton;
     QPushButton *configureAmplifierButton;
     QPushButton *testActionButton;
+    QPushButton *testAction2Button;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -91,6 +92,11 @@ public:
 
         verticalLayout->addWidget(testActionButton);
 
+        testAction2Button = new QPushButton(centralWidget);
+        testAction2Button->setObjectName(QStringLiteral("testAction2Button"));
+
+        verticalLayout->addWidget(testAction2Button);
+
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -116,6 +122,7 @@ public:
         initialiseAmplifierButton->setText(QApplication::translate("MainWindow", "Initialise Amplifier", Q_NULLPTR));
         configureAmplifierButton->setText(QApplication::translate("MainWindow", "Configure Amplifier", Q_NULLPTR));
         testActionButton->setText(QApplication::translate("MainWindow", "Test Action", Q_NULLPTR));
+        testAction2Button->setText(QApplication::translate("MainWindow", "Test Action 2", Q_NULLPTR));
     } // retranslateUi
 
 };

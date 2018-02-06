@@ -68,3 +68,8 @@ void MainWindow::on_configureAmplifierButton_clicked()
 {
     generic_api->configureSynamps2Device();
 }
+
+void MainWindow::on_testAction2Button_clicked()
+{
+    generic_api->testAction_2();
+}

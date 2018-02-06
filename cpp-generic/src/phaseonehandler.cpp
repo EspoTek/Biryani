@@ -114,3 +114,8 @@ int phaseOneHandler::sendPattern(){
     }
     return 0;
 }
+
+
+usbInterface *phaseOneHandler::getInterface(){
+    return phase1_interface;
+}

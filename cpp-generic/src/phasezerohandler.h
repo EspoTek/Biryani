@@ -15,7 +15,7 @@ public:
     int sendPattern(void);
 private:
     std::vector<initTransfer*> initPattern;
-    usbInterface * phase0_interface;
+    usbInterface * phase0_interface = NULL;
 };
 
 #endif // PHASEZEROHANDLER_H

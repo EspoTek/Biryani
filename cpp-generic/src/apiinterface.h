@@ -6,6 +6,7 @@
 class configurationFileHandler;
 class phaseZeroHandler;
 class phaseOneHandler;
+class phaseTwoHandler;
 class usbInterface;
 
 //apiInterface is the main class of the Biryani 7 API.
@@ -16,6 +17,7 @@ class apiInterface
 public:
     apiInterface();
     void testAction();
+    void testAction_2();
     void setDebugLevel(int new_debug_level_in);
     int loadFile(char *fname);
     int initialiseSynamps2Device();
@@ -25,6 +27,7 @@ private:
     configurationFileHandler *fileHandler;
     phaseZeroHandler *p0handler;
     phaseOneHandler *p1handler;
+    phaseTwoHandler *p2handler;
     usbInterface *usbHandler;
 
     //"Global" (within API) variables

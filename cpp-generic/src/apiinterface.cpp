@@ -3,6 +3,7 @@
 #include "usbinterface.h"
 #include "phasezerohandler.h"
 #include "phaseonehandler.h"
+#include "phasetwohandler.h"
 
 int debug_level = 0;
 
@@ -12,6 +13,7 @@ apiInterface::apiInterface()
     usbHandler = new usbInterface(SYNAMPS2_MAIN_VID, SYNAMPS2_MAIN_PID);
     p0handler = new phaseZeroHandler();
     p1handler = new phaseOneHandler(&phase1_raw);
+    p2handler = new phaseTwoHandler();
 
     //Remove buffering from printf() statements.  Slower, but at least they will be in the right order.
     setbuf(stdout, NULL);
@@ -20,7 +22,14 @@ apiInterface::apiInterface()
 
 void apiInterface::testAction(){
     printf("Performing Test Action...\n");
+    p2handler->enterPhaseTwo(phase2_length, p1handler->getInterface());
 }
+
+void apiInterface::testAction_2(){
+    printf("Performing Alternate Test Action...\n");
+    p2handler->deleteThread();
+}
+
 
 void apiInterface::setDebugLevel(int new_debug_level_in){
     debug_level = new_debug_level_in;
