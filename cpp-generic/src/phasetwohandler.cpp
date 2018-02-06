@@ -39,15 +39,16 @@ void workerFunction(){
     unsigned char *buffer = (unsigned char *) malloc(phaseTwoThreadData.packet_length);
 
     while(!read_kms()){
+        std::chrono::steady_clock::time_point tic = std::chrono::steady_clock::now();
         //Fetch data
         phaseTwoThreadData.interface->transfer_bulk(true, 0x06, buffer, buffer, phaseTwoThreadData.packet_length, &bytes_transferred);
         if(bytes_transferred){
-            printf("Packet #%d received.  %d bytes transferred\n", packetCount, bytes_transferred);
+            std::chrono::steady_clock::time_point toc = std::chrono::steady_clock::now();
+            std::chrono::steady_clock::duration duration = toc - tic;
+            std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(toc - tic);
+            printf("Packet #%d received after a %fms delay.  %d bytes transferred\n", packetCount, time_span * 1000, bytes_transferred);
             packetCount++;
         }
-
-        //Wait to avoid saturating thread.
-        //std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
 }
 

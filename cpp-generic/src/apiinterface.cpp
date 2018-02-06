@@ -40,7 +40,6 @@ int apiInterface::loadFile(char *fname){
     return fileHandler->loadFile(fname);
 }
 
-
 int apiInterface::initialiseSynamps2Device(){
     int error = 0;
 
