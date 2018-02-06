@@ -41,14 +41,12 @@ start_pos = openCurlys(test_index);
 hex_offset = strfind(cleanString(start_pos:end), '0x'); %Find first hex value in the first confirmed data packet
 hex_offset = hex_offset(1);
 usbpcap_header_length = hex2dec(cleanString(start_pos+hex_offset+1:start_pos+hex_offset+2));
-fprintf('Phase 2 packets have a USBPcap header length of %d\n', usbpcap_header_length);
-phase_2_payload = data_packet_length - usbpcap_header_length;
-fprintf('Phase 2 payload is %d bytes\n', phase_2_payload);
+fprintf('Phase 2 packets have a length of %d\n', data_packet_length);
 
 %Initialise output strings
 headerString = sprintf('Biryani 7 Configuration File Version 0.9\n');
 phase1String = char([]);
-phase2String = [phase2str{2} ' ' num2str(phase_2_payload) sprintf('\n')];
+phase2String = [phase2str{2} ' ' num2str(data_packet_length) sprintf('\n')];
 phase3String = char([]);
 
 num_lines = 1; %1 line for the phase 2 information.  Other lines added in the loop.
