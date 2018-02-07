@@ -5,7 +5,7 @@ pause()
 
 %Cleanup
 clear all
-clc
+clc 
 
 %Get the file names
 fprintf('Loading directory _c_files\n');

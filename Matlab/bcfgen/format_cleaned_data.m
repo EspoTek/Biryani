@@ -46,7 +46,7 @@ phase_2_payload = data_packet_length - usbpcap_header_length;
 fprintf('Phase 2 payload is %d bytes\n', phase_2_payload);
 
 %Initialise output strings
-headerString = sprintf('Biryani 7 Configuration File Version 0.9\n');
+headerString = sprintf('Biryani 7 Configuration File Version 0.91\n');
 phase1String = char([]);
 phase2String = [phase2str{2} ' ' num2str(phase_2_payload) sprintf('\n')];
 phase3String = char([]);
@@ -54,6 +54,7 @@ phase3String = char([]);
 num_lines = 1; %1 line for the phase 2 information.  Other lines added in the loop.
 
 fprintf('Formatting data to be compatible with Biryani 7...');
+phase_2_sample_collected = 0;
 %Format data and write to output string
 for i = 1:num_packets
     len_numeric = packet_lengths(i);
@@ -95,7 +96,11 @@ for i = 1:num_packets
             phase1String = [phase1String phase2str{1} ' ' num2str(len_numeric) ' ' packetData_output sprintf('\n')];
             num_lines = num_lines + 1;
         case 2
-            %nothing!
+            %We only want to collect a single sample.
+            if(phase_2_sample_collected == 0)
+                phase_2_sample = packetData(usbpcap_header_length+1:end);
+                phase_2_sample_collected = 1;
+            end
         case 3
             packetData_output = char([]);
             for current_byte = 1:len_numeric
@@ -111,4 +116,10 @@ end
 numLinesString = sprintf('NUM_LINES %d\n', num_lines);
 
 fprintf('   Complete!');
-outputString = [headerString numLinesString phase1String phase2String phase3String];
+
+%Work out the number of channels
+num_channels_excluding_ref = extract_num_channels(phase_2_sample);
+fprintf('There are %d channels (plus GND) present in the packet stream\n', num_channels_excluding_ref);
+numChannelsString = sprintf('NUM_CHANNELS_EXCLUDING_REF %d\n', num_channels_excluding_ref);
+
+outputString = [headerString numChannelsString numLinesString phase1String phase2String phase3String];
