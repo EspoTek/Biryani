@@ -37,7 +37,6 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h \
     ../../src/configurationfilehandler.h \
-    ../../src/global_constants.h \
     ../../src/apiinterface.h \
     ../../src/phasezerohandler.h \
     ../../src/api_defines.h \

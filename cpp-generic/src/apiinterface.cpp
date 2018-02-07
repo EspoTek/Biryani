@@ -9,7 +9,7 @@ int debug_level = 0;
 
 apiInterface::apiInterface()
 {
-    fileHandler = new configurationFileHandler(&phase1_raw, &phase2_length, &phase3_raw);
+    fileHandler = new configurationFileHandler(&phase1_raw, &phase2_length, &phase3_raw, &num_channels_excluding_ref);
     usbHandler = new usbInterface(SYNAMPS2_MAIN_VID, SYNAMPS2_MAIN_PID);
     p0handler = new phaseZeroHandler();
     p1handler = new phaseOneHandler(&phase1_raw);

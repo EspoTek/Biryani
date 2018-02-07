@@ -34,6 +34,7 @@ private:
     std::vector<rawPacket> phase1_raw;
     int phase2_length;
     std::vector<rawPacket> phase3_raw;
+    int num_channels_excluding_ref;
 };
 
 #endif // APIINTERFACE_H

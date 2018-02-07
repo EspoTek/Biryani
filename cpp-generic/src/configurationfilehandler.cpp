@@ -1,7 +1,6 @@
 #include "configurationfilehandler.h"
 #include <string.h>
 #include <stdlib.h>
-#include "global_constants.h"
 
 #define fgets_check_errors(); \
 if(fgets_returned != tempString){ \
@@ -10,16 +9,17 @@ if(fgets_returned != tempString){ \
 } else current_line++; \
 
 
-configurationFileHandler::configurationFileHandler(std::vector<rawPacket> *ptr_phase1_raw_in, int *ptr_phase2_length_in, std::vector<rawPacket> *ptr_phase3_raw_in)
+configurationFileHandler::configurationFileHandler(std::vector<rawPacket> *ptr_phase1_raw_in, int *ptr_phase2_length_in, std::vector<rawPacket> *ptr_phase3_raw_in, int* ptr_num_channels_excluding_ref_in)
 {
     ptr_phase1_raw = ptr_phase1_raw_in;
     ptr_phase2_length = ptr_phase2_length_in;
     ptr_phase3_raw = ptr_phase3_raw_in;
+    ptr_num_channels_excluding_ref = ptr_num_channels_excluding_ref_in;
 }
 
 int configurationFileHandler::loadFile(char *fname){
     //Debug info.
-    printf_verbose("\nconfigurationFileHandler::loadFile(%.1024s)\n", fname);
+    printf_debugging("\nconfigurationFileHandler::loadFile(%.1024s)\n", fname);
       ////////////////////////////////
      //////////Open the File/////////
     ////////////////////////////////
@@ -45,10 +45,27 @@ int configurationFileHandler::loadFile(char *fname){
         return 2;
     } else printf_verbose("%s", tempString);
 
+      //////////////////////////////////////////////////////////////
+     ////////Read the NUM_CHANNELS_EXCLUDING_REF Variable /////////
+    //////////////////////////////////////////////////////////////
+    //Current position: line 3
+    fgets_returned = fgets(tempString, FILE_MAX_CHARS_PER_LINE, fptr);
+    fgets_check_errors();
+
+    //Check for the NUM_CHANNELS_EXCLUDING_REF text
+    if(strncmp(tempString, "NUM_CHANNELS_EXCLUDING_REF", 26)){
+        fprintf(stderr, "ERROR: NUM_CHANNELS_EXCLUDING_REF variable not found!\n");
+        return 5;
+    }
+    //Read in number of channels
+    sscanf(tempString, "NUM_CHANNELS_EXCLUDING_REF %d", ptr_num_channels_excluding_ref);
+    printf_debugging("Number of channels detected (excluding reference): %d\n", *(ptr_num_channels_excluding_ref));
+
+
       /////////////////////////////////////////////
      ////////Read the NUM_LINES Variable /////////
     /////////////////////////////////////////////
-    //Current position: line 2
+    //Current position: line 3
     fgets_returned = fgets(tempString, FILE_MAX_CHARS_PER_LINE, fptr);
     fgets_check_errors();
 
@@ -60,7 +77,7 @@ int configurationFileHandler::loadFile(char *fname){
     //Read in number of lines to parse
     int num_lines_to_parse;
     sscanf(tempString, "NUM_LINES %d", &num_lines_to_parse);
-    printf_verbose("Lines to parse: %d\n", num_lines_to_parse);
+    printf_debugging("Lines to parse: %d\n", num_lines_to_parse);
 
       /////////////////////////////////////
      ////////Extract the Packets /////////
@@ -93,7 +110,7 @@ int configurationFileHandler::loadFile(char *fname){
         }
     }
 
-    printf_verbose("All packets read!\n");
+    printf_debugging("All packets read!\n");
 
 
       /////////////////////////////////
@@ -101,7 +118,7 @@ int configurationFileHandler::loadFile(char *fname){
     /////////////////////////////////
     fclose(fptr);
 
-    printf_verbose("File closed!\n");
+    printf_debugging("File closed!\n");
     return 0;
 }
 
