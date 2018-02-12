@@ -31,6 +31,7 @@ public:
     int fill_interPacket_back(unsigned char *ptr, int packetStartOffset);
     int fill_interPacket_front(unsigned char *ptr, int numLeftoverBytes);
     int decodeInterPacket();
+    std::vector<double>* getDownSampledChannelData_double(int channel, double sampleRate_hz, int mode, double delay_seconds, double timeWindow_seconds, int* length);
 private:
     unsigned char * interPacket = NULL;
     int num_channels_including_ref;

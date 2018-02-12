@@ -15,6 +15,7 @@
 #define NUM_SAMPLES_PER_CHANNEL 16777215 //AKA buffer size, in words.
 //16777215 = 2^24 - 1.  Highest number that can be stored in the 24 bit address.
 
+#define MAX_SAMPLES_PER_SECOND 25000 //Samples per second that the Synamps2 device records at
 
 //Global includes
 #include <vector>

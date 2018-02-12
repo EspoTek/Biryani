@@ -23,6 +23,8 @@ public:
     int initialiseSynamps2Device();
     int configureSynamps2Device();
     int stopStream();
+    int startStream();
+    std::vector<double>* getDownSampledChannelData_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_seconds, int* length);
 private:
     //Internal object pointers
     configurationFileHandler *fileHandler;

@@ -11,10 +11,10 @@ public:
     void add(int value, int address);
     int get(int address);
     int mostRecentAddress = 0;
-    //QVector<double> *getMany_nofilter(int numToGet, int interval_samples, int delay_sample);
+    std::vector<double> *getMany_nofilter_double(int numToGet, int interval_samples, int delay_sample);
 private:
     int *buffer;
-    //QVector<double> convertedStream;
+    std::vector<double> convertedStream_double;
     void updateMostRecentAddress(int newAddress);
 };
 

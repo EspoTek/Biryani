@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTimer>
 class apiInterface;
 
 namespace Ui {
@@ -31,9 +32,15 @@ private slots:
 
     void on_stopStreamButton_clicked();
 
+    void on_startStreamButton_clicked();
+
+    void on_plotTestButton_clicked();
+
+    void plotTimerTick();
 private:
     Ui::MainWindow *ui;
     apiInterface *generic_api;
+    QTimer *plotTimer;
 };
 
 #endif // MAINWINDOW_H

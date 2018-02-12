@@ -44,13 +44,13 @@ void workerFunction(){
     //Set up the necessary structures for subpacket decoding.
     printf("Setting up subPacketDecoder with %d channels (excluding ref)\n", phaseTwoThreadData.num_channels_excluding_ref);
     subPacketDecoder *decoder_sp = new subPacketDecoder(phaseTwoThreadData.num_channels_excluding_ref);
+    phaseTwoThreadData.decoder_sp = decoder_sp;
+    bool subPacketInitialiseSuccess = false;
     int packetStartOffset = 0;
     unsigned char *subPacketPointer = NULL;
     bool firstPacketDecoded = false;
     int numSubPacketsToDecode;
     int numLeftoverBytes;
-
-
 
     while(!read_kms()){
         std::chrono::steady_clock::time_point tic = std::chrono::steady_clock::now();
@@ -73,6 +73,7 @@ void workerFunction(){
                     //16 cracks to get a valid sequence
                     if(decoder_sp->isValidSubPacketStream(subPacketPointer, 16)){
                         //16 objects in a row that look like subpackets should indicate a subpacket stream.  If it looks like a duck, and quacks like a duck...
+                        subPacketInitialiseSuccess = true;
                         break;
                     } else {
                         packetStartOffset++;
@@ -80,13 +81,19 @@ void workerFunction(){
                 }
             }
 
+            if(subPacketInitialiseSuccess==false){
+                fprintf(stderr, "Failed to find subPacket after many attempts.  Did you try to start the stream twice?  Killing thread...\n");
+                return;
+            }
+
             //Pointer to the first subPacket in the buffer
             subPacketPointer = buffer + packetStartOffset;
 
             //subPacketPointer should be pointing to the first whole subpacket in the stream.
             //But is it?
-            if(!decoder_sp->isValidSubPacketStream(subPacketPointer, 32)){
-                fprintf(stderr, "ERROR: subPacketPointer is not pointing to a subPacket!");
+            if(!decoder_sp->isValidSubPacketStream(subPacketPointer, 16)){
+                fprintf(stderr, "ERROR: subPacketPointer is not pointing to a subPacket!  Killing thread...");
+                return;
             }
 
             //But what about the partial subpacket that could be before it?  interPacketbuffer saves the day.
@@ -132,4 +139,13 @@ void write_kms(bool new_value){
     phaseTwoThreadData.kms_mutex.lock();
     phaseTwoThreadData.kms = new_value;
     phaseTwoThreadData.kms_mutex.unlock();
+}
+
+std::vector<double> *phaseTwoHandler::getDownSampledChannelData_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_seconds, int *length){
+    if (phaseTwoThreadData.decoder_sp == NULL){
+        fprintf(stderr, "ERROR: No subpacket decoder detected.  Have you started the stream yet?\n");
+        return NULL;
+    } else {
+        phaseTwoThreadData.decoder_sp->getDownSampledChannelData_double(channel, sampleRate_hz, filter_mode, delay_seconds, timeWindow_seconds, length);
+    }
 }

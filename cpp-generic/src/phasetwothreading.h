@@ -3,6 +3,7 @@
 
 void workerFunction();
 class usbInterface;
+class subPacketDecoder;
 
 typedef struct threadStruct{
     int packet_length;
@@ -10,6 +11,7 @@ typedef struct threadStruct{
     bool kms = false;
     std::mutex kms_mutex;
     usbInterface *interface;
+    subPacketDecoder *decoder_sp = NULL;
 } threadStruct;
 
 threadStruct phaseTwoThreadData;

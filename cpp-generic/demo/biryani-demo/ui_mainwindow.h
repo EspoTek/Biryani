@@ -40,9 +40,11 @@ public:
     QPushButton *loadFileButton;
     QPushButton *initialiseAmplifierButton;
     QPushButton *configureAmplifierButton;
+    QPushButton *startStreamButton;
+    QPushButton *stopStreamButton;
     QPushButton *testActionButton;
     QPushButton *testAction2Button;
-    QPushButton *stopStreamButton;
+    QPushButton *plotTestButton;
     QCustomPlot *plotAxes;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
@@ -94,6 +96,16 @@ public:
 
         verticalLayout->addWidget(configureAmplifierButton);
 
+        startStreamButton = new QPushButton(centralWidget);
+        startStreamButton->setObjectName(QStringLiteral("startStreamButton"));
+
+        verticalLayout->addWidget(startStreamButton);
+
+        stopStreamButton = new QPushButton(centralWidget);
+        stopStreamButton->setObjectName(QStringLiteral("stopStreamButton"));
+
+        verticalLayout->addWidget(stopStreamButton);
+
         testActionButton = new QPushButton(centralWidget);
         testActionButton->setObjectName(QStringLiteral("testActionButton"));
 
@@ -104,10 +116,10 @@ public:
 
         verticalLayout->addWidget(testAction2Button);
 
-        stopStreamButton = new QPushButton(centralWidget);
-        stopStreamButton->setObjectName(QStringLiteral("stopStreamButton"));
+        plotTestButton = new QPushButton(centralWidget);
+        plotTestButton->setObjectName(QStringLiteral("plotTestButton"));
 
-        verticalLayout->addWidget(stopStreamButton);
+        verticalLayout->addWidget(plotTestButton);
 
 
         horizontalLayout_2->addLayout(verticalLayout);
@@ -141,9 +153,11 @@ public:
         loadFileButton->setText(QApplication::translate("MainWindow", "Load File", Q_NULLPTR));
         initialiseAmplifierButton->setText(QApplication::translate("MainWindow", "Initialise Amplifier", Q_NULLPTR));
         configureAmplifierButton->setText(QApplication::translate("MainWindow", "Configure Amplifier", Q_NULLPTR));
+        startStreamButton->setText(QApplication::translate("MainWindow", "Start Stream", Q_NULLPTR));
+        stopStreamButton->setText(QApplication::translate("MainWindow", "Stop Stream", Q_NULLPTR));
         testActionButton->setText(QApplication::translate("MainWindow", "Test Action", Q_NULLPTR));
         testAction2Button->setText(QApplication::translate("MainWindow", "Test Action 2", Q_NULLPTR));
-        stopStreamButton->setText(QApplication::translate("MainWindow", "Stop Stream", Q_NULLPTR));
+        plotTestButton->setText(QApplication::translate("MainWindow", "Start Plotting Test", Q_NULLPTR));
     } // retranslateUi
 
 };

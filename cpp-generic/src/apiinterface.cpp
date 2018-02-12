@@ -9,6 +9,9 @@ int debug_level = 0;
 
 apiInterface::apiInterface()
 {
+    for(int i=0; i<100; i++){
+        fprintf(stderr, "WARNING: You just chucked in a meme value of 25000 as the max sample rate.\n");
+    }
     fileHandler = new configurationFileHandler(&phase1_raw, &phase2_length, &phase3_raw, &num_channels_excluding_ref);
     usbHandler = new usbInterface(SYNAMPS2_MAIN_VID, SYNAMPS2_MAIN_PID);
     p0handler = new phaseZeroHandler();
@@ -23,12 +26,10 @@ apiInterface::apiInterface()
 
 void apiInterface::testAction(){
     printf("Performing Test Action...\n");
-    p2handler->enterPhaseTwo(phase2_length, num_channels_excluding_ref, p1handler->getInterface());
 }
 
 void apiInterface::testAction_2(){
     printf("Performing Alternate Test Action...\n");
-    p2handler->deleteThread();
 }
 
 
@@ -101,7 +102,15 @@ int apiInterface::stopStream(){
         fprintf(stderr, "ERROR %d in p3handler->sendPattern().  Aborting...\n", error);
         return error+1000;
     }
+
+    p2handler->deleteThread();
     return 0;
 }
 
+int apiInterface::startStream(){
+    return p2handler->enterPhaseTwo(phase2_length, num_channels_excluding_ref, p1handler->getInterface());
+}
 
+std::vector<double>* apiInterface::getDownSampledChannelData_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_seconds, int* length){
+    return p2handler->getDownSampledChannelData_double(channel, sampleRate_hz, filter_mode, delay_seconds, timeWindow_seconds, length);
+}
