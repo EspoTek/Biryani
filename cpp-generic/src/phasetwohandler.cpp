@@ -112,6 +112,8 @@ void workerFunction(){
             //And don't forget to update the packet start offset for the next packet!
             packetStartOffset = decoder_sp->numBytesPerSubpacket() - numLeftoverBytes;
 
+            firstPacketDecoded = true;
+
             //Increment the packet counter, for debugging
             packetCount++;
         }
