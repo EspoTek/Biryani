@@ -1,6 +1,7 @@
 #include "phasetwohandler.h"
 #include "phasetwothreading.h"
 #include "usbinterface.h"
+#include "subpacketdecoder.h"
 
 
 phaseTwoHandler::phaseTwoHandler()
@@ -37,20 +38,80 @@ int phaseTwoHandler::enterPhaseTwo(int phase2_packet_length_in, int num_channels
 void workerFunction(){
     int packetCount = 1;
     int bytes_transferred;
-    unsigned char *buffer = (unsigned char *) malloc(phaseTwoThreadData.packet_length);
+    int packet_length = phaseTwoThreadData.packet_length;
+    unsigned char *buffer = (unsigned char *) malloc(packet_length);
+
+    //Set up the necessary structures for subpacket decoding.
+    printf("Setting up subPacketDecoder with %d channels (excluding ref)\n", phaseTwoThreadData.num_channels_excluding_ref);
+    subPacketDecoder *decoder_sp = new subPacketDecoder(phaseTwoThreadData.num_channels_excluding_ref);
+    int packetStartOffset = 0;
+    unsigned char *subPacketPointer = NULL;
+    bool firstPacketDecoded = false;
+    int numSubPacketsToDecode;
+    int numLeftoverBytes;
+
+
 
     while(!read_kms()){
         std::chrono::steady_clock::time_point tic = std::chrono::steady_clock::now();
         //Fetch data
-        phaseTwoThreadData.interface->transfer_bulk(true, 0x06, buffer, buffer, phaseTwoThreadData.packet_length, &bytes_transferred);
+        phaseTwoThreadData.interface->transfer_bulk(true, 0x06, buffer, buffer, packet_length, &bytes_transferred);
         if(bytes_transferred){
             //Calculate time delay
             std::chrono::steady_clock::time_point toc = std::chrono::steady_clock::now();
             std::chrono::steady_clock::duration duration = toc - tic;
             std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(toc - tic);
-            printf("Packet #%d received after a %fms delay.  %d bytes transferred\n", packetCount, time_span * 1000, bytes_transferred);
+            printf_verbose("Packet #%d received after a %fms delay.  %d bytes transferred\n", packetCount, time_span * 1000, bytes_transferred);
 
-            //Add the data
+            //Initialise subpacket decoding
+            if(!firstPacketDecoded){
+                //This code runs the first time we enter the stream.
+                //It's highly probable that we've started in a random position mid-subpacket.
+                //This code should find where, specifically.
+                subPacketPointer = &buffer[0];
+                for(int i=0; i<decoder_sp->numBytesPerSubpacket(); i++){
+                    if(decoder_sp->isValidSubPacketStream(subPacketPointer, 32)){
+                        //32 things in a row that look like subpackets should indicate a subpacket stream.  If it looks like a duck, and quacks like a duck...
+                        break;
+                    } else {
+                        packetStartOffset++;
+                    }
+                }
+            }
+
+            //Pointer to the first subPacket in the buffer
+            subPacketPointer = buffer + packetStartOffset;
+
+            //subPacketPointer should be pointing to the first whole subpacket in the stream.
+            //But is it?
+            if(!decoder_sp->isValidSubPacketStream(subPacketPointer, 32)){
+                fprintf(stderr, "ERROR: subPacketPointer is not pointing to a subPacket!");
+            }
+
+            //But what about the partial subpacket that could be before it?  interPacketbuffer saves the day.
+            decoder_sp->fill_interPacket_back(buffer, packetStartOffset);
+            //If not the first packet, interPacketBuffer should now contain a whole subpacket.
+            if(firstPacketDecoded){
+                decoder_sp->decodeInterPacket();
+            }
+
+            //How many subpackets do we need to decode,?
+            numSubPacketsToDecode = (packet_length - packetStartOffset)/(decoder_sp->numBytesPerSubpacket());
+            //What's left over?
+            numLeftoverBytes = (packet_length - packetStartOffset)%(decoder_sp->numBytesPerSubpacket());
+
+            //Actually decode all of the subPackets
+            for (int i=0;i<numPacketsToDecode;i++){
+                decoder_sp->decodeSubPacket(&subPacketPointer[i*decoder_sp->numBytesPerSubpacket()]);
+            }
+
+            //But there's that leftover data at the end.
+            decoder_sp->fill_interPacket_front(&beginPacketPointer[packet_length-numLeftoverBytes], numLeftoverBytes);
+
+            //And don't forget to update the packet start offset for the next packet!
+            packetStartOffset = decoder_sp->numBytesPerSubpacket() - numLeftoverBytes;
+
+            //Increment the packet counter, for debugging
             packetCount++;
         }
     }

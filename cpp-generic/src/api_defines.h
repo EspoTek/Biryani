@@ -4,12 +4,13 @@
 #define FILE_MAX_CHARS_PER_LINE 65535
 #define FILE_BCF_HEADER_STRING "Biryani 7 Configuration File Version 0.91\n"
 
-
 #define SYNAMPS2_MAIN_VID 0x0B6E
 #define SYNAMPS2_MAIN_PID 0x0006
 
 #define SYNAMPS2_UNINITIALISED_VID 0x0B6E
 #define SYNAMPS2_UNINITIALISED_PID 0x0005
+
+#define SUBPACKET_MAX_NUM_CHANNELS 69 //Hehe
 
 //Global includes
 #include <vector>

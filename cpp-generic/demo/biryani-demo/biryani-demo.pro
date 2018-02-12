@@ -33,7 +33,8 @@ SOURCES += main.cpp\
     ../../src/inittransfer.cpp \
     ../../src/phaseonehandler.cpp \
     ../../src/phasetwohandler.cpp \
-    qcustomplot.cpp
+    qcustomplot.cpp \
+    ../../src/subpacketdecoder.cpp
 
 HEADERS  += mainwindow.h \
     ../../src/configurationfilehandler.h \
@@ -46,7 +47,8 @@ HEADERS  += mainwindow.h \
     ../../src/phaseonehandler.h \
     ../../src/phasetwohandler.h \
     ../../src/phasetwothreading.h \
-    qcustomplot.h
+    qcustomplot.h \
+    ../../src/subpacketdecoder.h
 
 INCLUDEPATH += ../../src
 
