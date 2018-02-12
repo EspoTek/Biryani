@@ -22,12 +22,14 @@ public:
     int loadFile(char *fname);
     int initialiseSynamps2Device();
     int configureSynamps2Device();
+    int stopStream();
 private:
     //Internal object pointers
     configurationFileHandler *fileHandler;
     phaseZeroHandler *p0handler;
     phaseOneHandler *p1handler;
     phaseTwoHandler *p2handler;
+    phaseOneHandler *p3handler;
     usbInterface *usbHandler;
 
     //"Global" (within API) variables

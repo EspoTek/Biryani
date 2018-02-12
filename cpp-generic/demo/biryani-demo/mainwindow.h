@@ -29,6 +29,8 @@ private slots:
 
     void on_testAction2Button_clicked();
 
+    void on_stopStreamButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     apiInterface *generic_api;

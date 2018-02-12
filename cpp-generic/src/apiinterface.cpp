@@ -14,6 +14,7 @@ apiInterface::apiInterface()
     p0handler = new phaseZeroHandler();
     p1handler = new phaseOneHandler(&phase1_raw);
     p2handler = new phaseTwoHandler();
+    p3handler = new phaseOneHandler(&phase3_raw);
 
     //Remove buffering from printf() statements.  Slower, but at least they will be in the right order.
     setbuf(stdout, NULL);
@@ -86,4 +87,21 @@ int apiInterface::configureSynamps2Device(){
     }
     return 0;
 }
+
+int apiInterface::stopStream(){
+    int error;
+
+    error = p3handler->createPattern();
+    if(error < 0){
+        fprintf(stderr, "ERROR %d in p3handler->createPattern().  Aborting...\n", error);
+        return error;
+    }
+    error = p3handler->sendPattern();
+    if(error < 0){
+        fprintf(stderr, "ERROR %d in p3handler->sendPattern().  Aborting...\n", error);
+        return error+1000;
+    }
+    return 0;
+}
+
 

@@ -73,3 +73,8 @@ void MainWindow::on_testAction2Button_clicked()
 {
     generic_api->testAction_2();
 }
+
+void MainWindow::on_stopStreamButton_clicked()
+{
+    generic_api->stopStream();
+}

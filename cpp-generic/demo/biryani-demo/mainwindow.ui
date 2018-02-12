@@ -70,6 +70,13 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QPushButton" name="stopStreamButton">
+        <property name="text">
+         <string>Stop Stream</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
     <item>

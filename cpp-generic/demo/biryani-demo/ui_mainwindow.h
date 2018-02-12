@@ -42,6 +42,7 @@ public:
     QPushButton *configureAmplifierButton;
     QPushButton *testActionButton;
     QPushButton *testAction2Button;
+    QPushButton *stopStreamButton;
     QCustomPlot *plotAxes;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
@@ -103,6 +104,11 @@ public:
 
         verticalLayout->addWidget(testAction2Button);
 
+        stopStreamButton = new QPushButton(centralWidget);
+        stopStreamButton->setObjectName(QStringLiteral("stopStreamButton"));
+
+        verticalLayout->addWidget(stopStreamButton);
+
 
         horizontalLayout_2->addLayout(verticalLayout);
 
@@ -137,6 +143,7 @@ public:
         configureAmplifierButton->setText(QApplication::translate("MainWindow", "Configure Amplifier", Q_NULLPTR));
         testActionButton->setText(QApplication::translate("MainWindow", "Test Action", Q_NULLPTR));
         testAction2Button->setText(QApplication::translate("MainWindow", "Test Action 2", Q_NULLPTR));
+        stopStreamButton->setText(QApplication::translate("MainWindow", "Stop Stream", Q_NULLPTR));
     } // retranslateUi
 
 };
