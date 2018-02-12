@@ -12,7 +12,7 @@ class phaseTwoHandler
 public:
     phaseTwoHandler();
     void deleteThread();
-    int enterPhaseTwo(int phase_2_packet_length, usbInterface *interface);
+    int enterPhaseTwo(int phase_2_packet_length, int num_channels_excluding_ref, usbInterface *interface);
 private:
     usbInterface *phase2_interface = NULL;
     std::thread *worker;

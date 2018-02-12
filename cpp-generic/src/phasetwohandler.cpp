@@ -11,7 +11,7 @@ void phaseTwoHandler::deleteThread(){
     write_kms(true);
 }
 
-int phaseTwoHandler::enterPhaseTwo(int phase2_packet_length_in, usbInterface *interface){
+int phaseTwoHandler::enterPhaseTwo(int phase2_packet_length_in, int num_channels_excluding_ref, usbInterface *interface){
     if(interface == NULL){
         fprintf(stderr, "FATAL ERROR: USB Interface is null.  Cannot enter phase 2.  This situation should never occur.\n");
         return -1;
@@ -28,6 +28,7 @@ int phaseTwoHandler::enterPhaseTwo(int phase2_packet_length_in, usbInterface *in
 
     phaseTwoThreadData.packet_length = phase2_packet_length_in;
     phaseTwoThreadData.interface = interface;
+    phaseTwoThreadData.num_channels_excluding_ref =num_channels_excluding_ref;
     worker = new std::thread(workerFunction);
     return 0;
 }
@@ -43,12 +44,14 @@ void workerFunction(){
         //Fetch data
         phaseTwoThreadData.interface->transfer_bulk(true, 0x06, buffer, buffer, phaseTwoThreadData.packet_length, &bytes_transferred);
         if(bytes_transferred){
+            //Calculate time delay
             std::chrono::steady_clock::time_point toc = std::chrono::steady_clock::now();
             std::chrono::steady_clock::duration duration = toc - tic;
             std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(toc - tic);
             printf("Packet #%d received after a %fms delay.  %d bytes transferred\n", packetCount, time_span * 1000, bytes_transferred);
+
+            //Add the data
             packetCount++;
-            //std::this_thread::sleep_for(std::chrono::milliseconds(10));
         }
     }
 }

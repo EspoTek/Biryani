@@ -6,6 +6,7 @@ class usbInterface;
 
 typedef struct threadStruct{
     int packet_length;
+    int num_channels_excluding_ref;
     bool kms = false;
     std::mutex kms_mutex;
     usbInterface *interface;

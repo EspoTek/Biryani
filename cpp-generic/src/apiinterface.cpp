@@ -22,7 +22,7 @@ apiInterface::apiInterface()
 
 void apiInterface::testAction(){
     printf("Performing Test Action...\n");
-    p2handler->enterPhaseTwo(phase2_length, p1handler->getInterface());
+    p2handler->enterPhaseTwo(phase2_length, num_channels_excluding_ref, p1handler->getInterface());
 }
 
 void apiInterface::testAction_2(){
