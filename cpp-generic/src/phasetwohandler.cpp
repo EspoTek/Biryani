@@ -42,8 +42,10 @@ void workerFunction(){
     unsigned char *buffer = (unsigned char *) malloc(packet_length);
 
     //Set up the necessary structures for subpacket decoding.
-    printf("Setting up subPacketDecoder with %d channels (excluding ref)\n", phaseTwoThreadData.num_channels_excluding_ref);
+    printf_debugging("Setting up subPacketDecoder with %d channels (excluding ref)\n", phaseTwoThreadData.num_channels_excluding_ref);
     subPacketDecoder *decoder_sp = new subPacketDecoder(phaseTwoThreadData.num_channels_excluding_ref);
+    printf_debugging("Successfully set up subPacketDecoder with a subPacket size of %d\n", decoder_sp->numBytesPerSubpacket());
+
     phaseTwoThreadData.decoder_sp = decoder_sp;
     bool subPacketInitialiseSuccess = false;
     int packetStartOffset = 0;
@@ -71,11 +73,12 @@ void workerFunction(){
                 subPacketPointer = &buffer[0];
                 for(int i=0; i<decoder_sp->numBytesPerSubpacket() * 16; i++){
                     //16 cracks to get a valid sequence
-                    if(decoder_sp->isValidSubPacketStream(subPacketPointer, 16)){
+                    if(decoder_sp->isValidSubPacketStream(subPacketPointer+packetStartOffset, 16)){
                         //16 objects in a row that look like subpackets should indicate a subpacket stream.  If it looks like a duck, and quacks like a duck...
                         subPacketInitialiseSuccess = true;
                         break;
                     } else {
+                        printf_debugging("subPacket not found with offset %d\n", packetStartOffset);
                         packetStartOffset++;
                     }
                 }

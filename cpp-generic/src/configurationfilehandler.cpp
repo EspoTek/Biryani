@@ -87,6 +87,7 @@ int configurationFileHandler::loadFile(char *fname){
     rawPacket rawPacket_temp;
 
     for (int i=0;i<num_lines_to_parse;i++){
+        printf_debugging("Attempting to parsing line %d\n", i);
         //Read the line to a string
         fgets_returned = fgets(tempString, FILE_MAX_CHARS_PER_LINE, fptr);
         fgets_check_errors();
@@ -94,14 +95,14 @@ int configurationFileHandler::loadFile(char *fname){
         //Check packet type
         if(!strncmp(tempString, "PHASE_1_CONFIG", 14)){
             //Phase 1 packet
-            printf_verbose("Phase 1 Packet!\n");
+            printf_debugging("Phase 1 Packet!\n");
             fill_raw_packet_structure(&rawPacket_temp, tempString, 1);
             ptr_phase1_raw->push_back(rawPacket_temp);
         } else if(!strncmp(tempString, "PHASE_2_DATA", 12)) {
-            printf_verbose("Phase 2 Packet!\n");
+            printf_debugging("Phase 2 Packet!\n");
             sscanf(tempString, "PHASE_2_DATA %d", ptr_phase2_length);
         } else if(!strncmp(tempString, "PHASE_3_CLEANUP", 15)) {
-            printf_verbose("Phase 3 Packet!\n");
+            printf_debugging("Phase 3 Packet!\n");
             fill_raw_packet_structure(&rawPacket_temp, tempString, 3);
             ptr_phase3_raw->push_back(rawPacket_temp);
         } else {

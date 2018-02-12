@@ -1,7 +1,7 @@
 #ifndef API_DEFINES_H
 #define API_DEFINES_H
 
-#define FILE_MAX_CHARS_PER_LINE 65535
+#define FILE_MAX_CHARS_PER_LINE 300000
 #define FILE_BCF_HEADER_STRING "Biryani 7 Configuration File Version 0.91\n"
 
 #define SYNAMPS2_MAIN_VID 0x0B6E

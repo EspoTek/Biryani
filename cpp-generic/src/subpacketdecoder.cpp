@@ -34,17 +34,22 @@ int subPacketDecoder::isValidSubPacketStream(unsigned char *ptr_sub, int num_to_
 int subPacketDecoder::isValidSubPacket(unsigned char *ptr_sub){
     int subPacketLength = numBytesPerSubpacket();
 
+    printf_verbose("Checking subPacket validity at address %llx\n", ptr_sub);
+
     if(ptr_sub[subPacketLength-1] != 0x04){
         //The last byte must be 0x04!  Return "not a valid subpacket".
+        printf_verbose("subPacketDecoder::isValidSubPacket FAILED.  Last byte = 0x%02x\n", ptr_sub[subPacketLength-1]);
         return 0;
     }
 
     if(count2int(ptr_sub+subPacketLength) - count2int(ptr_sub) != 1){
         //The next subpacket in the sequence doesn't seem to have a correctly incremented byte.  Return "not a valid subpacket".
+        printf_verbose("subPacketDecoder::isValidSubPacket FAILED.  Count 1 = %d, but Count 2 = %d\n", count2int(ptr_sub), count2int(ptr_sub+subPacketLength));
         return 0;
     }
 
     //If it passed those two tests, it's probably OK.
+    printf_verbose("subPacketDecoder::isValidSubPacket SUCCESS");
     return 1;
 }
 

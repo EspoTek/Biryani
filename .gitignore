@@ -18,3 +18,4 @@ cpp-generic/demo/biryani-demo/release/mainwindow.obj
 cpp-generic/demo/biryani-demo/Makefile.Release
 cpp-generic/demo/biryani-demo/Makefile.Debug
 *.exe
+Matlab/bcfgen/_c_files/64ch

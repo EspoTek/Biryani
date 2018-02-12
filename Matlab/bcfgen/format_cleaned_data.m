@@ -24,7 +24,7 @@ end
 
 %Find the length of the phase 2 (data) packets only
 data_packet_length = 0;
-for test_index = 128:length(packet_lengths) %begin the search at packet 128, to ensure we skip phase 1
+for test_index = 80:length(packet_lengths) %begin the search at packet 128, to ensure we skip phase 1
     if(max(packet_lengths(test_index-10:test_index)) == min(packet_lengths(test_index-10:test_index))) %ie, they're all the same
         data_packet_length = packet_lengths(test_index);
         break;
