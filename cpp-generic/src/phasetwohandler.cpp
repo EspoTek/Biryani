@@ -56,12 +56,12 @@ void workerFunction(){
         std::chrono::steady_clock::time_point tic = std::chrono::steady_clock::now();
         //Fetch data
         phaseTwoThreadData.interface->transfer_bulk(true, 0x06, buffer, buffer, packet_length, &bytes_transferred);
-        if(bytes_transferred){
+        if(bytes_transferred == packet_length){
             //Calculate time delay
             std::chrono::steady_clock::time_point toc = std::chrono::steady_clock::now();
             std::chrono::steady_clock::duration duration = toc - tic;
             std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(toc - tic);
-            printf_verbose("Packet #%d received after a %fms delay.  %d bytes transferred\n", packetCount, time_span * 1000, bytes_transferred);
+            printf_debugging("Packet #%d received after a %fms delay.  %d bytes transferred\n", packetCount, time_span * 1000, bytes_transferred);
 
             //Initialise subpacket decoding
             if(!firstPacketDecoded){
@@ -69,9 +69,10 @@ void workerFunction(){
                 //It's highly probable that we've started in a random position mid-subpacket.
                 //This code should find where, specifically.
                 subPacketPointer = &buffer[0];
-                for(int i=0; i<decoder_sp->numBytesPerSubpacket(); i++){
-                    if(decoder_sp->isValidSubPacketStream(subPacketPointer, 32)){
-                        //32 things in a row that look like subpackets should indicate a subpacket stream.  If it looks like a duck, and quacks like a duck...
+                for(int i=0; i<decoder_sp->numBytesPerSubpacket() * 16; i++){
+                    //16 cracks to get a valid sequence
+                    if(decoder_sp->isValidSubPacketStream(subPacketPointer, 16)){
+                        //16 objects in a row that look like subpackets should indicate a subpacket stream.  If it looks like a duck, and quacks like a duck...
                         break;
                     } else {
                         packetStartOffset++;
@@ -101,12 +102,12 @@ void workerFunction(){
             numLeftoverBytes = (packet_length - packetStartOffset)%(decoder_sp->numBytesPerSubpacket());
 
             //Actually decode all of the subPackets
-            for (int i=0;i<numPacketsToDecode;i++){
+            for (int i=0;i<numSubPacketsToDecode;i++){
                 decoder_sp->decodeSubPacket(&subPacketPointer[i*decoder_sp->numBytesPerSubpacket()]);
             }
 
             //But there's that leftover data at the end.
-            decoder_sp->fill_interPacket_front(&beginPacketPointer[packet_length-numLeftoverBytes], numLeftoverBytes);
+            decoder_sp->fill_interPacket_front(&buffer[packet_length-numLeftoverBytes], numLeftoverBytes);
 
             //And don't forget to update the packet start offset for the next packet!
             packetStartOffset = decoder_sp->numBytesPerSubpacket() - numLeftoverBytes;

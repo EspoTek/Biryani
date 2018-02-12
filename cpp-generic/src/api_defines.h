@@ -12,6 +12,10 @@
 
 #define SUBPACKET_MAX_NUM_CHANNELS 69 //Hehe
 
+#define NUM_SAMPLES_PER_CHANNEL 16777215 //AKA buffer size, in words.
+//16777215 = 2^24 - 1.  Highest number that can be stored in the 24 bit address.
+
+
 //Global includes
 #include <vector>
 #include <iostream>
