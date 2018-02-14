@@ -112,5 +112,13 @@ int apiInterface::startStream(){
 }
 
 std::vector<double>* apiInterface::getDownSampledChannelData_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_seconds, int* length){
+    if(channel > getNumChannelsExcludingRef()){
+        fprintf(stderr, "ERROR: Attempted to access nonexistant channel.\n");
+        return NULL;
+    }
     return p2handler->getDownSampledChannelData_double(channel, sampleRate_hz, filter_mode, delay_seconds, timeWindow_seconds, length);
+}
+
+int apiInterface::getNumChannelsExcludingRef(){
+    return num_channels_excluding_ref;
 }

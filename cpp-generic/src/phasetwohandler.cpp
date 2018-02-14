@@ -71,8 +71,8 @@ void workerFunction(){
                 //It's highly probable that we've started in a random position mid-subpacket.
                 //This code should find where, specifically.
                 subPacketPointer = &buffer[0];
-                for(int i=0; i<decoder_sp->numBytesPerSubpacket() * 16; i++){
-                    //16 cracks to get a valid sequence
+                for(int i=0; i<(decoder_sp->numBytesPerSubpacket() * 32); i++){
+                    //32 cracks to get a valid sequence
                     if(decoder_sp->isValidSubPacketStream(subPacketPointer+packetStartOffset, 16)){
                         //16 objects in a row that look like subpackets should indicate a subpacket stream.  If it looks like a duck, and quacks like a duck...
                         subPacketInitialiseSuccess = true;
@@ -95,8 +95,8 @@ void workerFunction(){
             //subPacketPointer should be pointing to the first whole subpacket in the stream.
             //But is it?
             if(!decoder_sp->isValidSubPacketStream(subPacketPointer, 16)){
-                fprintf(stderr, "ERROR: subPacketPointer is not pointing to a subPacket!  Killing thread...");
-                return;
+                fprintf(stderr, "ERROR: subPacketPointer (offset = %d) is not pointing to a subPacket!", packetStartOffset);
+                //return;
             }
 
             //But what about the partial subpacket that could be before it?  interPacketbuffer saves the day.
@@ -113,6 +113,7 @@ void workerFunction(){
 
             //Actually decode all of the subPackets
             for (int i=0;i<numSubPacketsToDecode;i++){
+                printf_verbose("Accessing bytes #%d to %d of buffer\n", &subPacketPointer[i*decoder_sp->numBytesPerSubpacket()] - buffer, &subPacketPointer[i*decoder_sp->numBytesPerSubpacket()] - buffer + decoder_sp->numBytesPerSubpacket());
                 decoder_sp->decodeSubPacket(&subPacketPointer[i*decoder_sp->numBytesPerSubpacket()]);
             }
 
@@ -128,6 +129,9 @@ void workerFunction(){
             packetCount++;
         }
     }
+    //Code to run when exiting thread.
+    phaseTwoThreadData.decoder_sp = NULL;
+    delete decoder_sp;
 }
 
 bool read_kms(){

@@ -37,10 +37,14 @@ private slots:
     void on_plotTestButton_clicked();
 
     void plotTimerTick();
+    void on_channelPlotSpinBox_valueChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
     apiInterface *generic_api;
     QTimer *plotTimer;
+    int current_plotting_channel = 0;
+    double yMin = 100000000000, yMax = -100000000000;
 };
 
 #endif // MAINWINDOW_H

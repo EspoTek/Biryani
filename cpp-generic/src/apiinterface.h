@@ -24,6 +24,7 @@ public:
     int configureSynamps2Device();
     int stopStream();
     int startStream();
+    int getNumChannelsExcludingRef();
     std::vector<double>* getDownSampledChannelData_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_seconds, int* length);
 private:
     //Internal object pointers

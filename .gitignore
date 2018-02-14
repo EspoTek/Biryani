@@ -19,3 +19,6 @@ cpp-generic/demo/biryani-demo/Makefile.Release
 cpp-generic/demo/biryani-demo/Makefile.Debug
 *.exe
 Matlab/bcfgen/_c_files/64ch
+*.c
+cpp-generic/demo/build-biryani-demo-Desktop*
+cpp-generic/demo/biryani-demo/release/moc_mainwindow.cpp

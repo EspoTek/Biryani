@@ -18,6 +18,13 @@ subPacketDecoder::subPacketDecoder(int num_channels_excluding_ref_in)
     for(int i=0; i<num_channels_including_ref; i++){
         sampleBuffer_CH[i] = new o1buffer();
     }
+
+    printf("sizeof(subPacket_generic_template) = %d\n", sizeof(subPacket_generic_template));
+    if(sizeof(subPacket_generic_template) != (SUBPACKET_MAX_NUM_CHANNELS * 4 + 3)){
+        for(int i=0;i<100;i++){
+            fprintf(stderr, "ERROR: subPacket_generic_template is of size %d.  It should be %d.  This will probably cause a crash\n", sizeof(subPacket_generic_template), (SUBPACKET_MAX_NUM_CHANNELS * 4 + 3));
+        }
+    }
 }
 
 int subPacketDecoder::isValidSubPacketStream(unsigned char *ptr_sub, int num_to_test){

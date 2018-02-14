@@ -34,6 +34,9 @@ public:
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout_2;
     QVBoxLayout *verticalLayout;
+    QHBoxLayout *horizontalLayout_3;
+    QLabel *label;
+    QSpinBox *channelPlotSpinBox;
     QHBoxLayout *horizontalLayout;
     QLabel *debugLevelLabel;
     QSpinBox *debugLevelSspinBox;
@@ -64,6 +67,23 @@ public:
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        label = new QLabel(centralWidget);
+        label->setObjectName(QStringLiteral("label"));
+
+        horizontalLayout_3->addWidget(label);
+
+        channelPlotSpinBox = new QSpinBox(centralWidget);
+        channelPlotSpinBox->setObjectName(QStringLiteral("channelPlotSpinBox"));
+        channelPlotSpinBox->setMaximum(67);
+
+        horizontalLayout_3->addWidget(channelPlotSpinBox);
+
+
+        verticalLayout->addLayout(horizontalLayout_3);
+
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
@@ -149,6 +169,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
+        label->setText(QApplication::translate("MainWindow", "Channel to Plot", Q_NULLPTR));
         debugLevelLabel->setText(QApplication::translate("MainWindow", "Debug Level", Q_NULLPTR));
         loadFileButton->setText(QApplication::translate("MainWindow", "Load File", Q_NULLPTR));
         initialiseAmplifierButton->setText(QApplication::translate("MainWindow", "Initialise Amplifier", Q_NULLPTR));
