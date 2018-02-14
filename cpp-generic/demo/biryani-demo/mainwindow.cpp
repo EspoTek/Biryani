@@ -120,7 +120,7 @@ void MainWindow::plotTimerTick(){
     double sampleRate = 2000;
     int filter_mode = 0;
     double delay = 0.01;
-    double timeWindow = 1;
+    double timeWindow = 0.05;
     int length;
 
     std::vector<double> *samples = generic_api->getDownSampledChannelData_double(current_plotting_channel, sampleRate, filter_mode, delay, timeWindow, &length);
@@ -141,30 +141,30 @@ void MainWindow::plotTimerTick(){
         }
     }
 
-    qDebug() << "yMax =" << yMax;
-    qDebug() << "yMin =" << yMin;
-    qDebug() << "yaxis.at(1) =" << yaxis.at(1);
+    //qDebug() << "yMax =" << yMax;
+    //qDebug() << "yMin =" << yMin;
+    //qDebug() << "yaxis.at(1) =" << yaxis.at(1);
 
-    qDebug() << yaxis.length();
+    //qDebug() << yaxis.length();
 
-    double sampleInterval = timeWindow/sampleRate;
+    double sampleInterval = timeWindow/yaxis.length();
 
     QVector<double> xaxis;
     for (int i=0; i<yaxis.length(); i++){
         xaxis.append(-sampleInterval * i - delay);
     }
 
-    qDebug() << "xaxis ready";
+    //qDebug() << "xaxis ready";
 
     ui->plotAxes->yAxis->setRange(yMax, yMin);
-    ui->plotAxes->xAxis->setRange(-1.01, -0.02);
+    ui->plotAxes->xAxis->setRange(-delay - timeWindow, -delay);
 
-    qDebug() << "Range set";
+    //qDebug() << "Range set";
 
     ui->plotAxes->graph(0)->setData(xaxis, yaxis);
     ui->plotAxes->replot();
 
-    qDebug() << "Tick returning";
+    //qDebug() << "Tick returning";
 }
 
 void MainWindow::on_channelPlotSpinBox_valueChanged(int arg1)

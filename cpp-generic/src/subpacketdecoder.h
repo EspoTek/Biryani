@@ -25,6 +25,7 @@ class subPacketDecoder
 {
 public:
     subPacketDecoder(int num_channels_excluding_ref_in);
+    int isStartofStream(unsigned char *ptr_sub, int num_to_test);
     int isValidSubPacketStream(unsigned char *ptr_sub, int num_to_test);
     int decodeSubPacket(unsigned char *ptr_sub);
     int numBytesPerSubpacket();

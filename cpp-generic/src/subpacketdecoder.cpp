@@ -38,6 +38,20 @@ int subPacketDecoder::isValidSubPacketStream(unsigned char *ptr_sub, int num_to_
     return 1;
 }
 
+int subPacketDecoder::isStartofStream(unsigned char *ptr_sub, int num_to_test){
+    if(count2int(ptr_sub) != 0x10){
+        printf_verbose("Not start of stream.  Count = %d\n", count2int(ptr_sub));
+        return 0;
+    }
+
+    if(!isValidSubPacketStream(ptr_sub, num_to_test)){
+        return 0;
+    }
+
+    return 1;
+}
+
+
 int subPacketDecoder::isValidSubPacket(unsigned char *ptr_sub){
     int subPacketLength = numBytesPerSubpacket();
 
@@ -56,7 +70,7 @@ int subPacketDecoder::isValidSubPacket(unsigned char *ptr_sub){
     }
 
     //If it passed those two tests, it's probably OK.
-    printf_verbose("subPacketDecoder::isValidSubPacket SUCCESS");
+    printf_verbose("subPacketDecoder::isValidSubPacket SUCCESS\n");
     return 1;
 }
 

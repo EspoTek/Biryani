@@ -53,12 +53,14 @@ void workerFunction(){
     bool firstPacketDecoded = false;
     int numSubPacketsToDecode;
     int numLeftoverBytes;
+    int num_to_test = 8;
 
     while(!read_kms()){
         std::chrono::steady_clock::time_point tic = std::chrono::steady_clock::now();
         //Fetch data
         phaseTwoThreadData.interface->transfer_bulk(true, 0x06, buffer, buffer, packet_length, &bytes_transferred);
         if(bytes_transferred == packet_length){
+            printf_debugging("Packet decoding starts from position %d\n", packetStartOffset);
             //Calculate time delay
             std::chrono::steady_clock::time_point toc = std::chrono::steady_clock::now();
             std::chrono::steady_clock::duration duration = toc - tic;
@@ -71,21 +73,23 @@ void workerFunction(){
                 //It's highly probable that we've started in a random position mid-subpacket.
                 //This code should find where, specifically.
                 subPacketPointer = &buffer[0];
-                for(int i=0; i<(decoder_sp->numBytesPerSubpacket() * 32); i++){
-                    //32 cracks to get a valid sequence
-                    if(decoder_sp->isValidSubPacketStream(subPacketPointer+packetStartOffset, 16)){
-                        //16 objects in a row that look like subpackets should indicate a subpacket stream.  If it looks like a duck, and quacks like a duck...
+
+                printf_debugging("Seeking start of stream.\n");
+                for(int i=0; i<(packet_length - (decoder_sp->numBytesPerSubpacket() * num_to_test)); i++){
+                    if(decoder_sp->isStartofStream(subPacketPointer+packetStartOffset, num_to_test)){
+                        //num_to_test objects in a row that look like subpackets should indicate a subpacket stream.  If it looks like a duck, and quacks like a duck...
                         subPacketInitialiseSuccess = true;
+                        printf_debugging("Start of stream found with offset %d\n", packetStartOffset);
                         break;
                     } else {
-                        printf_debugging("subPacket not found with offset %d\n", packetStartOffset);
+                        printf_verbose("subPacket not found with offset %d\n", packetStartOffset);
                         packetStartOffset++;
                     }
                 }
             }
 
             if(subPacketInitialiseSuccess==false){
-                fprintf(stderr, "Failed to find subPacket after many attempts.  Did you try to start the stream twice?  Killing thread...\n");
+                fprintf(stderr, "Count not find start of stream.  Did you try to start the stream twice?  Killing thread...\n");
                 return;
             }
 
@@ -94,15 +98,15 @@ void workerFunction(){
 
             //subPacketPointer should be pointing to the first whole subpacket in the stream.
             //But is it?
-            if(!decoder_sp->isValidSubPacketStream(subPacketPointer, 16)){
+            if(!decoder_sp->isValidSubPacketStream(subPacketPointer, num_to_test)){
                 fprintf(stderr, "ERROR: subPacketPointer (offset = %d) is not pointing to a subPacket!", packetStartOffset);
                 //return;
             }
 
             //But what about the partial subpacket that could be before it?  interPacketbuffer saves the day.
-            decoder_sp->fill_interPacket_back(buffer, packetStartOffset);
-            //If not the first packet, interPacketBuffer should now contain a whole subpacket.
             if(firstPacketDecoded){
+                decoder_sp->fill_interPacket_back(buffer, packetStartOffset);
+                //If not the first packet, interPacketBuffer should now contain a whole subpacket.
                 decoder_sp->decodeInterPacket();
             }
 

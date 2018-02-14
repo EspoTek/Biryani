@@ -106,6 +106,7 @@ int phaseOneHandler::sendPattern(){
 
     //Actually send the packets!
     for(int i=0; i<pattern->size(); i++){
+        printf("Transmitting packet %d.\n", i);
         error = pattern->at(i)->transmit();
         if(error)
         {
