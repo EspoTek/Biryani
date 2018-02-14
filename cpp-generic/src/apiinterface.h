@@ -21,12 +21,14 @@ public:
     void setDebugLevel(int new_debug_level_in);
     int loadFile(char *fname);
     int initialiseSynamps2Device();
-    int configureSynamps2Device();
     int stopStream();
     int startStream();
     int getNumChannelsExcludingRef();
     std::vector<double>* getDownSampledChannelData_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_seconds, int* length);
 private:
+    //Hidden fucntions
+    int configureSynamps2Device();
+
     //Internal object pointers
     configurationFileHandler *fileHandler;
     phaseZeroHandler *p0handler;

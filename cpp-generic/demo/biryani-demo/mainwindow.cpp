@@ -40,6 +40,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->plotAxes->yAxis->setRange(0, 1);
     ui->plotAxes->replot();
 
+    //Hide deprecated buttons
+    ui->configureAmplifierButton->setVisible(false);
+    ui->testActionButton->setVisible(false);
+    ui->testAction2Button->setVisible(false);
+
 }
 
 MainWindow::~MainWindow()
@@ -89,7 +94,7 @@ void MainWindow::on_debugLevelSspinBox_valueChanged(int arg1)
 
 void MainWindow::on_configureAmplifierButton_clicked()
 {
-    generic_api->configureSynamps2Device();
+    //generic_api->configureSynamps2Device();
 }
 
 void MainWindow::on_testAction2Button_clicked()

@@ -108,6 +108,7 @@ int apiInterface::stopStream(){
 }
 
 int apiInterface::startStream(){
+    configureSynamps2Device();
     return p2handler->enterPhaseTwo(phase2_length, num_channels_excluding_ref, p1handler->getInterface());
 }
 
