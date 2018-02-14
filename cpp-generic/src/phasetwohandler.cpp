@@ -60,12 +60,14 @@ void workerFunction(){
         //Fetch data
         phaseTwoThreadData.interface->transfer_bulk(true, 0x06, buffer, buffer, packet_length, &bytes_transferred);
         if(bytes_transferred == packet_length){
-            printf_debugging("Packet decoding starts from position %d\n", packetStartOffset);
+            printf_debugging("Packet decoding begins at position %d\n", packetStartOffset);
             //Calculate time delay
             std::chrono::steady_clock::time_point toc = std::chrono::steady_clock::now();
             std::chrono::steady_clock::duration duration = toc - tic;
             std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(toc - tic);
             printf_debugging("Packet #%d received after a %fms delay.  %d bytes transferred\n", packetCount, time_span * 1000, bytes_transferred);
+
+            write_latency_values(time_span.count() * 1000, &phaseTwoThreadData);
 
             //Initialise subpacket decoding
             if(!firstPacketDecoded){
@@ -152,6 +154,27 @@ void write_kms(bool new_value){
     phaseTwoThreadData.kms_mutex.unlock();
 }
 
+void write_latency_values(double new_latency_value, threadStruct *thread_data){
+    thread_data->latency_storage_mutex.lock();
+    thread_data->total_latency += new_latency_value;
+    thread_data->count += 1;
+    thread_data->latency_storage_mutex.unlock();
+}
+
+double read_latency_values(threadStruct *thread_data){
+    double retVal;
+    thread_data->latency_storage_mutex.lock();
+    retVal = thread_data->total_latency / (thread_data->count);
+    thread_data->latency_storage_mutex.unlock();
+
+    return retVal;
+}
+
+double phaseTwoHandler::getAverageLatency(){
+    return read_latency_values(&phaseTwoThreadData);
+}
+
+
 std::vector<double> *phaseTwoHandler::getDownSampledChannelData_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_seconds, int *length){
     if (phaseTwoThreadData.decoder_sp == NULL){
         fprintf(stderr, "ERROR: No subpacket decoder detected.  Have you started the stream yet?\n");
@@ -160,3 +183,4 @@ std::vector<double> *phaseTwoHandler::getDownSampledChannelData_double(int chann
         phaseTwoThreadData.decoder_sp->getDownSampledChannelData_double(channel, sampleRate_hz, filter_mode, delay_seconds, timeWindow_seconds, length);
     }
 }
+

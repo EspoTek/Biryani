@@ -39,6 +39,8 @@ private slots:
     void plotTimerTick();
     void on_channelPlotSpinBox_valueChanged(int arg1);
 
+    void on_getAverageLatencyButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     apiInterface *generic_api;

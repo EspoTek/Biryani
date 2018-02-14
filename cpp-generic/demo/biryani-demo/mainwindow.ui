@@ -103,6 +103,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="getAverageLatencyButton">
+        <property name="text">
+         <string>Get Average Latency</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="plotTestButton">
         <property name="text">
          <string>Start Plotting Test</string>

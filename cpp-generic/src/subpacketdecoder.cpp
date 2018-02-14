@@ -120,8 +120,8 @@ int subPacketDecoder::count2int(unsigned char *ptr_count){
 }
 
 std::vector<double>* subPacketDecoder::getDownSampledChannelData_double(int channel, double sampleRate_hz, int mode, double delay_seconds, double timeWindow_seconds, int* length){
-    printf("packetBuffer::getDownSampledChannelData\n");
-    printf("Most recent address is %d\n", sampleBuffer_CH[0]->mostRecentAddress);
+    printf_verbose("subPacketDecoder::getDownSampledChannelData\n");
+    printf_debugging("Getting downsampled data counting backwards from sample index #%d\n", sampleBuffer_CH[0]->mostRecentAddress);
 
     if(mode != 0){
         fprintf(stderr, "Only mode 0 is supported ATM!!\n");
@@ -133,7 +133,7 @@ std::vector<double>* subPacketDecoder::getDownSampledChannelData_double(int chan
 
     *(length) = (int)numToGet;
 
-    printf("interval_samples\t%f\ndelay_samples\t%f\nnumToGet\t%f\n", interval_samples, delay_samples, numToGet);
+    printf_verbose("interval_samples\t%f\ndelay_samples\t%f\nnumToGet\t%f\n", interval_samples, delay_samples, numToGet);
 
     return sampleBuffer_CH[channel]->getMany_nofilter_double(numToGet, interval_samples, delay_samples);
 }

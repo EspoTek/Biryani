@@ -123,3 +123,24 @@ std::vector<double>* apiInterface::getDownSampledChannelData_double(int channel,
 int apiInterface::getNumChannelsExcludingRef(){
     return num_channels_excluding_ref;
 }
+
+int apiInterface::getPacketInterval(){
+    if(phase2_length % 512){
+        fprintf(stderr, "PHASE_2_DATA is not a multiple of 512.  Check your .bcf file for corruption.\n");
+        return 0;
+    }
+
+    if(phase2_length = 0){
+        fprintf(stderr, "PHASE_2_DATA = 0.  Have you loaded the .bcf yet?\n");
+    }
+
+    return phase2_length/512;
+}
+
+void apiInterface::setPacketInterval(int new_packet_interval){
+    phase2_length = new_packet_interval * 512;
+}
+
+double apiInterface::getAverageLatency_ms(){
+    return p2handler->getAverageLatency();
+}

@@ -183,3 +183,9 @@ void MainWindow::on_channelPlotSpinBox_valueChanged(int arg1)
     yMax = -100000000000;
     yMin = 100000000000;
 }
+
+void MainWindow::on_getAverageLatencyButton_clicked()
+{
+    double temp = generic_api->getAverageLatency_ms();
+    qDebug() << temp;
+}

@@ -47,6 +47,7 @@ public:
     QPushButton *stopStreamButton;
     QPushButton *testActionButton;
     QPushButton *testAction2Button;
+    QPushButton *getAverageLatencyButton;
     QPushButton *plotTestButton;
     QCustomPlot *plotAxes;
     QMenuBar *menuBar;
@@ -136,6 +137,11 @@ public:
 
         verticalLayout->addWidget(testAction2Button);
 
+        getAverageLatencyButton = new QPushButton(centralWidget);
+        getAverageLatencyButton->setObjectName(QStringLiteral("getAverageLatencyButton"));
+
+        verticalLayout->addWidget(getAverageLatencyButton);
+
         plotTestButton = new QPushButton(centralWidget);
         plotTestButton->setObjectName(QStringLiteral("plotTestButton"));
 
@@ -178,6 +184,7 @@ public:
         stopStreamButton->setText(QApplication::translate("MainWindow", "Stop Stream", Q_NULLPTR));
         testActionButton->setText(QApplication::translate("MainWindow", "Test Action", Q_NULLPTR));
         testAction2Button->setText(QApplication::translate("MainWindow", "Test Action 2", Q_NULLPTR));
+        getAverageLatencyButton->setText(QApplication::translate("MainWindow", "Get Average Latency", Q_NULLPTR));
         plotTestButton->setText(QApplication::translate("MainWindow", "Start Plotting Test", Q_NULLPTR));
     } // retranslateUi
 

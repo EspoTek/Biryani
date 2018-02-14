@@ -16,14 +16,21 @@ class apiInterface
 {
 public:
     apiInterface();
-    void testAction();
-    void testAction_2();
+    //Generic Getters
+    int getNumChannelsExcludingRef();
+    int getPacketInterval();
+    double getAverageLatency_ms();
+    //Generic Setters
     void setDebugLevel(int new_debug_level_in);
+    void setPacketInterval(int new_packet_interval);
+    //Synamps Specific Functions
     int loadFile(char *fname);
     int initialiseSynamps2Device();
     int stopStream();
     int startStream();
-    int getNumChannelsExcludingRef();
+    //Other Functions
+    void testAction();
+    void testAction_2();
     std::vector<double>* getDownSampledChannelData_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_seconds, int* length);
 private:
     //Hidden fucntions
