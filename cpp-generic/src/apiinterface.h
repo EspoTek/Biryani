@@ -29,8 +29,6 @@ public:
     int stopStream();
     int startStream();
     //Other Functions
-    void testAction();
-    void testAction_2();
     std::vector<double>* getDownSampledChannelData_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_seconds, int* length);
 private:
     //Hidden fucntions
@@ -48,7 +46,8 @@ private:
     std::vector<rawPacket> phase1_raw;
     int phase2_length;
     std::vector<rawPacket> phase3_raw;
-    int num_channels_excluding_ref;
+    int num_channels_excluding_ref = -1;
+    bool streamStarted = false;
 };
 
 #endif // APIINTERFACE_H

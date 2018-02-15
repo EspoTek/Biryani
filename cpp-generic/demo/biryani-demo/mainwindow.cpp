@@ -79,7 +79,7 @@ void MainWindow::on_loadFileButton_clicked()
 
 void MainWindow::on_testActionButton_clicked()
 {
-    generic_api->testAction();
+    //generic_api->testAction();
 }
 
 void MainWindow::on_initialiseAmplifierButton_clicked()
@@ -99,7 +99,7 @@ void MainWindow::on_configureAmplifierButton_clicked()
 
 void MainWindow::on_testAction2Button_clicked()
 {
-    generic_api->testAction_2();
+    //generic_api->testAction_2();
 }
 
 void MainWindow::on_stopStreamButton_clicked()
