@@ -1,0 +1,13 @@
+﻿Build started 19/02/2018 10:51:12 AM.
+     1>Project "C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\DLL\biryani\biryani.vcxproj" on node 2 (Rebuild target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /sdl /Od /D CODE_ANALYSIS /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D BIRYANI_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"x64\Debug\biryani.pch.codeanalysis" /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /analyze /analyze:plugin"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\\bin\localespc.dll" /errorReport:prompt   /analyze:quiet stdafx.cpp
+         stdafx.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /sdl /Od /D CODE_ANALYSIS /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D BIRYANI_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"x64\Debug\biryani.pch.codeanalysis" /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /analyze /analyze:plugin"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\\bin\localespc.dll" /errorReport:prompt   /analyze:quiet biryani.cpp
+         biryani.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /sdl /Od /D CODE_ANALYSIS /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D BIRYANI_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /analyze /analyze:plugin"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\\bin\localespc.dll" /errorReport:prompt   /analyze:quiet dllmain.cpp
+     1>Done Building Project "C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\DLL\biryani\biryani.vcxproj" (Rebuild target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:06.41

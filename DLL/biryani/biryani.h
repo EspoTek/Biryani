@@ -19,4 +19,4 @@ public:
 
 extern BIRYANI_API int nbiryani;
 
-BIRYANI_API int fnbiryani(void);
+BIRYANI_API double fnbiryani(double input_number);

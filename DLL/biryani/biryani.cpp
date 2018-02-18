@@ -9,9 +9,9 @@
 BIRYANI_API int nbiryani=0;
 
 // This is an example of an exported function.
-BIRYANI_API int fnbiryani(void)
+BIRYANI_API double fnbiryani(double input_number)
 {
-	return 42;
+	return 42 * input_number + 420;
 }
 
 // This is the constructor of a class that has been exported.
