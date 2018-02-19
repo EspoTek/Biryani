@@ -213,8 +213,8 @@
     <ClCompile Include="biryani.cpp">
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\cpp-generic\src;C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\cpp-generic\src;C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>

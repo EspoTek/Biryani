@@ -17,5 +17,5 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     ptr_number_in = mxGetPr(prhs[0]); //Mex get pointer to real (double);
     ptr_number_out[0] = fnbiryani(ptr_number_in[0]);
 
-    plhs[0] = mxCreateDoubleScalar(ptr_number_out[0]);   
+    plhs[0] = mxCreateDoubleScalar((double) ptr_number_out[0]);   
 }

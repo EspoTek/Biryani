@@ -20,3 +20,4 @@ public:
 extern BIRYANI_API int nbiryani;
 
 BIRYANI_API double fnbiryani(double number_in);
+BIRYANI_API int biryani_init();
