@@ -1,0 +1,83 @@
+﻿  apiinterface.cpp
+C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(738): warning C4200: nonstandard extension used: zero-sized array in struct/union
+  C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(738): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
+C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(769): warning C4200: nonstandard extension used: zero-sized array in struct/union
+  C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(769): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
+C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(1265): warning C4200: nonstandard extension used: zero-sized array in struct/union
+  C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(1265): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
+..\..\..\cpp-generic\src\apiinterface.cpp(90): warning C4474: 'fprintf' : too many arguments passed for format string
+  ..\..\..\cpp-generic\src\apiinterface.cpp(90): note: placeholders and their parameters expect 0 variadic arguments, but 1 were provided
+  configurationfilehandler.cpp
+  inittransfer.cpp
+C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(738): warning C4200: nonstandard extension used: zero-sized array in struct/union
+  C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(738): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
+C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(769): warning C4200: nonstandard extension used: zero-sized array in struct/union
+  C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(769): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
+C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(1265): warning C4200: nonstandard extension used: zero-sized array in struct/union
+  C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(1265): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
+..\..\..\cpp-generic\src\inittransfer.cpp(28): warning C4800: 'unsigned char': forcing value to bool 'true' or 'false' (performance warning)
+..\..\..\cpp-generic\src\inittransfer.cpp(32): warning C4800: 'unsigned char': forcing value to bool 'true' or 'false' (performance warning)
+  o1buffer.cpp
+  phaseonehandler.cpp
+C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(738): warning C4200: nonstandard extension used: zero-sized array in struct/union
+  C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(738): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
+C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(769): warning C4200: nonstandard extension used: zero-sized array in struct/union
+  C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(769): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
+C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(1265): warning C4200: nonstandard extension used: zero-sized array in struct/union
+  C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(1265): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
+..\..\..\cpp-generic\src\phaseonehandler.cpp(24): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'unsigned __int64'
+  ..\..\..\cpp-generic\src\phaseonehandler.cpp(24): note: consider using '%zd' in the format string
+..\..\..\cpp-generic\src\phaseonehandler.cpp(92): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'unsigned __int64'
+  ..\..\..\cpp-generic\src\phaseonehandler.cpp(92): note: consider using '%zd' in the format string
+  phasetwohandler.cpp
+C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(738): warning C4200: nonstandard extension used: zero-sized array in struct/union
+  C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(738): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
+C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(769): warning C4200: nonstandard extension used: zero-sized array in struct/union
+  C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(769): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
+C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(1265): warning C4200: nonstandard extension used: zero-sized array in struct/union
+  C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(1265): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
+..\..\..\cpp-generic\src\phasetwohandler.cpp(68): warning C4477: 'printf' : format string '%f' requires an argument of type 'double', but variadic argument 2 has type 'std::chrono::duration<double,std::ratio<1,1>>'
+..\..\..\cpp-generic\src\phasetwohandler.cpp(122): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type '__int64'
+  ..\..\..\cpp-generic\src\phasetwohandler.cpp(122): note: consider using '%lld' in the format string
+  ..\..\..\cpp-generic\src\phasetwohandler.cpp(122): note: consider using '%Id' in the format string
+  ..\..\..\cpp-generic\src\phasetwohandler.cpp(122): note: consider using '%I64d' in the format string
+..\..\..\cpp-generic\src\phasetwohandler.cpp(122): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 2 has type '__int64'
+  ..\..\..\cpp-generic\src\phasetwohandler.cpp(122): note: consider using '%lld' in the format string
+  ..\..\..\cpp-generic\src\phasetwohandler.cpp(122): note: consider using '%Id' in the format string
+  ..\..\..\cpp-generic\src\phasetwohandler.cpp(122): note: consider using '%I64d' in the format string
+  phasezerohandler.cpp
+C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(738): warning C4200: nonstandard extension used: zero-sized array in struct/union
+  C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(738): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
+C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(769): warning C4200: nonstandard extension used: zero-sized array in struct/union
+  C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(769): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
+C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(1265): warning C4200: nonstandard extension used: zero-sized array in struct/union
+  C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(1265): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
+..\..\..\cpp-generic\src\phasezerohandler.cpp(38): warning C4244: '=': conversion from 'ssize_t' to 'int', possible loss of data
+..\..\..\cpp-generic\src\phasezerohandler.cpp(81): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'unsigned __int64'
+  ..\..\..\cpp-generic\src\phasezerohandler.cpp(81): note: consider using '%zd' in the format string
+..\..\..\cpp-generic\src\phasezerohandler.cpp(147): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'unsigned __int64'
+  ..\..\..\cpp-generic\src\phasezerohandler.cpp(147): note: consider using '%zd' in the format string
+  subpacketdecoder.cpp
+..\..\..\cpp-generic\src\subpacketdecoder.cpp(22): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'std::size_t'
+  ..\..\..\cpp-generic\src\subpacketdecoder.cpp(22): note: consider using '%zd' in the format string
+..\..\..\cpp-generic\src\subpacketdecoder.cpp(25): warning C4477: 'fprintf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'std::size_t'
+  ..\..\..\cpp-generic\src\subpacketdecoder.cpp(25): note: consider using '%zd' in the format string
+..\..\..\cpp-generic\src\subpacketdecoder.cpp(58): warning C4477: 'printf' : format string '%llx' requires an argument of type 'unsigned __int64', but variadic argument 1 has type 'unsigned char *'
+..\..\..\cpp-generic\src\subpacketdecoder.cpp(138): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+  usbinterface.cpp
+C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(738): warning C4200: nonstandard extension used: zero-sized array in struct/union
+  C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(738): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
+C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(769): warning C4200: nonstandard extension used: zero-sized array in struct/union
+  C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(769): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
+C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(1265): warning C4200: nonstandard extension used: zero-sized array in struct/union
+  C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(1265): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
+..\..\..\cpp-generic\src\usbinterface.cpp(95): warning C4018: '<': signed/unsigned mismatch
+  biryani.cpp
+  stdafx.cpp
+  dllmain.cpp
+     Creating library C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\DLL\biryani\x64\Release\biryani.lib and object C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\DLL\biryani\x64\Release\biryani.exp
+  Generating code
+  All 16 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  biryani.vcxproj -> C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\DLL\biryani\x64\Release\biryani.dll
+  biryani.vcxproj -> C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\DLL\biryani\x64\Release\biryani.pdb (Full PDB)

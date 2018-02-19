@@ -1,7 +1,6 @@
 #ifndef INITPACKET_H
 #define INITPACKET_H
 
-#include <QDebug>
 #include "usbinterface.h"
 
 class initTransfer
