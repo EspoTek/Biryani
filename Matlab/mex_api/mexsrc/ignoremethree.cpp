@@ -10,9 +10,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
     //I/O
     int *ptr_return_value;
-    
-    printf("Hey hey it's me yo boii chris from prank invasion\n");
-    
+        
     //Malloc all the vars!
     ptr_return_value = (int *) calloc(1, sizeof(int));
     

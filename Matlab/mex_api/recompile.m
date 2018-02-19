@@ -1,3 +1,9 @@
+fprintf("\n\n\nCompiling opendebugconsole.cpp...\n\n\n");
+mex mexsrc/opendebugconsole.cpp -I../../cpp-generic/src/ -I../../DLL/biryani/biryani -lbiryani -L../../DLL/biryani/x64/Release
+copyfile opendebugconsole.mexw64 mexbin
+delete opendebugconsole.mexw64
+
+
 fprintf("\n\n\nCompiling ignoreme.c...\n\n\n");
 mex mexsrc/ignoreme.c -I../../cpp-generic/src/% -lusb-1.0 -Lbin\lib\x64
 copyfile ignoreme.mexw64 mexbin

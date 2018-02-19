@@ -5,7 +5,6 @@
 #include "biryani.h"
 #include "apiinterface.h"
 
-
 // This is an example of an exported variable
 BIRYANI_API int nbiryani=0;
 apiInterface *ptr_api = NULL;
@@ -32,6 +31,15 @@ BIRYANI_API int biryani_init()
 		return 1;
 	}
 
+	return 0;
+}
+
+BIRYANI_API int biryani_enable_debugging_console()
+{
+	if (AllocConsole() == 0) {
+		freopen("CONOUT$", "w", stdout);
+		freopen("CONOUT$", "w", stderr);
+	}
 	return 0;
 }
 
