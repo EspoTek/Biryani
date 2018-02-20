@@ -15,7 +15,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     double *ptr_filter_mode_in;
     double *ptr_delay_seconds_in;
     double *ptr_timeWindow_seconds_in;
-    double *ptr_length_out;
+    //double *ptr_length_out;
     double *ptr_data_out;
     mwSize dims[2] = {0,0};
     
@@ -48,14 +48,14 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     dll_return = biryani_getDownSampledChannelData_double(channel, sampleRate_hz, filter_mode, delay_seconds, timeWindow_seconds, length_int);
 
     //Malloc all the outputs!
-    ptr_length_out = (double*)mxCalloc(1, sizeof(double));
-    ptr_length_out[0] = (double)(length_int[0]);
+    //ptr_length_out = (double*)mxCalloc(1, sizeof(double));
+    //ptr_length_out[0] = (double)(length_int[0]);
     ptr_data_out = dll_return->data();
     dims[0] = 1;
     dims[1] = length_int[0];
     
     
-    plhs[0] = mxCreateDoubleScalar((double)ptr_length_out[0]);  
-    plhs[1] = mxCreateNumericArray(2, dims, mxUINT8_CLASS, mxREAL);
-    mxSetData(plhs[1], ptr_data_out);
+    //plhs[0] = mxCreateDoubleScalar((double)ptr_length_out[0]);  
+    plhs[0] = mxCreateNumericArray(2, dims, mxUINT8_CLASS, mxREAL);
+    mxSetData(plhs[0], ptr_data_out);
 }

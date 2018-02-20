@@ -18,6 +18,48 @@ recompile_cpp('shared_lib_call_biryani_setPacketInterval');
 recompile_cpp('shared_lib_call_biryani_stopStream');
 recompile_cpp('shared_lib_call_biryani_startStream');
 
+% % % % % BIRYANI_API std::vector<double>* biryani_getDownSampledChannelData_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_seconds, int* length);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 % //Non-API
 % % % % % BIRYANI_API double fnbiryani(double number_in);
