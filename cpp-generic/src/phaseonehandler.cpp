@@ -99,7 +99,8 @@ int phaseOneHandler::sendPattern(){
     std::vector<initTransfer*> *pattern = &configPattern;
 
     //Setup the USB device!
-    if(phase1_interface->setup(bInterface)){
+	error = phase1_interface->setup(bInterface);
+    if(error){
         //Error printing is handled internally by usbInterface::setup().
         return error;
     }

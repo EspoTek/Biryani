@@ -19,7 +19,7 @@ int phaseZeroHandler::checkIfAlreadyInitialised(){
     libusb_context *ctx = NULL;
     libusb_device ** list;
     libusb_device *current_device;
-    libusb_device_descriptor *current_descriptor;
+    libusb_device_descriptor current_descriptor;
     int error;
     int num_usb_devices;
     uint16_t current_vid, current_pid;
@@ -46,9 +46,9 @@ int phaseZeroHandler::checkIfAlreadyInitialised(){
             continue;
         } //else
 
-        libusb_get_device_descriptor(current_device, current_descriptor);
-        current_vid = current_descriptor->idVendor;
-        current_pid = current_descriptor->idProduct;
+        libusb_get_device_descriptor(current_device, &current_descriptor);
+        current_vid = current_descriptor.idVendor;
+        current_pid = current_descriptor.idProduct;
         printf_verbose("\nDevice %d\nVID=0x%04x\nPID=0x%04x\n", i, current_vid, current_pid);
         if(current_vid == SYNAMPS2_UNINITIALISED_VID && current_pid == SYNAMPS2_UNINITIALISED_PID){
             printf_verbose("Synamps2 (uninitialised) device\n");
@@ -155,7 +155,8 @@ int phaseZeroHandler::sendPattern(){
     std::vector<initTransfer*> *pattern = &initPattern;
 
     //Setup the USB device!
-    if(phase0_interface->setup(bInterface)){
+	error = phase0_interface->setup(bInterface);
+    if(error){
         //Error printing is handled internally by usbInterface::setup().
         return error;
     }

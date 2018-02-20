@@ -1,10 +1,18 @@
-﻿  biryani.cpp
-biryani.cpp(22): warning C4477: 'printf' : format string '%llx' requires an argument of type 'unsigned __int64', but variadic argument 1 has type 'apiInterface *'
+﻿  phasezerohandler.cpp
+C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(738): warning C4200: nonstandard extension used: zero-sized array in struct/union
+  C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(738): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
+C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(769): warning C4200: nonstandard extension used: zero-sized array in struct/union
+  C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(769): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
+C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(1265): warning C4200: nonstandard extension used: zero-sized array in struct/union
+  C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(1265): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
+..\..\..\cpp-generic\src\phasezerohandler.cpp(38): warning C4244: '=': conversion from 'ssize_t' to 'int', possible loss of data
+..\..\..\cpp-generic\src\phasezerohandler.cpp(81): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'unsigned __int64'
+  ..\..\..\cpp-generic\src\phasezerohandler.cpp(81): note: consider using '%zd' in the format string
+..\..\..\cpp-generic\src\phasezerohandler.cpp(147): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'unsigned __int64'
+  ..\..\..\cpp-generic\src\phasezerohandler.cpp(147): note: consider using '%zd' in the format string
      Creating library C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\DLL\biryani\x64\Release\biryani.lib and object C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\DLL\biryani\x64\Release\biryani.exp
   Generating code
-  3 of 78 functions ( 3.8%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  All 310 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
   biryani.vcxproj -> C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\DLL\biryani\x64\Release\biryani.dll
   biryani.vcxproj -> C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\DLL\biryani\x64\Release\biryani.pdb (Full PDB)

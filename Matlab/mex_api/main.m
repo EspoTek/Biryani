@@ -2,15 +2,9 @@ clear all
 clc
 
 addpaths
-recompile
-
 copyfile ../../DLL/biryani/x64/Release/biryani.dll
+copyfile ../../Qt/BIRYANI7/lib/win64/libusb/dll/libusb-1.0.dll
 
-return;
-
-pause(5);
-
-biryani_7_api_open_debug_console()
-biryani_7_api_ignoreme(420);
-biryani_7_api_ignoreme_too(420);
-biryani_7_api_ignoreme_three();
+recompile_cpp('shared_lib_call_biryani_init');
+recompile_cpp('shared_lib_call_biryani_initialiseSynamps2Device');
+recompile_cpp('shared_lib_call_biryani_loadFile');

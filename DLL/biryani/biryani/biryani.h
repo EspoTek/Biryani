@@ -19,6 +19,14 @@ public:
 
 extern BIRYANI_API int nbiryani;
 
+//Other
 BIRYANI_API double fnbiryani(double number_in);
-BIRYANI_API int biryani_init();
 BIRYANI_API int biryani_enable_debugging_console();
+BIRYANI_API int biryani_init();
+
+//Copied from API object.
+BIRYANI_API int biryani_loadFile(char *fname);
+BIRYANI_API int biryani_initialiseSynamps2Device();
+BIRYANI_API int biryani_stopStream();
+BIRYANI_API int biryani_startStream();
+

@@ -5,6 +5,13 @@
 #include "biryani.h"
 #include "apiinterface.h"
 
+//Macros
+#define MACRO_CHECK_API_OBJECT_EXISTS \
+if (ptr_api == NULL) { \
+	return -12801024; \
+}
+
+
 // This is an example of an exported variable
 BIRYANI_API int nbiryani=0;
 apiInterface *ptr_api = NULL;
@@ -48,4 +55,22 @@ BIRYANI_API int biryani_enable_debugging_console()
 Cbiryani::Cbiryani()
 {
     return;
+}
+
+BIRYANI_API int biryani_loadFile(char *fname) {
+	MACRO_CHECK_API_OBJECT_EXISTS;
+	return ptr_api->loadFile(fname);
+}
+BIRYANI_API int biryani_initialiseSynamps2Device() {
+	MACRO_CHECK_API_OBJECT_EXISTS;
+	return ptr_api->initialiseSynamps2Device();
+}
+BIRYANI_API int biryani_stopStream() {
+	MACRO_CHECK_API_OBJECT_EXISTS;
+	return ptr_api->stopStream();
+
+}
+BIRYANI_API int biryani_startStream() {
+	MACRO_CHECK_API_OBJECT_EXISTS;
+	return ptr_api->startStream();
 }
