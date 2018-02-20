@@ -39,7 +39,7 @@ int subPacketDecoder::isValidSubPacketStream(unsigned char *ptr_sub, int num_to_
 }
 
 int subPacketDecoder::isStartofStream(unsigned char *ptr_sub, int num_to_test){
-    if(count2int(ptr_sub) != 0x10){
+    if(count2int(ptr_sub) != SUBPACKET_STREAM_START_INDEX){
         printf_verbose("Not start of stream.  Count = %d\n", count2int(ptr_sub));
         return 0;
     }

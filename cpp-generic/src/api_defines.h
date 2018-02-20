@@ -3,6 +3,8 @@
 
 #define FILE_MAX_CHARS_PER_LINE 300000
 #define FILE_BCF_HEADER_STRING "Biryani 7 Configuration File Version 0.91\n"
+#define USB_BULK_TIMEOUT_MS 500  //Timeout for USB bulk transfers in ms.
+#define SUBPACKET_STREAM_START_INDEX 0x08 //This is the first packet that subPacketDecoder will look for when starting the stream decoding.
 
 #define SYNAMPS2_MAIN_VID 0x0B6E
 #define SYNAMPS2_MAIN_PID 0x0006

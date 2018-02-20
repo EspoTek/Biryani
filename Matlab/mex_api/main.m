@@ -17,5 +17,3 @@ recompile_cpp('shared_lib_call_biryani_setDebugLevel');
 recompile_cpp('shared_lib_call_biryani_setPacketInterval');
 recompile_cpp('shared_lib_call_biryani_stopStream');
 recompile_cpp('shared_lib_call_biryani_startStream');
-
-run_example;
