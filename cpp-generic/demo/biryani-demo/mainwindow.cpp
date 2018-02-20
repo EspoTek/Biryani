@@ -189,3 +189,8 @@ void MainWindow::on_getAverageLatencyButton_clicked()
     double temp = generic_api->getAverageLatency_ms();
     qDebug() << temp;
 }
+
+void MainWindow::on_getPacketIntervalButton_clicked()
+{
+    qDebug() << generic_api->getPacketInterval();
+}

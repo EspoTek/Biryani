@@ -116,6 +116,13 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QPushButton" name="getPacketIntervalButton">
+        <property name="text">
+         <string>Get Packet Interval</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
     <item>

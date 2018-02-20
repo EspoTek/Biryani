@@ -49,6 +49,7 @@ public:
     QPushButton *testAction2Button;
     QPushButton *getAverageLatencyButton;
     QPushButton *plotTestButton;
+    QPushButton *getPacketIntervalButton;
     QCustomPlot *plotAxes;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
@@ -147,6 +148,11 @@ public:
 
         verticalLayout->addWidget(plotTestButton);
 
+        getPacketIntervalButton = new QPushButton(centralWidget);
+        getPacketIntervalButton->setObjectName(QStringLiteral("getPacketIntervalButton"));
+
+        verticalLayout->addWidget(getPacketIntervalButton);
+
 
         horizontalLayout_2->addLayout(verticalLayout);
 
@@ -186,6 +192,7 @@ public:
         testAction2Button->setText(QApplication::translate("MainWindow", "Test Action 2", Q_NULLPTR));
         getAverageLatencyButton->setText(QApplication::translate("MainWindow", "Get Average Latency", Q_NULLPTR));
         plotTestButton->setText(QApplication::translate("MainWindow", "Start Plotting Test", Q_NULLPTR));
+        getPacketIntervalButton->setText(QApplication::translate("MainWindow", "Get Packet Interval", Q_NULLPTR));
     } // retranslateUi
 
 };

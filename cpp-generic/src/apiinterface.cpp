@@ -180,12 +180,13 @@ int apiInterface::getNumChannelsExcludingRef(){
 //On success, getPacketInterval() returns the packetInterval variable, as described above.
 //On failure, it returns -1.
 int apiInterface::getPacketInterval(){
+    printf_verbose("Phase2_length = %d\n", phase2_length);
     if(phase2_length % 512){
         fprintf(stderr, "PHASE_2_DATA is not a multiple of 512.  Check your .bcf file for corruption.\n");
         return -1;
     }
 
-    if(phase2_length = 0){
+    if(phase2_length == 0){
         fprintf(stderr, "PHASE_2_DATA = 0.  Have you loaded the .bcf yet?\n");
     }
 

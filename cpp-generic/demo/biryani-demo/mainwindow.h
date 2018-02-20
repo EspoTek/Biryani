@@ -41,6 +41,8 @@ private slots:
 
     void on_getAverageLatencyButton_clicked();
 
+    void on_getPacketIntervalButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     apiInterface *generic_api;
