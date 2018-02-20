@@ -51,6 +51,27 @@ BIRYANI_API int biryani_init()
 	return 0;
 }
 
+BIRYANI_API int biryani_reset()
+{
+	//Check if object already exists
+	if (ptr_api == NULL) {
+		printf("Biryani API has not been initialised!  Aborting...\n", ptr_api);
+		return -1;
+	}
+
+	//Delete old API and replace with new one.
+	delete ptr_api;
+	ptr_api = new apiInterface();
+
+	//Ensure it was created properly.
+	if (ptr_api == NULL) {
+		printf("Failed to create Biryani API object.  Aborting...\n");
+		return 1;
+	}
+
+	return 0;
+}
+
 BIRYANI_API int biryani_enable_debugging_console()
 {
 	if (AllocConsole() == 0) {

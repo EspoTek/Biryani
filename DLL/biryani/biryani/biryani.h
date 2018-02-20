@@ -26,6 +26,7 @@ extern BIRYANI_API int nbiryani;
 BIRYANI_API double fnbiryani(double number_in);
 BIRYANI_API int biryani_enable_debugging_console();
 BIRYANI_API int biryani_init();
+BIRYANI_API int biryani_reset();
 
 //Copied from API object.
 	//Generic Getters
