@@ -7,6 +7,7 @@ class initTransfer
 {
 public:
     initTransfer(usbInterface *interface);
+    ~initTransfer();
     int transmit();
     usbInterface *libusb_interface = NULL;
     unsigned char direction_is_in;

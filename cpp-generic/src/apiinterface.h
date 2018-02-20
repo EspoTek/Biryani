@@ -16,6 +16,7 @@ class apiInterface
 {
 public:
     apiInterface();
+    ~apiInterface();
     //Generic Getters
     int getNumChannelsExcludingRef();
     int getPacketInterval();

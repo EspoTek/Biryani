@@ -27,6 +27,15 @@ subPacketDecoder::subPacketDecoder(int num_channels_excluding_ref_in)
     }
 }
 
+subPacketDecoder::~subPacketDecoder(){
+    for(int i=0; i<num_channels_including_ref; i++){
+        delete sampleBuffer_CH[i];
+    }
+
+    free(interPacket);
+}
+
+
 int subPacketDecoder::isValidSubPacketStream(unsigned char *ptr_sub, int num_to_test){
     for (int i = 0; i<num_to_test; i++){
         if(!isValidSubPacket(&ptr_sub[i*numBytesPerSubpacket()])){

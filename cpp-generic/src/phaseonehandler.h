@@ -10,6 +10,7 @@ class phaseOneHandler
 {
 public:
     phaseOneHandler(std::vector<rawPacket> *phase1_raw_in);
+    ~phaseOneHandler();
     int createPattern();
     int sendPattern();
     usbInterface *getInterface();

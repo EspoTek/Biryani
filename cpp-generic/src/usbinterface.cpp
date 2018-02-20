@@ -11,6 +11,10 @@ usbInterface::usbInterface(unsigned short vendor_id, unsigned short product_id)
     printf("usbInterface created.  VID = %04x; PID = %04x\n", vid, pid);
 }
 
+usbInterface::~usbInterface(){
+    if(ctx != NULL) libusb_exit(ctx);
+}
+
 //This sets up the libusb environment and opens the device.
 //It must be called once before you can transmit or receive any data to/from the Synamps2 device.
 int usbInterface::setup(int bInterface){

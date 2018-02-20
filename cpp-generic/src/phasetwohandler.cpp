@@ -8,6 +8,20 @@ phaseTwoHandler::phaseTwoHandler()
 {
 }
 
+phaseTwoHandler::~phaseTwoHandler()
+{
+    if(worker != NULL){
+        write_kms(true);
+        worker->join();
+        delete worker;
+    }
+    if(phase2_interface != NULL) delete phase2_interface;
+    phaseTwoThreadData.count = 0;
+    phaseTwoThreadData.total_latency = 0;
+    phaseTwoThreadData.decoder_sp = NULL;
+    write_kms(false);
+}
+
 void phaseTwoHandler::deleteThread(){
     write_kms(true);
 }
@@ -30,6 +44,7 @@ int phaseTwoHandler::enterPhaseTwo(int phase2_packet_length_in, int num_channels
     phaseTwoThreadData.packet_length = phase2_packet_length_in;
     phaseTwoThreadData.interface = interface;
     phaseTwoThreadData.num_channels_excluding_ref =num_channels_excluding_ref;
+    write_kms(false);
     worker = new std::thread(workerFunction);
     return 0;
 }
@@ -136,8 +151,11 @@ void workerFunction(){
         }
     }
     //Code to run when exiting thread.
-    phaseTwoThreadData.decoder_sp = NULL;
+    phaseTwoThreadData.count = 0;
+    phaseTwoThreadData.total_latency = 0;
+    phaseTwoThreadData.decoder_sp = NULL;    
     delete decoder_sp;
+    printf_debugging("Worker thread terminated correctly");
 }
 
 bool read_kms(){
@@ -176,6 +194,10 @@ double phaseTwoHandler::getAverageLatency(){
 
 
 std::vector<double> *phaseTwoHandler::getDownSampledChannelData_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_seconds, int *length){
+    if(read_kms()){
+        fprintf(stderr, "ERROR: Cannot get data.  System has shut down or is preparing for shutdown...\n");
+        return NULL;
+    }
     if (phaseTwoThreadData.decoder_sp == NULL){
         fprintf(stderr, "ERROR: No subpacket decoder detected.  Have you started the stream yet?\n");
         return NULL;

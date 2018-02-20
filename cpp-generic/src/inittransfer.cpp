@@ -8,6 +8,9 @@ initTransfer::initTransfer(usbInterface *interface)
     libusb_interface = interface;
 }
 
+initTransfer::~initTransfer(){
+}
+
 //This function will prompt the usbInterface to transfer the packet in the appropriate way
 int initTransfer::transmit(){
     printf_debugging("initTransfer::transmit()\n");

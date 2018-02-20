@@ -10,6 +10,9 @@ phaseOneHandler::phaseOneHandler(std::vector<rawPacket> *phase1_raw_in)
     }
 }
 
+phaseOneHandler::~phaseOneHandler(){
+    delete phase1_interface;
+}
 
 //This function creates a chain of packets that, when sent one after another, will configure a (ready) Synamps2 device.
 int phaseOneHandler::createPattern(void){

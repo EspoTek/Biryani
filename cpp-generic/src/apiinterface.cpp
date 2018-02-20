@@ -27,6 +27,16 @@ apiInterface::apiInterface()
     setbuf(stderr, NULL);
 }
 
+//Destructor!
+apiInterface::~apiInterface(){
+    delete p3handler;
+    delete p2handler;
+    delete p1handler;
+    delete p0handler;
+    delete usbHandler;
+    delete fileHandler;
+}
+
 //setDebugLevel() sets the debug level variable.
 //This variable controls what debugging messages are displayed.
 //If it's greater than or equal to 400, it will display all messages.

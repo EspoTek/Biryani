@@ -13,6 +13,10 @@ phaseZeroHandler::phaseZeroHandler()
     }
 }
 
+phaseZeroHandler::~phaseZeroHandler(){
+    if(phase0_interface != NULL) delete phase0_interface;
+}
+
 //Return values: -1 is unconnected, 0 is connected but not initialised, 1 is connected and initialised
 int phaseZeroHandler::checkIfAlreadyInitialised(){
     //Variables

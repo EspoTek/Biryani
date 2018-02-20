@@ -10,6 +10,7 @@ class phaseZeroHandler
 {
 public:
     phaseZeroHandler();
+    ~phaseZeroHandler();
     int checkIfAlreadyInitialised();
     int createPattern(void);
     int sendPattern(void);
