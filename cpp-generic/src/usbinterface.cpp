@@ -92,7 +92,7 @@ int usbInterface::transfer_compare(const unsigned char *constBuffer, unsigned ch
     //Return early if the two buffers share the same location.  No need to compare.
     if(constBuffer == variableBuffer) return 0;
 
-    for (int i=0;i<length;i++)
+    for (unsigned int i=0;i<length;i++)
     {
         if(constBuffer[i] != variableBuffer[i])
         {

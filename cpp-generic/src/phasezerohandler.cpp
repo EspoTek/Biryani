@@ -78,7 +78,7 @@ int phaseZeroHandler::createPattern(void){
 
     //We don't want to run this function twice!
     if(initPattern.size()){
-        printf_verbose("initPattern already contains %d elements!  Returning...\n", initPattern.size());
+        printf_verbose("initPattern already contains %llu elements!  Returning...\n", initPattern.size());
         return 1;
     }
 
@@ -144,7 +144,7 @@ int phaseZeroHandler::createPattern(void){
         currentTransfer->wIndex = packet[32] + 0x100*packet[33];
         currentTransfer->data_length = packet[34] + 0x100*packet[35];
     }
-    printf_verbose("initPattern.size() = %d\n", initPattern.size());
+    printf_verbose("initPattern.size() = %llu\n", initPattern.size());
 
     return 0;
 }

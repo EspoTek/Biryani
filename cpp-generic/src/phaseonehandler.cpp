@@ -21,7 +21,7 @@ int phaseOneHandler::createPattern(void){
 
     //We don't want to run this function twice!
     if(configPattern.size()){
-        printf("configPattern already contains %d elements!  Aborting...\n", configPattern.size());
+        printf("configPattern already contains %llu elements!  Aborting...\n", configPattern.size());
         return 1;
     }
     initTransfer *currentTransfer = NULL;
@@ -89,7 +89,7 @@ int phaseOneHandler::createPattern(void){
             currentTransfer->data_length = currentPayload[34] + 0x100*currentPayload[35];
         }
     }
-    printf_verbose("configPattern.size() = %d\n", configPattern.size());
+    printf_verbose("configPattern.size() = %llu\n", configPattern.size());
     return 0;
 }
 

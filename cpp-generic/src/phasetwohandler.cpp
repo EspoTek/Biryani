@@ -65,7 +65,7 @@ void workerFunction(){
             std::chrono::steady_clock::time_point toc = std::chrono::steady_clock::now();
             std::chrono::steady_clock::duration duration = toc - tic;
             std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(toc - tic);
-            printf_debugging("Packet #%d received after a %fms delay.  %d bytes transferred\n", packetCount, time_span * 1000, bytes_transferred);
+            printf_debugging("Packet #%d received after a %fms delay.  %d bytes transferred\n", packetCount, time_span.count() * 1000, bytes_transferred);
 
             write_latency_values(time_span.count() * 1000, &phaseTwoThreadData);
 
@@ -119,7 +119,7 @@ void workerFunction(){
 
             //Actually decode all of the subPackets
             for (int i=0;i<numSubPacketsToDecode;i++){
-                printf_verbose("Accessing bytes #%d to %d of buffer\n", &subPacketPointer[i*decoder_sp->numBytesPerSubpacket()] - buffer, &subPacketPointer[i*decoder_sp->numBytesPerSubpacket()] - buffer + decoder_sp->numBytesPerSubpacket());
+                printf_verbose("Accessing bytes #%lld to %lld of buffer\n", &subPacketPointer[i*decoder_sp->numBytesPerSubpacket()] - buffer, &subPacketPointer[i*decoder_sp->numBytesPerSubpacket()] - buffer + decoder_sp->numBytesPerSubpacket());
                 decoder_sp->decodeSubPacket(&subPacketPointer[i*decoder_sp->numBytesPerSubpacket()]);
             }
 
@@ -180,7 +180,7 @@ std::vector<double> *phaseTwoHandler::getDownSampledChannelData_double(int chann
         fprintf(stderr, "ERROR: No subpacket decoder detected.  Have you started the stream yet?\n");
         return NULL;
     } else {
-        phaseTwoThreadData.decoder_sp->getDownSampledChannelData_double(channel, sampleRate_hz, filter_mode, delay_seconds, timeWindow_seconds, length);
+        return phaseTwoThreadData.decoder_sp->getDownSampledChannelData_double(channel, sampleRate_hz, filter_mode, delay_seconds, timeWindow_seconds, length);
     }
 }
 

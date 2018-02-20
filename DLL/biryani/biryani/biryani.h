@@ -4,6 +4,9 @@
 // that uses this DLL. This way any other project whose source files include this file see 
 // BIRYANI_API functions as being imported from a DLL, whereas this DLL sees symbols
 // defined with this macro as being exported.
+
+#include <vector>
+
 #ifdef BIRYANI_EXPORTS
 #define BIRYANI_API __declspec(dllexport)
 #else
@@ -25,8 +28,19 @@ BIRYANI_API int biryani_enable_debugging_console();
 BIRYANI_API int biryani_init();
 
 //Copied from API object.
-BIRYANI_API int biryani_loadFile(char *fname);
-BIRYANI_API int biryani_initialiseSynamps2Device();
-BIRYANI_API int biryani_stopStream();
-BIRYANI_API int biryani_startStream();
+	//Generic Getters
+	BIRYANI_API int biryani_getNumChannelsExcludingRef();
+	BIRYANI_API int biryani_getPacketInterval();
+	BIRYANI_API double biryani_getAverageLatency_ms();
+	//Generic Setters
+	BIRYANI_API void biryani_setDebugLevel(int new_debug_level_in);
+	BIRYANI_API void biryani_setPacketInterval(int new_packet_interval);
+	//Synamps Specific Functions
+	BIRYANI_API int biryani_loadFile(char *fname);
+	BIRYANI_API int biryani_initialiseSynamps2Device();
+	BIRYANI_API int biryani_stopStream();
+	BIRYANI_API int biryani_startStream();
+	//Other Functions
+	BIRYANI_API std::vector<double>* biryani_getDownSampledChannelData_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_seconds, int* length);
+
 

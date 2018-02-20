@@ -87,7 +87,7 @@ int apiInterface::initialiseSynamps2Device(){
             printf("Synamps2 device already connected and ready.  Returning without initialising.\n");
             return 420;
         default:
-            fprintf(stderr, "ERROR in initialiseSynamps2Device(), amplifer status invalid", error);
+            fprintf(stderr, "ERROR in initialiseSynamps2Device(), amplifer status invalid");
             return -69;
     }
 }
