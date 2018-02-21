@@ -161,6 +161,7 @@ int apiInterface::stopStream(){
 //The first sample contains the value of the stream (delay_seconds + timeWindow_seconds) seconds ago.
 //The last samples contains the value of the stream delay_seconds seconds ago.
 //The samples in between are evenly spaced, temporally, with interval of (1/sampleRate_Hz) seconds per sample.
+//Note that the first channel has an index of 0.  Channel 1 is the second channel.
 //Returns NULL on error, otherwise returns the vector.
 std::vector<double>* apiInterface::getDownSampledChannelData_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_seconds, int* length){
     if(channel > getNumChannelsExcludingRef()){
@@ -175,6 +176,7 @@ std::vector<double>* apiInterface::getDownSampledChannelData_double(int channel,
 //delay_seconds dictates the delay, as per getDownSampledChannelData_double(), while timeWindow_max_seconds dictates the maximum size of the time window you want to look at.
 //For example, let's assume you called this function once at t=10s with delay_seconds = 0.1 and timeWindow_max_seconds=5, and then again at and t=20s with delay_seconds = 0 and timeWindow_max_seconds=999999999999999.
 //The first call would return the data corresponding to the t=4.9s to t=9.9s, and the second call would contain t=9.9s to t=19.9s.
+//Note that the first channel has an index of 0.  Channel 1 is the second channel.
 //It would not contain anything earlier than 9.9s since that was returned by the last call, and it would not contain anything later than 19.9 since there is a 0.1s delay
 ////HOW DOES IT FUNCTION OVER THE 16777215 boundary???
 std::vector<double>* apiInterface::getAllDownSampledChannelDataSinceLastCall_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_max_seconds, int* length){

@@ -31,9 +31,11 @@ for i = 1:length(fileNameArray)
     
     %Make sure the current file is not already bcf formatted
     temp = fileNameArray{i};
-    if(temp(end-3:end) == '.bcf')
-        fprintf('\nFile is already in .bcf format.  Continuing.\n');
-        continue;
+    if(length(temp)>3)
+        if(temp(end-3:end) == '.bcf')
+            fprintf('\nFile is already in .bcf format.  Continuing.\n');
+            continue;
+        end
     end
     
     

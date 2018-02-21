@@ -10,7 +10,7 @@ if(b7a_init() == -1)
 end
 
 %Next, we load our BCF file.
-b7a_load_file('8chtest.bcf')
+b7a_load_file('20k32chtest.bcf')
 
 %This next step is optional.  It gets a "packet interval" variable than can
 %optimise latency.
@@ -40,7 +40,12 @@ for(i=1:10)
     ymax
     %This will get 1 second of data from 0.1 seconds in the past,
     %downsampled to 2kHz with no filter.
-    cool = b7a_get_downsampled_data_since_last_call(0, 1000, 0, 8, 0.01);
+    for channel = 1:b7a_get_num_channels_excluding_ref()
+        cool = b7a_get_downsampled_data_since_last_call(channel, 1000, 0, 0.01, 0.05);
+        drawnow
+    end
+    %temp = b7a_get_downsampled_data_double(0, 1000, 0, 0.01, 8)
+    
     
     b7a_get_latency_ms()
     if(min(cool)<ymin)
