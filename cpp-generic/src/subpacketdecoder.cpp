@@ -146,7 +146,10 @@ std::vector<double>* subPacketDecoder::getDownSampledChannelData_double(int chan
 
     printf_verbose("interval_samples\t%f\ndelay_samples\t%f\nnumToGet\t%f\n", interval_samples, delay_samples, numToGet);
 
-    return sampleBuffer_CH[channel]->getMany_nofilter_double(numToGet, interval_samples, delay_samples);
+    read_write_mutex.lock();
+    std::vector<double>* temp = sampleBuffer_CH[channel]->getMany_nofilter_double(numToGet, interval_samples, delay_samples);
+    read_write_mutex.unlock();
+    return temp;
 }
 
 std::vector<double> *subPacketDecoder::getAllDownSampledChannelDataSinceLastCall_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_max_seconds, int* length){
@@ -163,7 +166,9 @@ std::vector<double> *subPacketDecoder::getAllDownSampledChannelDataSinceLastCall
     //Make sure sampleBuffer_CH[channel]->getSinceLast() doesn't freak out if the user puts in an infinite timeWindow.
     if(feasible_window_begin >= NUM_SAMPLES_PER_CHANNEL) feasible_window_begin = NUM_SAMPLES_PER_CHANNEL-1;
 
+    read_write_mutex.lock();
     std::vector<double> *temp = sampleBuffer_CH[channel]->getSinceLast(feasible_window_begin, feasible_window_end, interval_samples);
+    read_write_mutex.unlock();
     if(temp == NULL) length[0] = 0;
     else length[0] = temp->size();
     return temp;

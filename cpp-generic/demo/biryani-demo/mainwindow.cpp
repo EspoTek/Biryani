@@ -197,8 +197,26 @@ void MainWindow::on_getPacketIntervalButton_clicked()
 
 void MainWindow::on_getDataSinceLastCallButton_clicked()
 {
+    double time_max_seconds = 2;
     int * ptr_len = (int*)calloc(1, sizeof(int));
-    generic_api->getAllDownSampledChannelDataSinceLastCall_double(0, 2000, 0, 0.01, 10, ptr_len);
+    generic_api->getAllDownSampledChannelDataSinceLastCall_double(0, 1000, 0, 0.01, time_max_seconds, ptr_len);
+    QThread::msleep(200);
+    generic_api->getAllDownSampledChannelDataSinceLastCall_double(0, 1000, 0, 0.01, time_max_seconds, ptr_len);
+    QThread::msleep(400);
+    generic_api->getAllDownSampledChannelDataSinceLastCall_double(0, 1000, 0, 0.01, time_max_seconds, ptr_len);
+    QThread::msleep(600);
+    generic_api->getAllDownSampledChannelDataSinceLastCall_double(0, 1000, 0, 0.01, time_max_seconds, ptr_len);
+    QThread::msleep(800);
+    generic_api->getAllDownSampledChannelDataSinceLastCall_double(0, 1000, 0, 0.01, time_max_seconds, ptr_len);
+    QThread::msleep(1000);
+    generic_api->getAllDownSampledChannelDataSinceLastCall_double(0, 1000, 0, 0.01, time_max_seconds, ptr_len);
+    QThread::msleep(1200);
+    generic_api->getAllDownSampledChannelDataSinceLastCall_double(0, 1000, 0, 0.01, time_max_seconds, ptr_len);
+    QThread::msleep(1400);
+    generic_api->getAllDownSampledChannelDataSinceLastCall_double(0, 1000, 0, 0.01, time_max_seconds, ptr_len);
+
+
+
 }
 
 void MainWindow::on_getSampleRateButton_clicked()

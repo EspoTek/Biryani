@@ -70,22 +70,46 @@ std::vector<double> *o1buffer::getMany_nofilter_double(int numToGet, int interva
 }
 
 std::vector<double> *o1buffer::getSinceLast(int feasible_window_begin, int feasible_window_end, int interval_samples){
+
+    //Calculate what sample the feasible window begins at
+    printf_debugging("o1buffer::getSinceLast()\n")
     int feasible_start_point = mostRecentAddress - feasible_window_begin;
     if(feasible_start_point < 0){
         feasible_start_point += NUM_SAMPLES_PER_CHANNEL;
     }
 
+    //Work out whether or not we're starting from the feasible window or the last point
     int actual_start_point;
-    printf_debugging("stream_index_at_last_call = %d\nfeasible_start_point=%d\n,mostRecentAddress=%d\n", stream_index_at_last_call, feasible_start_point, mostRecentAddress);
-    printf_debugging("distanceFromMostRecentAddress(feasible_start_point) = %d\ndistanceFromMostRecentAddress(stream_index_at_last_call)=%d\n", distanceFromMostRecentAddress(feasible_start_point), distanceFromMostRecentAddress(stream_index_at_last_call));
-    if(distanceFromMostRecentAddress(feasible_start_point) > distanceFromMostRecentAddress(stream_index_at_last_call)){
-        printf_debugging("Earliest feasible start point is further behind than the stream index at last call\n");
-        actual_start_point = stream_index_at_last_call;
+    if(distanceFromMostRecentAddress(feasible_start_point) > distanceFromMostRecentAddress(stream_index_at_last_call + interval_samples)){
+        actual_start_point = stream_index_at_last_call + interval_samples;
     } else {
-        printf_debugging("Stream index at last call is further behind than the earliest feasible start point\n");
-        actual_start_point = stream_index_at_last_call;
+        actual_start_point = feasible_start_point;
     }
-    return NULL;
+
+    //Work out how much we're copying
+    int actual_sample_distance = distanceFromMostRecentAddress(actual_start_point) - distanceFromMostRecentAddress(mostRecentAddress - feasible_window_end);
+    int numToGet = actual_sample_distance/interval_samples;
+    printf_debugging("Fetching %d samples, starting at index %d with interval %d\n", numToGet, actual_start_point, interval_samples);
+
+    //Set up the buffer
+    convertedStream_double.resize(numToGet);
+
+    //Copy raw samples out.
+    int tempAddress;
+    for(int i=0;i<numToGet;i++){
+        tempAddress = actual_start_point + (interval_samples * i);
+        if(tempAddress > NUM_SAMPLES_PER_CHANNEL){
+            tempAddress -= NUM_SAMPLES_PER_CHANNEL;
+        }
+        double *data = convertedStream_double.data();
+        data[numToGet-1-i] = buffer[tempAddress];
+        //convertedStream_double.replace(i, buffer[tempAddress]);
+    }
+
+    //update stream_index_at_last_call for next call
+    stream_index_at_last_call = tempAddress;
+
+    return &convertedStream_double;
 }
 
 int o1buffer::distanceFromMostRecentAddress(int index){
