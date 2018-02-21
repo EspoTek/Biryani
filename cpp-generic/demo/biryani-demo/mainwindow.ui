@@ -123,6 +123,20 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QPushButton" name="getSampleRateButton">
+        <property name="text">
+         <string>Get Sample Rate</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="getDataSinceLastCallButton">
+        <property name="text">
+         <string>Get Data Since Last Call</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
     <item>

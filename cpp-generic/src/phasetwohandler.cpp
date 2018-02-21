@@ -75,12 +75,12 @@ void workerFunction(){
         //Fetch data
         phaseTwoThreadData.interface->transfer_bulk(true, 0x06, buffer, buffer, packet_length, &bytes_transferred);
         if(bytes_transferred == packet_length){
-            printf_debugging("Packet decoding begins at position %d\n", packetStartOffset);
+            printf_periodic("Packet decoding begins at position %d\n", packetStartOffset);
             //Calculate time delay
             std::chrono::steady_clock::time_point toc = std::chrono::steady_clock::now();
             std::chrono::steady_clock::duration duration = toc - tic;
             std::chrono::duration<double> time_span = std::chrono::duration_cast<std::chrono::duration<double>>(toc - tic);
-            printf_debugging("Packet #%d received after a %fms delay.  %d bytes transferred\n", packetCount, time_span.count() * 1000, bytes_transferred);
+            printf_periodic("Packet #%d received after a %fms delay.  %d bytes transferred\n", packetCount, time_span.count() * 1000, bytes_transferred);
 
             write_latency_values(time_span.count() * 1000, &phaseTwoThreadData);
 
@@ -217,5 +217,9 @@ std::vector<double> *phaseTwoHandler::getAllDownSampledChannelDataSinceLastCall_
     } else {
         return phaseTwoThreadData.decoder_sp->getAllDownSampledChannelDataSinceLastCall_double(channel, sampleRate_hz, filter_mode, delay_seconds, timeWindow_max_seconds, length);
     }
+}
+
+int phaseTwoHandler::measureSampleRate(){
+    return phaseTwoThreadData.decoder_sp->measureSampleRate();
 }
 

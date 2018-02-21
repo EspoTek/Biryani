@@ -1,6 +1,8 @@
 #include "subpacketdecoder.h"
 #include "o1buffer.h"
 
+#include <thread>
+
 subPacketDecoder::subPacketDecoder(int num_channels_excluding_ref_in)
 {
     //Get the right number of channels
@@ -148,20 +150,46 @@ std::vector<double>* subPacketDecoder::getDownSampledChannelData_double(int chan
 }
 
 std::vector<double> *subPacketDecoder::getAllDownSampledChannelDataSinceLastCall_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_max_seconds, int* length){
-    printf_verbose("subPacketDecoder::getDownSampledChannelData\n");
-    printf_debugging("Getting downsampled data counting backwards from sample index #%d\n", sampleBuffer_CH[0]->mostRecentAddress);
+    printf_verbose("subPacketDecoder::getAllDownSampledChannelDataSinceLastCall_double\n");
 
     if(filter_mode != 0){
         fprintf(stderr, "Only mode 0 is supported ATM!!\n");
     }
 
+    double feasible_window_begin = round((timeWindow_max_seconds + delay_seconds)*MAX_SAMPLES_PER_SECOND);
+    double feasible_window_end = round(delay_seconds*MAX_SAMPLES_PER_SECOND);
     double interval_samples = round(MAX_SAMPLES_PER_SECOND / sampleRate_hz);
-    double delay_samples = round(MAX_SAMPLES_PER_SECOND * delay_seconds);
-    double numToGet = round(timeWindow_max_seconds * sampleRate_hz);
 
-    *(length) = (int)numToGet;
+    //Make sure sampleBuffer_CH[channel]->getSinceLast() doesn't freak out if the user puts in an infinite timeWindow.
+    if(feasible_window_begin >= NUM_SAMPLES_PER_CHANNEL) feasible_window_begin = NUM_SAMPLES_PER_CHANNEL-1;
 
-    printf_verbose("interval_samples\t%f\ndelay_samples\t%f\nnumToGet\t%f\n", interval_samples, delay_samples, numToGet);
+    std::vector<double> *temp = sampleBuffer_CH[channel]->getSinceLast(feasible_window_begin, feasible_window_end, interval_samples);
+    if(temp == NULL) length[0] = 0;
+    else length[0] = temp->size();
+    return temp;
+}
 
-    return sampleBuffer_CH[channel]->getMany_nofilter_double(numToGet, interval_samples, delay_samples);
+int subPacketDecoder::measureSampleRate(){
+    double numSeconds = 2;
+
+    //Get read #1
+    read_write_mutex.lock();
+    int initialRead = sampleBuffer_CH[0]->mostRecentAddress;
+    read_write_mutex.unlock();
+
+    //Sleep for numSeconds seconds
+    std::this_thread::sleep_for(std::chrono::seconds((int)numSeconds));
+
+    //Get read 2
+    read_write_mutex.lock();
+    int finalRead = sampleBuffer_CH[0]->mostRecentAddress;
+    read_write_mutex.unlock();
+
+    //calculate distance between them.
+    double sampleDifference = finalRead - initialRead;
+    if(sampleDifference < 0){
+        sampleDifference += NUM_SAMPLES_PER_CHANNEL;
+    }
+
+    return round(sampleDifference / numSeconds);
 }

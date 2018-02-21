@@ -194,3 +194,14 @@ void MainWindow::on_getPacketIntervalButton_clicked()
 {
     qDebug() << generic_api->getPacketInterval();
 }
+
+void MainWindow::on_getDataSinceLastCallButton_clicked()
+{
+    int * ptr_len = (int*)calloc(1, sizeof(int));
+    generic_api->getAllDownSampledChannelDataSinceLastCall_double(0, 2000, 0, 0.01, 10, ptr_len);
+}
+
+void MainWindow::on_getSampleRateButton_clicked()
+{
+    qDebug() << generic_api->measureSampleRate();
+}

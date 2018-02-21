@@ -43,6 +43,10 @@ private slots:
 
     void on_getPacketIntervalButton_clicked();
 
+    void on_getDataSinceLastCallButton_clicked();
+
+    void on_getSampleRateButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     apiInterface *generic_api;

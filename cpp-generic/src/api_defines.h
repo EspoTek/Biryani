@@ -17,7 +17,7 @@
 #define NUM_SAMPLES_PER_CHANNEL 16777215 //AKA buffer size, in words.
 //16777215 = 2^24 - 1.  Highest number that can be stored in the 24 bit address.
 
-#define MAX_SAMPLES_PER_SECOND 20000 //Samples per second that the Synamps2 device records at.  From the spec sheet.  http://compumedicsneuroscan.com/wp-content/uploads/2014/03/AE074_4-SynAmps-RT-specs-sheet-USA-LR.pdf
+#define MAX_SAMPLES_PER_SECOND 10000 //Samples per second that the Synamps2 device records at.  Measured.
 
 //Global includes
 #include <vector>
@@ -34,6 +34,7 @@ typedef struct rawPacket{
 
 //Debugging
 #define DEBUG_LEVEL_VERBOSE 400
+#define DEBUG_LEVEL_PERIODIC 350
 #define DEBUG_LEVEL_DEBUGGING 300
 extern int debug_level;  //Should not be changed after calling a function
 
@@ -47,6 +48,10 @@ extern int debug_level;  //Should not be changed after calling a function
         printf(__VA_ARGS__);\
     } \
 
+#define printf_periodic(...)\
+    if(debug_level >= DEBUG_LEVEL_PERIODIC){ \
+        printf(__VA_ARGS__);\
+    } \
 
 
 

@@ -33,6 +33,7 @@ public:
     int fill_interPacket_back(unsigned char *ptr, int packetStartOffset);
     int fill_interPacket_front(unsigned char *ptr, int numLeftoverBytes);
     int decodeInterPacket();
+    int measureSampleRate();
     std::vector<double>* getDownSampledChannelData_double(int channel, double sampleRate_hz, int mode, double delay_seconds, double timeWindow_seconds, int* length);
     std::vector<double>* getAllDownSampledChannelDataSinceLastCall_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_max_seconds, int* length);
 private:

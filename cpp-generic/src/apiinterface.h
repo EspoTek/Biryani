@@ -29,6 +29,7 @@ public:
     int initialiseSynamps2Device();
     int stopStream();
     int startStream();
+    int measureSampleRate();
     //Other Functions
     std::vector<double>* getDownSampledChannelData_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_seconds, int* length);
     std::vector<double>* getAllDownSampledChannelDataSinceLastCall_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_max_seconds, int* length);

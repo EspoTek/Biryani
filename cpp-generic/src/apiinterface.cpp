@@ -12,9 +12,6 @@ int debug_level = 0;
 //Returns void.
 apiInterface::apiInterface()
 {
-    for(int i=0; i<100; i++){
-        fprintf(stderr, "WARNING: You just chucked in a meme value of 20kHz as the max sample rate.\n");
-    }
     fileHandler = new configurationFileHandler(&phase1_raw, &phase2_length, &phase3_raw, &num_channels_excluding_ref);
     usbHandler = new usbInterface(SYNAMPS2_MAIN_VID, SYNAMPS2_MAIN_PID);
     p0handler = new phaseZeroHandler();
@@ -224,14 +221,27 @@ void apiInterface::setPacketInterval(int new_packet_interval){
     phase2_length = new_packet_interval * 512;
 }
 
-//getAverageLatency_ms() sets the packetInterval variable, as described in getPacketInterval().
-
+//getAverageLatency_ms() gets the average time in ms between data buffer updates.
+//A value of 20ms means that you can get new data using getDownSampledChannelData_double() or getAllDownSampledChannelDataSinceLastCall_double() every 20ms, on average.
+//If you're not satisfied with the current latency you're getting, you can reduce it using setPacketInterval().  Latency scales linearly with the packet interval.
+//Just keep in mind that this won't fix a bottleneck caused by inefficient processing of the data.  :)
 double apiInterface::getAverageLatency_ms(){
     return p2handler->getAverageLatency();
 }
 
+//measureSampleRate() takes a measurement of the sampling of the amplifier, in Hz.
+//Please note that it will take about 2 seconds to perform this measurement.
+//It should always return approximately 10,000.  If not, something is wrong.
+int apiInterface::measureSampleRate(){
+    if(!streamStarted){
+        fprintf(stderr, "Cannot measure the sample rate until the stream has started!");
+        return -1;
+    }
+    return p2handler->measureSampleRate();
+}
 
-//configureSynamps2Device()
+//configureSynamps2Device() is an internal function called by startStream().
+//Basically does all the phase 1 stuff but doesn't enter phase 2.
 int apiInterface::configureSynamps2Device(){
     int error;
 

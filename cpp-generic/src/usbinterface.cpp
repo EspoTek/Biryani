@@ -8,7 +8,7 @@ usbInterface::usbInterface(unsigned short vendor_id, unsigned short product_id)
     vid = vendor_id;
     pid = product_id;
 
-    printf("usbInterface created.  VID = %04x; PID = %04x\n", vid, pid);
+    printf_debugging("usbInterface created.  VID = %04x; PID = %04x\n", vid, pid);
 }
 
 usbInterface::~usbInterface(){

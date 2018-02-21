@@ -50,6 +50,8 @@ public:
     QPushButton *getAverageLatencyButton;
     QPushButton *plotTestButton;
     QPushButton *getPacketIntervalButton;
+    QPushButton *getSampleRateButton;
+    QPushButton *getDataSinceLastCallButton;
     QCustomPlot *plotAxes;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
@@ -153,6 +155,16 @@ public:
 
         verticalLayout->addWidget(getPacketIntervalButton);
 
+        getSampleRateButton = new QPushButton(centralWidget);
+        getSampleRateButton->setObjectName(QStringLiteral("getSampleRateButton"));
+
+        verticalLayout->addWidget(getSampleRateButton);
+
+        getDataSinceLastCallButton = new QPushButton(centralWidget);
+        getDataSinceLastCallButton->setObjectName(QStringLiteral("getDataSinceLastCallButton"));
+
+        verticalLayout->addWidget(getDataSinceLastCallButton);
+
 
         horizontalLayout_2->addLayout(verticalLayout);
 
@@ -193,6 +205,8 @@ public:
         getAverageLatencyButton->setText(QApplication::translate("MainWindow", "Get Average Latency", Q_NULLPTR));
         plotTestButton->setText(QApplication::translate("MainWindow", "Start Plotting Test", Q_NULLPTR));
         getPacketIntervalButton->setText(QApplication::translate("MainWindow", "Get Packet Interval", Q_NULLPTR));
+        getSampleRateButton->setText(QApplication::translate("MainWindow", "Get Sample Rate", Q_NULLPTR));
+        getDataSinceLastCallButton->setText(QApplication::translate("MainWindow", "Get Data Since Last Call", Q_NULLPTR));
     } // retranslateUi
 
 };
