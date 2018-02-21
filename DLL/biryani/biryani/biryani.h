@@ -43,7 +43,7 @@ BIRYANI_API int biryani_reset();
 	BIRYANI_API int biryani_startStream();
 	BIRYANI_API	int measureSampleRate();
 	//Other Functions
-	BIRYANI_API std::vector<double>* biryani_getDownSampledChannelData_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_seconds, int* length);
-	BIRYANI_API std::vector<double>* getAllDownSampledChannelDataSinceLastCall_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_max_seconds, int* length);
+	BIRYANI_API std::vector<double>* getData_singleChannel_recent(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_seconds, int* length);
+	BIRYANI_API std::vector<double>* getData_singleChannel_sinceLastCall(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_max_seconds, int* length);
 
 

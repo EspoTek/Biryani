@@ -128,7 +128,7 @@ void MainWindow::plotTimerTick(){
     double timeWindow = 0.05;
     int length;
 
-    std::vector<double> *samples = generic_api->getDownSampledChannelData_double(current_plotting_channel, sampleRate, filter_mode, delay, timeWindow, &length);
+    std::vector<double> *samples = generic_api->getData_singleChannel_recent(current_plotting_channel, sampleRate, filter_mode, delay, timeWindow, &length);
 
     if(samples == NULL){
         qDebug() << "No samples.  Returning...";
@@ -199,7 +199,7 @@ void MainWindow::on_getDataSinceLastCallButton_clicked()
 {
     double time_max_seconds = 20;
     int * ptr_len = (int*)calloc(1, sizeof(int));
-    std::vector<double>* temp = generic_api->getAllDownSampledChannelDataSinceLastCall_double(0, 1000, 0, 0.01, time_max_seconds, ptr_len);
+    std::vector<double>* temp = generic_api->getData_singleChannel_sinceLastCall(0, 1000, 0, 0.01, time_max_seconds, ptr_len);
     qDebug() << *(temp);
     qDebug() << temp->at(*(ptr_len) - 1);
     qDebug() << ptr_len[0];
