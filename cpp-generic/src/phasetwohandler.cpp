@@ -206,3 +206,16 @@ std::vector<double> *phaseTwoHandler::getDownSampledChannelData_double(int chann
     }
 }
 
+std::vector<double> *phaseTwoHandler::getAllDownSampledChannelDataSinceLastCall_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_max_seconds, int* length){
+    if(read_kms()){
+        fprintf(stderr, "ERROR: Cannot get data.  System has shut down or is preparing for shutdown...\n");
+        return NULL;
+    }
+    if (phaseTwoThreadData.decoder_sp == NULL){
+        fprintf(stderr, "ERROR: No subpacket decoder detected.  Have you started the stream yet?\n");
+        return NULL;
+    } else {
+        return phaseTwoThreadData.decoder_sp->getAllDownSampledChannelDataSinceLastCall_double(channel, sampleRate_hz, filter_mode, delay_seconds, timeWindow_max_seconds, length);
+    }
+}
+

@@ -14,6 +14,7 @@ public:
     std::vector<double> *getMany_nofilter_double(int numToGet, int interval_samples, int delay_sample);
 private:
     int *buffer;
+    int stream_index_at_last_call = SUBPACKET_STREAM_START_INDEX;
     std::vector<double> convertedStream_double;
     void updateMostRecentAddress(int newAddress);
 };

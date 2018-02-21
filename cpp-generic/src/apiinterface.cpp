@@ -13,7 +13,7 @@ int debug_level = 0;
 apiInterface::apiInterface()
 {
     for(int i=0; i<100; i++){
-        fprintf(stderr, "WARNING: You just chucked in a meme value of 25000 as the max sample rate.\n");
+        fprintf(stderr, "WARNING: You just chucked in a meme value of 20kHz as the max sample rate.\n");
     }
     fileHandler = new configurationFileHandler(&phase1_raw, &phase2_length, &phase3_raw, &num_channels_excluding_ref);
     usbHandler = new usbInterface(SYNAMPS2_MAIN_VID, SYNAMPS2_MAIN_PID);
@@ -171,6 +171,21 @@ std::vector<double>* apiInterface::getDownSampledChannelData_double(int channel,
         return NULL;
     }
     return p2handler->getDownSampledChannelData_double(channel, sampleRate_hz, filter_mode, delay_seconds, timeWindow_seconds, length);
+}
+
+//See definition of getDownSampledChannelData_double().
+//This function is more-or-less identical, but it will only return data that has been streamed from the device received since the last time this function was called.
+//delay_seconds dictates the delay, as per getDownSampledChannelData_double(), while timeWindow_max_seconds dictates the maximum size of the time window you want to look at.
+//For example, let's assume you called this function once at t=10s with delay_seconds = 0.1 and timeWindow_max_seconds=5, and then again at and t=20s with delay_seconds = 0 and timeWindow_max_seconds=999999999999999.
+//The first call would return the data corresponding to the t=4.9s to t=9.9s, and the second call would contain t=9.9s to t=19.9s.
+//It would not contain anything earlier than 9.9s since that was returned by the last call, and it would not contain anything later than 19.9 since there is a 0.1s delay
+////HOW DOES IT FUNCTION OVER THE 16777215 boundary???
+std::vector<double>* apiInterface::getAllDownSampledChannelDataSinceLastCall_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_max_seconds, int* length){
+    if(channel > getNumChannelsExcludingRef()){
+        fprintf(stderr, "ERROR: Attempted to access nonexistant channel.\n");
+        return NULL;
+    }
+    return p2handler->getAllDownSampledChannelDataSinceLastCall_double(channel, sampleRate_hz, filter_mode, delay_seconds, timeWindow_max_seconds, length);
 }
 
 //getNumChannelsExcludingRef() returns the number of channels (excluding reference) from the .bcf file.
