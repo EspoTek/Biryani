@@ -24,7 +24,7 @@ end
 
 %Finally, we can start the stream.
 b7a_start_stream()
-
+b7a_get_sample_rate_hz()
 %Pause a bit, before we start plotting.
 %Needs to be at least 1.1 seconds since that's the plot length.
 pause(3);
@@ -32,15 +32,15 @@ pause(3);
 %Now we plot.
 ymin = inf;
 ymax = -inf;
-xaxis = linspace(-1.1, 0.1, 2000);
-for(i=1:100)
+%xaxis = linspace(-1.1, 0.1, 2000);
+for(i=1:10)
     tic
     fprintf('Displaying channel 0, iteration %d\n', i);
     ymin
     ymax
     %This will get 1 second of data from 0.1 seconds in the past,
     %downsampled to 2kHz with no filter.
-    cool = b7a_get_downsampled_data_double(0, 2000, 0, 0.1, 1);
+    cool = b7a_get_downsampled_data_since_last_call(0, 1000, 0, 8, 0.01);
     
     b7a_get_latency_ms()
     if(min(cool)<ymin)
@@ -51,12 +51,19 @@ for(i=1:100)
         ymax = max(cool) + 1;
     end
     
-    plot(xaxis, cool);
-    axis([-1.1, 0.1, ymin, ymax]);
+    %plot(xaxis, cool);
+    plot(cool);
+    %axis([-1.1, 0.1, ymin, ymax]);
+    axis([0, length(cool), ymin, ymax]);
     
+    pause(i);
+
     drawnow
     toc
 end
+
+b7a_get_sample_rate_hz()
+b7a_get_sample_rate_hz()
 
 %Before we quit, we stop the stream.
 b7a_stop_stream()

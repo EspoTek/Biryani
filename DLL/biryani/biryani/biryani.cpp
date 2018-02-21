@@ -125,7 +125,15 @@ BIRYANI_API int biryani_startStream() {
 	MACRO_CHECK_API_OBJECT_EXISTS;
 	return ptr_api->startStream();
 }
+BIRYANI_API	int measureSampleRate() {
+	MACRO_CHECK_API_OBJECT_EXISTS;
+	return ptr_api->measureSampleRate();
+}
 BIRYANI_API std::vector<double>* biryani_getDownSampledChannelData_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_seconds, int* length) {
 	MACRO_VECTOR_RETURN_FUNCTION_CHECK_API_OBJECT_EXISTS;
 	return ptr_api->getDownSampledChannelData_double(channel, sampleRate_hz, filter_mode, delay_seconds, timeWindow_seconds, length);
+}
+BIRYANI_API std::vector<double>* getAllDownSampledChannelDataSinceLastCall_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_max_seconds, int* length) {
+	MACRO_VECTOR_RETURN_FUNCTION_CHECK_API_OBJECT_EXISTS;
+	return ptr_api->getAllDownSampledChannelDataSinceLastCall_double(channel, sampleRate_hz, filter_mode, delay_seconds, timeWindow_max_seconds, length);
 }

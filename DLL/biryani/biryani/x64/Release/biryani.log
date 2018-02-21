@@ -5,6 +5,7 @@ C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\
   C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(769): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
 C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(1265): warning C4200: nonstandard extension used: zero-sized array in struct/union
   C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(1265): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
+  configurationfilehandler.cpp
   inittransfer.cpp
 C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(738): warning C4200: nonstandard extension used: zero-sized array in struct/union
   C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(738): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
@@ -14,6 +15,7 @@ C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\
   C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(1265): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
 ..\..\..\cpp-generic\src\inittransfer.cpp(31): warning C4800: 'unsigned char': forcing value to bool 'true' or 'false' (performance warning)
 ..\..\..\cpp-generic\src\inittransfer.cpp(35): warning C4800: 'unsigned char': forcing value to bool 'true' or 'false' (performance warning)
+  o1buffer.cpp
   phaseonehandler.cpp
 C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(738): warning C4200: nonstandard extension used: zero-sized array in struct/union
   C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(738): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
@@ -37,12 +39,15 @@ C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\
   C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(1265): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
 ..\..\..\cpp-generic\src\phasezerohandler.cpp(42): warning C4244: '=': conversion from 'ssize_t' to 'int', possible loss of data
   subpacketdecoder.cpp
-..\..\..\cpp-generic\src\subpacketdecoder.cpp(22): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'std::size_t'
-  ..\..\..\cpp-generic\src\subpacketdecoder.cpp(22): note: consider using '%zd' in the format string
-..\..\..\cpp-generic\src\subpacketdecoder.cpp(25): warning C4477: 'fprintf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'std::size_t'
-  ..\..\..\cpp-generic\src\subpacketdecoder.cpp(25): note: consider using '%zd' in the format string
-..\..\..\cpp-generic\src\subpacketdecoder.cpp(67): warning C4477: 'printf' : format string '%llx' requires an argument of type 'unsigned __int64', but variadic argument 1 has type 'unsigned char *'
-..\..\..\cpp-generic\src\subpacketdecoder.cpp(147): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+..\..\..\cpp-generic\src\subpacketdecoder.cpp(24): warning C4477: 'printf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'std::size_t'
+  ..\..\..\cpp-generic\src\subpacketdecoder.cpp(24): note: consider using '%zd' in the format string
+..\..\..\cpp-generic\src\subpacketdecoder.cpp(27): warning C4477: 'fprintf' : format string '%d' requires an argument of type 'int', but variadic argument 1 has type 'std::size_t'
+  ..\..\..\cpp-generic\src\subpacketdecoder.cpp(27): note: consider using '%zd' in the format string
+..\..\..\cpp-generic\src\subpacketdecoder.cpp(69): warning C4477: 'printf' : format string '%llx' requires an argument of type 'unsigned __int64', but variadic argument 1 has type 'unsigned char *'
+..\..\..\cpp-generic\src\subpacketdecoder.cpp(150): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+..\..\..\cpp-generic\src\subpacketdecoder.cpp(170): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+..\..\..\cpp-generic\src\subpacketdecoder.cpp(173): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+..\..\..\cpp-generic\src\subpacketdecoder.cpp(199): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
   usbinterface.cpp
 C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(738): warning C4200: nonstandard extension used: zero-sized array in struct/union
   C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(738): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
@@ -56,9 +61,9 @@ biryani.cpp(58): warning C4474: 'printf' : too many arguments passed for format 
   biryani.cpp(58): note: placeholders and their parameters expect 0 variadic arguments, but 1 were provided
      Creating library C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\DLL\biryani\x64\Release\biryani.lib and object C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\DLL\biryani\x64\Release\biryani.exp
   Generating code
-  42 of 381 functions (11.0%) were compiled, the rest were copied from previous compilation.
-    17 functions were new in current compilation
-    5 functions had inline decision re-evaluated but remain unchanged
+  56 of 413 functions (13.6%) were compiled, the rest were copied from previous compilation.
+    32 functions were new in current compilation
+    15 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   biryani.vcxproj -> C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\DLL\biryani\x64\Release\biryani.dll
   biryani.vcxproj -> C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\DLL\biryani\x64\Release\biryani.pdb (Full PDB)
