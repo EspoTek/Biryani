@@ -20,4 +20,4 @@ function [outputArray] = b7a_get_data_single_channel_recent(channel, sampleRate_
         error('timeWindow_seconds must be of type double.\n(non-programmers, this means a real, numeric value stored in double precision.  Type ''help double'' in the console for more info.)');
     end  
     
-    outputArray = shared_lib_call_biryani_getData_singleChannel_recent(channel, sampleRate_hz, filter_mode, delay_seconds, timeWindow_seconds);
+    outputArray = shared_lib_call_biryani_getData_singleChannel_recent(channel-1, sampleRate_hz, filter_mode, delay_seconds, timeWindow_seconds);
