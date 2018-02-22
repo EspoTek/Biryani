@@ -46,12 +46,31 @@ phase_2_payload = data_packet_length - usbpcap_header_length;
 fprintf('Phase 2 payload is %d bytes\n', phase_2_payload);
 
 %Initialise output strings
-headerString = sprintf('Biryani 7 Configuration File Version 0.91\n');
+headerString = sprintf('Biryani 7 Configuration File Version 1.0\n');
 phase1String = char([]);
 phase2String = [phase2str{2} ' ' num2str(phase_2_payload) sprintf('\n')];
 phase3String = char([]);
 
 num_lines = 1; %1 line for the phase 2 information.  Other lines added in the loop.
+
+user_responded_twenty_k = 0;
+while(user_responded_twenty_k == 0)
+    twenty_k_response = input('Did you use a sampling rate of 20kHz? (y/n)\n', 's');
+
+    if(twenty_k_response == "y")
+        user_responded_twenty_k = 1;
+        twentyKhzString = sprintf('TWENTY_KHZ_SAMPLING 1\n');
+    end
+    
+    if(twenty_k_response == "n")
+        user_responded_twenty_k = 1;
+        twentyKhzString = sprintf('TWENTY_KHZ_SAMPLING 0\n');
+    end
+    
+    if(user_responded_twenty_k == 0)
+        fprintf('Please type ''y'' for yes or ''n'' for no.\n');
+    end
+end
 
 fprintf('Formatting data to be compatible with Biryani 7...');
 phase_2_sample_collected = 0;
@@ -122,4 +141,4 @@ num_channels_excluding_ref = extract_num_channels(phase_2_sample);
 fprintf('There are %d channels (plus GND) present in the packet stream\n', num_channels_excluding_ref);
 numChannelsString = sprintf('NUM_CHANNELS_EXCLUDING_REF %d\n', num_channels_excluding_ref);
 
-outputString = [headerString numChannelsString numLinesString phase1String phase2String phase3String];
+outputString = [headerString twentyKhzString numChannelsString numLinesString phase1String phase2String phase3String];

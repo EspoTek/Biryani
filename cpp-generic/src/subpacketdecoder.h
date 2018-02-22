@@ -24,7 +24,7 @@ typedef struct subPacket_generic_template{
 class subPacketDecoder
 {
 public:
-    subPacketDecoder(int num_channels_excluding_ref_in);
+    subPacketDecoder(int num_channels_excluding_ref_in, double sample_rate_in);
     ~subPacketDecoder();
     int isStartofStream(unsigned char *ptr_sub, int num_to_test);
     int isValidSubPacketStream(unsigned char *ptr_sub, int num_to_test);
@@ -46,6 +46,7 @@ private:
     int count2int(unsigned char *ptr_count);
     std::mutex read_write_mutex;
     std::vector<double>* internalChannelStreams[SUBPACKET_MAX_NUM_CHANNELS];
+    double sample_rate;
 };
 
 #endif // SUBPACKETDECODER_H

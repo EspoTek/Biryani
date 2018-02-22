@@ -11,13 +11,14 @@
 class configurationFileHandler
 {
 public:
-    configurationFileHandler(std::vector<rawPacket> *ptr_phase1_raw_in, int *ptr_phase2_length_in, std::vector<rawPacket> *ptr_phase3_raw_in, int *ptr_num_channels_excluding_ref_in);
+    configurationFileHandler(std::vector<rawPacket> *ptr_phase1_raw_in, int *ptr_phase2_length_in, std::vector<rawPacket> *ptr_phase3_raw_in, int *ptr_num_channels_excluding_ref_in, double* ptr_sample_rate_in);
     int loadFile(char *fname);
 private:
     std::vector<rawPacket> *ptr_phase1_raw;
     int *ptr_phase2_length;
     std::vector<rawPacket> *ptr_phase3_raw;
     int *ptr_num_channels_excluding_ref;
+    double *ptr_sample_rate;
     int fill_raw_packet_structure(rawPacket* packet, char *inputString, int phase);
 
 };

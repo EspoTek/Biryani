@@ -53,6 +53,7 @@ private:
     std::vector<rawPacket> phase3_raw;
     int num_channels_excluding_ref = -1;
     bool streamStarted = false;
+    double sample_rate;
 };
 
 #endif // APIINTERFACE_H

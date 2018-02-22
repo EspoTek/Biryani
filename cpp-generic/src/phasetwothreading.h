@@ -14,6 +14,7 @@ typedef struct threadStruct{
     subPacketDecoder *decoder_sp = NULL;
     double total_latency = 0;
     double count = 0;
+    double sample_rate;
 } threadStruct;
 
 threadStruct phaseTwoThreadData;

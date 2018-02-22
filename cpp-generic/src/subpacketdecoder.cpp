@@ -3,10 +3,13 @@
 
 #include <thread>
 
-subPacketDecoder::subPacketDecoder(int num_channels_excluding_ref_in)
+subPacketDecoder::subPacketDecoder(int num_channels_excluding_ref_in, double sample_rate_in)
 {
     //Get the right number of channels
     num_channels_including_ref = num_channels_excluding_ref_in + 1;
+
+    //Get the sample rate
+    sample_rate = sample_rate_in;
 
     //interPacket is a temporary extra subPacket that exists between packet boundaries
     interPacket = (unsigned char*) malloc(numBytesPerSubpacket());
@@ -134,8 +137,8 @@ std::vector<double>* subPacketDecoder::getData_singleChannel_recent(int channel,
     printf_verbose("subPacketDecoder::getDownSampledChannelData\n");
     printf_debugging("Getting downsampled data counting backwards from sample index #%d\n", sampleBuffer_CH[0]->mostRecentAddress);
 
-    double interval_samples = round(MAX_SAMPLES_PER_SECOND / sampleRate_hz);
-    double delay_samples = round(MAX_SAMPLES_PER_SECOND * delay_seconds);
+    double interval_samples = round(sample_rate / sampleRate_hz);
+    double delay_samples = round(sample_rate * delay_seconds);
     double numToGet = round(timeWindow_seconds * sampleRate_hz);
 
     *(length) = (int)numToGet;
@@ -151,9 +154,9 @@ std::vector<double>* subPacketDecoder::getData_singleChannel_recent(int channel,
 std::vector<double> *subPacketDecoder::getData_singleChannel_sinceLastCall(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_max_seconds, int* length){
     printf_verbose("subPacketDecoder::getAllDownSampledChannelDataSinceLastCall_double\n");
 
-    double feasible_window_begin = round((timeWindow_max_seconds + delay_seconds)*MAX_SAMPLES_PER_SECOND);
-    double feasible_window_end = round(delay_seconds*MAX_SAMPLES_PER_SECOND);
-    double interval_samples = round(MAX_SAMPLES_PER_SECOND / sampleRate_hz);
+    double feasible_window_begin = round((timeWindow_max_seconds + delay_seconds)*sample_rate);
+    double feasible_window_end = round(delay_seconds*sample_rate);
+    double interval_samples = round(sample_rate / sampleRate_hz);
 
     //Make sure sampleBuffer_CH[channel]->getSinceLast() doesn't freak out if the user puts in an infinite timeWindow.
     if(feasible_window_begin >= NUM_SAMPLES_PER_CHANNEL) feasible_window_begin = NUM_SAMPLES_PER_CHANNEL-1;
@@ -170,8 +173,8 @@ std::vector<double>** subPacketDecoder::getData_allChannels_recent(double sample
     printf_verbose("subPacketDecoder::getData_allChannels_recent\n");
     printf_debugging("Getting downsampled data counting backwards from sample index #%d\n", sampleBuffer_CH[0]->mostRecentAddress);
 
-    double interval_samples = round(MAX_SAMPLES_PER_SECOND / sampleRate_hz);
-    double delay_samples = round(MAX_SAMPLES_PER_SECOND * delay_seconds);
+    double interval_samples = round(sample_rate / sampleRate_hz);
+    double delay_samples = round(sample_rate * delay_seconds);
     double numToGet = round(timeWindow_seconds * sampleRate_hz);
 
     *(length) = (int)numToGet;
@@ -209,9 +212,9 @@ std::vector<double>** subPacketDecoder::getData_allChannels_sinceLastCall(double
     }
 
     //Now we actually fetch the data
-    double feasible_window_begin = round((timeWindow_max_seconds + delay_seconds)*MAX_SAMPLES_PER_SECOND);
-    double feasible_window_end = round(delay_seconds*MAX_SAMPLES_PER_SECOND);
-    double interval_samples = round(MAX_SAMPLES_PER_SECOND / sampleRate_hz);
+    double feasible_window_begin = round((timeWindow_max_seconds + delay_seconds)*sample_rate);
+    double feasible_window_end = round(delay_seconds*sample_rate);
+    double interval_samples = round(sample_rate / sampleRate_hz);
 
     //Make sure sampleBuffer_CH[channel]->getSinceLast() doesn't freak out if the user puts in an infinite timeWindow.
     if(feasible_window_begin >= NUM_SAMPLES_PER_CHANNEL) feasible_window_begin = NUM_SAMPLES_PER_CHANNEL-1;

@@ -9,12 +9,13 @@ if(fgets_returned != tempString){ \
 } else current_line++; \
 
 
-configurationFileHandler::configurationFileHandler(std::vector<rawPacket> *ptr_phase1_raw_in, int *ptr_phase2_length_in, std::vector<rawPacket> *ptr_phase3_raw_in, int* ptr_num_channels_excluding_ref_in)
+configurationFileHandler::configurationFileHandler(std::vector<rawPacket> *ptr_phase1_raw_in, int *ptr_phase2_length_in, std::vector<rawPacket> *ptr_phase3_raw_in, int* ptr_num_channels_excluding_ref_in, double* ptr_sample_rate_in)
 {
     ptr_phase1_raw = ptr_phase1_raw_in;
     ptr_phase2_length = ptr_phase2_length_in;
     ptr_phase3_raw = ptr_phase3_raw_in;
     ptr_num_channels_excluding_ref = ptr_num_channels_excluding_ref_in;
+    ptr_sample_rate = ptr_sample_rate_in;
 }
 
 int configurationFileHandler::loadFile(char *fname){
@@ -45,10 +46,32 @@ int configurationFileHandler::loadFile(char *fname){
         return 2;
     } else printf_verbose("%s", tempString);
 
+    //////////////////////////////////////////////////////////////
+   ////////Read the TWENTY_KHZ_SAMPLING Variable ////////////////
+  //////////////////////////////////////////////////////////////
+    fgets_returned = fgets(tempString, FILE_MAX_CHARS_PER_LINE, fptr);
+    fgets_check_errors();
+
+    //Check for the NUM_CHANNELS_EXCLUDING_REF text
+    if(strncmp(tempString, "TWENTY_KHZ_SAMPLING", 19)){
+        fprintf(stderr, "ERROR: TWENTY_KHZ_SAMPLING variable not found!\n");
+        return 6;
+    }
+    //Read in TWENTY_KHZ_SAMPLING
+    int twenty_khz;
+    sscanf(tempString, "TWENTY_KHZ_SAMPLING %d", &twenty_khz);
+    if(twenty_khz){
+        printf_debugging("Decoding at 20kHz");
+        ptr_sample_rate[0] = 20000;
+    } else {
+        printf_debugging("Decoding at 10kHz");
+        ptr_sample_rate[0] = 10000;
+    }
+
+
       //////////////////////////////////////////////////////////////
      ////////Read the NUM_CHANNELS_EXCLUDING_REF Variable /////////
     //////////////////////////////////////////////////////////////
-    //Current position: line 3
     fgets_returned = fgets(tempString, FILE_MAX_CHARS_PER_LINE, fptr);
     fgets_check_errors();
 

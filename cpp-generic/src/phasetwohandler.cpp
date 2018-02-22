@@ -26,7 +26,7 @@ void phaseTwoHandler::deleteThread(){
     write_kms(true);
 }
 
-int phaseTwoHandler::enterPhaseTwo(int phase2_packet_length_in, int num_channels_excluding_ref, usbInterface *interface){
+int phaseTwoHandler::enterPhaseTwo(int phase2_packet_length_in, int num_channels_excluding_ref, double sample_rate_in, usbInterface *interface){
     if(interface == NULL){
         fprintf(stderr, "FATAL ERROR: USB Interface is null.  Cannot enter phase 2.  This situation should never occur.\n");
         return -1;
@@ -44,6 +44,7 @@ int phaseTwoHandler::enterPhaseTwo(int phase2_packet_length_in, int num_channels
     phaseTwoThreadData.packet_length = phase2_packet_length_in;
     phaseTwoThreadData.interface = interface;
     phaseTwoThreadData.num_channels_excluding_ref =num_channels_excluding_ref;
+    phaseTwoThreadData.sample_rate = sample_rate_in;
     write_kms(false);
     worker = new std::thread(workerFunction);
     return 0;
@@ -57,8 +58,8 @@ void workerFunction(){
     unsigned char *buffer = (unsigned char *) malloc(packet_length);
 
     //Set up the necessary structures for subpacket decoding.
-    printf_debugging("Setting up subPacketDecoder with %d channels (excluding ref)\n", phaseTwoThreadData.num_channels_excluding_ref);
-    subPacketDecoder *decoder_sp = new subPacketDecoder(phaseTwoThreadData.num_channels_excluding_ref);
+    printf_debugging("Setting up subPacketDecoder with %d channels (excluding ref) and a sample rate of %dHz\n", phaseTwoThreadData.num_channels_excluding_ref, phaseTwoThreadData.sample_rate);
+    subPacketDecoder *decoder_sp = new subPacketDecoder(phaseTwoThreadData.num_channels_excluding_ref, phaseTwoThreadData.sample_rate);
     printf_debugging("Successfully set up subPacketDecoder with a subPacket size of %d\n", decoder_sp->numBytesPerSubpacket());
 
     phaseTwoThreadData.decoder_sp = decoder_sp;

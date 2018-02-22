@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>890</width>
-    <height>498</height>
+    <height>527</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,7 +29,7 @@
         <item>
          <widget class="QSpinBox" name="channelPlotSpinBox">
           <property name="maximum">
-           <number>67</number>
+           <number>69</number>
           </property>
          </widget>
         </item>

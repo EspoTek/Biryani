@@ -63,7 +63,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(890, 498);
+        MainWindow->resize(890, 527);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         horizontalLayout_2 = new QHBoxLayout(centralWidget);
@@ -83,7 +83,7 @@ public:
 
         channelPlotSpinBox = new QSpinBox(centralWidget);
         channelPlotSpinBox->setObjectName(QStringLiteral("channelPlotSpinBox"));
-        channelPlotSpinBox->setMaximum(67);
+        channelPlotSpinBox->setMaximum(69);
 
         horizontalLayout_3->addWidget(channelPlotSpinBox);
 

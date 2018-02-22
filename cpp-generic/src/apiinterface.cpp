@@ -12,7 +12,7 @@ int debug_level = 0;
 //Returns void.
 apiInterface::apiInterface()
 {
-    fileHandler = new configurationFileHandler(&phase1_raw, &phase2_length, &phase3_raw, &num_channels_excluding_ref);
+    fileHandler = new configurationFileHandler(&phase1_raw, &phase2_length, &phase3_raw, &num_channels_excluding_ref, &sample_rate);
     usbHandler = new usbInterface(SYNAMPS2_MAIN_VID, SYNAMPS2_MAIN_PID);
     p0handler = new phaseZeroHandler();
     p1handler = new phaseOneHandler(&phase1_raw);
@@ -117,7 +117,7 @@ int apiInterface::startStream(){
     if(unconfigured){
         return 69420;
     }
-    int phaseTwoFailed = p2handler->enterPhaseTwo(phase2_length, num_channels_excluding_ref, p1handler->getInterface());
+    int phaseTwoFailed = p2handler->enterPhaseTwo(phase2_length, num_channels_excluding_ref, sample_rate, p1handler->getInterface());
 
     //If Phase two has begun successfully, set the streamStarted variable to true and return success.  Otherwise, abort.  (No cleanup?)
     if(phaseTwoFailed){

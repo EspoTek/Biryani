@@ -2,7 +2,7 @@
 #define API_DEFINES_H
 
 #define FILE_MAX_CHARS_PER_LINE 300000
-#define FILE_BCF_HEADER_STRING "Biryani 7 Configuration File Version 0.91\n"
+#define FILE_BCF_HEADER_STRING "Biryani 7 Configuration File Version 1.0\n"
 #define USB_BULK_TIMEOUT_MS 500  //Timeout for USB bulk transfers in ms.
 #define SUBPACKET_STREAM_START_INDEX 0x08 //This is the first packet that subPacketDecoder will look for when starting the stream decoding.
 
@@ -17,7 +17,7 @@
 #define NUM_SAMPLES_PER_CHANNEL 16777215 //AKA buffer size, in words.
 //16777215 = 2^24 - 1.  Highest number that can be stored in the 24 bit address.
 
-#define MAX_SAMPLES_PER_SECOND 10000 //Samples per second that the Synamps2 device records at.  Based on my measurements.
+//#define MAX_SAMPLES_PER_SECOND 10000 //Samples per second that the Synamps2 device records at.  Based on my measurements.
 
 //Global includes
 #include <vector>

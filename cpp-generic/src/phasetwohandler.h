@@ -14,7 +14,7 @@ public:
     phaseTwoHandler();
     ~phaseTwoHandler();
     void deleteThread();
-    int enterPhaseTwo(int phase_2_packet_length, int num_channels_excluding_ref, usbInterface *interface);
+    int enterPhaseTwo(int phase_2_packet_length, int num_channels_excluding_ref, double sample_rate_in, usbInterface *interface);
     double getAverageLatency();
     int measureSampleRate();
     std::vector<double>* getData_singleChannel_recent(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_seconds, int* length);
