@@ -36,6 +36,7 @@ public:
     int measureSampleRate();
     std::vector<double>* getDownSampledChannelData_double(int channel, double sampleRate_hz, int mode, double delay_seconds, double timeWindow_seconds, int* length);
     std::vector<double>* getAllDownSampledChannelDataSinceLastCall_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_max_seconds, int* length);
+    std::vector<double>** getData_allChannels_recent(double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_seconds, int* length);
 private:
     unsigned char * interPacket = NULL;
     int num_channels_including_ref;
@@ -43,6 +44,7 @@ private:
     int isValidSubPacket(unsigned char* ptr_sub);
     int count2int(unsigned char *ptr_count);
     std::mutex read_write_mutex;
+    std::vector<double>* internalChannelStreams[SUBPACKET_MAX_NUM_CHANNELS];
 };
 
 #endif // SUBPACKETDECODER_H

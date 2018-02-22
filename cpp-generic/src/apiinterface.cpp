@@ -163,6 +163,7 @@ int apiInterface::stopStream(){
 //The samples in between are evenly spaced, temporally, with interval of (1/sampleRate_Hz) seconds per sample.
 //Note that the first channel has an index of 0.  Channel 1 is the second channel.
 //Returns NULL on error, otherwise returns the vector.
+//Please note that the pointer is freed upon the next call to getData_xxxx_xxxx()
 std::vector<double>* apiInterface::getData_singleChannel_recent(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_seconds, int* length){
     if(channel > getNumChannelsExcludingRef()){
         fprintf(stderr, "ERROR: Attempted to access nonexistant channel.\n");
@@ -178,7 +179,6 @@ std::vector<double>* apiInterface::getData_singleChannel_recent(int channel, dou
 //The first call would return the data corresponding to the t=4.9s to t=9.9s, and the second call would contain t=9.9s to t=19.9s.
 //Note that the first channel has an index of 0.  Channel 1 is the second channel.
 //It would not contain anything earlier than 9.9s since that was returned by the last call, and it would not contain anything later than 19.9 since there is a 0.1s delay
-////HOW DOES IT FUNCTION OVER THE 16777215 boundary???
 std::vector<double>* apiInterface::getData_singleChannel_sinceLastCall(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_max_seconds, int* length){
     if(channel > getNumChannelsExcludingRef()){
         fprintf(stderr, "ERROR: Attempted to access nonexistant channel.\n");
@@ -186,6 +186,19 @@ std::vector<double>* apiInterface::getData_singleChannel_sinceLastCall(int chann
     }
     return p2handler->getAllDownSampledChannelDataSinceLastCall_double(channel, sampleRate_hz, filter_mode, delay_seconds, timeWindow_max_seconds, length);
 }
+
+//See definition of getData_singleChannel_recent().
+//This functions much the same but returns all channels.
+//Some software trickery is used to ensure that there is no phase shift between channels (well, no phase shift introduced by the PC).
+//You can safely assume that sample n in channel i was taken at the same time as sample n in channel j.
+std::vector<double>** apiInterface::getData_allChannels_recent(double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_seconds, int* length){
+    if(getNumChannelsExcludingRef() == 0){
+        fprintf(stderr, "ERROR: It appears as though there are zero channels!\n");
+        return NULL;
+    }
+    return p2handler->getData_allChannels_recent(sampleRate_hz, filter_mode, delay_seconds, timeWindow_seconds, length);
+}
+
 
 //getNumChannelsExcludingRef() returns the number of channels (excluding reference) from the .bcf file.
 //Returns -1 if no file is loaded

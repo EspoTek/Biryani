@@ -47,6 +47,8 @@ private slots:
 
     void on_getSampleRateButton_clicked();
 
+    void on_getAllChannelsButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     apiInterface *generic_api;

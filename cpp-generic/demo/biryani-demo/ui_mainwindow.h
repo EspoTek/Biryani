@@ -52,6 +52,7 @@ public:
     QPushButton *getPacketIntervalButton;
     QPushButton *getSampleRateButton;
     QPushButton *getDataSinceLastCallButton;
+    QPushButton *getAllChannelsButton;
     QCustomPlot *plotAxes;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
@@ -165,6 +166,11 @@ public:
 
         verticalLayout->addWidget(getDataSinceLastCallButton);
 
+        getAllChannelsButton = new QPushButton(centralWidget);
+        getAllChannelsButton->setObjectName(QStringLiteral("getAllChannelsButton"));
+
+        verticalLayout->addWidget(getAllChannelsButton);
+
 
         horizontalLayout_2->addLayout(verticalLayout);
 
@@ -207,6 +213,7 @@ public:
         getPacketIntervalButton->setText(QApplication::translate("MainWindow", "Get Packet Interval", Q_NULLPTR));
         getSampleRateButton->setText(QApplication::translate("MainWindow", "Get Sample Rate", Q_NULLPTR));
         getDataSinceLastCallButton->setText(QApplication::translate("MainWindow", "Get Data Since Last Call", Q_NULLPTR));
+        getAllChannelsButton->setText(QApplication::translate("MainWindow", "Get All Channels", Q_NULLPTR));
     } // retranslateUi
 
 };

@@ -209,3 +209,61 @@ void MainWindow::on_getSampleRateButton_clicked()
 {
     qDebug() << generic_api->measureSampleRate();
 }
+
+void MainWindow::on_getAllChannelsButton_clicked()
+{
+    double sampleRate = 1000;
+    int filter_mode = 0;
+    double delay = 0.01;
+    double timeWindow = 1;
+    int length;
+    std::vector<double> ** temp = generic_api->getData_allChannels_recent(sampleRate, filter_mode, delay, timeWindow, &length);
+
+    for (int i=0; i<(generic_api->getNumChannelsExcludingRef() + 1); i++){
+        qDebug() << temp[i]->size();
+    }
+
+    qDebug() << length;
+
+    //plot
+    std::vector<double> *samples = temp[current_plotting_channel];
+    if(samples == NULL){
+        qDebug() << "No samples.  Returning...";
+        return;
+    }
+
+    QVector<double> yaxis = QVector<double>::fromStdVector(*(samples));
+    for (int i=0; i<yaxis.length(); i++){
+        if(yaxis.at(i) > yMax){
+            yMax = yaxis.at(i) + 1;// * (yaxis.at(i) > 0 ? 1.25 : 0.8);
+        }
+
+        if(yaxis.at(i) < yMin){
+            yMin = yaxis.at(i) - 1;// * (yaxis.at(i) > 0 ? 0.8 : 1.25);
+        }
+    }
+
+    //qDebug() << "yMax =" << yMax;
+    //qDebug() << "yMin =" << yMin;
+    //qDebug() << "yaxis.at(1) =" << yaxis.at(1);
+
+    //qDebug() << yaxis.length();
+
+    double sampleInterval = timeWindow/yaxis.length();
+
+    QVector<double> xaxis;
+    for (int i=0; i<yaxis.length(); i++){
+        xaxis.append(-sampleInterval * i - delay);
+    }
+
+    //qDebug() << "xaxis ready";
+
+    ui->plotAxes->yAxis->setRange(yMax, yMin);
+    ui->plotAxes->xAxis->setRange(-delay - timeWindow, -delay);
+
+    //qDebug() << "Range set";
+
+    ui->plotAxes->graph(0)->setData(xaxis, yaxis);
+    ui->plotAxes->replot();
+
+}

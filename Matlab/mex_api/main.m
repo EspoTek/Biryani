@@ -12,6 +12,7 @@ recompile_cpp('shared_lib_call_biryani_loadFile');
 
 recompile_cpp('shared_lib_call_biryani_getAverageLatency_ms');
 recompile_cpp('shared_lib_call_biryani_getData_singleChannel_recent');
+recompile_cpp('shared_lib_call_biryani_getData_allChannels_recent');
 recompile_cpp('shared_lib_call_biryani_getData_singleChannel_sinceLastCall');
 recompile_cpp('shared_lib_call_biryani_getNumChannelsExcludingRef');
 recompile_cpp('shared_lib_call_biryani_getPacketInterval');
