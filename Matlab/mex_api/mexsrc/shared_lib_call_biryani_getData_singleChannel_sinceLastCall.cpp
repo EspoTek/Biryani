@@ -45,11 +45,8 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     timeWindow_seconds = (*ptr_timeWindow_seconds_in);
     length_int = (int*)mxCalloc(1, sizeof(int));
 
-    mexPrintf("Starting...\n");
     //Actually get the data.
     dll_return = getData_singleChannel_sinceLastCall(channel, sampleRate_hz, filter_mode, delay_seconds, timeWindow_seconds, length_int);
-
-    mexPrintf("DLL Returned...\n");
 
     //Abort now if there's no data!!!
     if(dll_return == NULL){
@@ -61,9 +58,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
         mxSetData(plhs[0], ptr_zero);
         return;
     }
-    
-    mexPrintf("Not Null...\n");
-    
+        
     //Malloc all the outputs!
     //We need to copy from the DLL to MATLAB so that it can work with the data without cracking the sads.
     ptr_data_out = (double*)mxCalloc(length_int[0], sizeof(double));
@@ -74,6 +69,5 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     //plhs[0] = mxCreateDoubleScalar((double)ptr_length_out[0]);  
     plhs[0] = mxCreateNumericArray(ndims, dims, mxDOUBLE_CLASS, mxREAL);
     mxSetData(plhs[0], ptr_data_out);
-    
-    mexPrintf("Returning from mexFunction...\n");
 }
+

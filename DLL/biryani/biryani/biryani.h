@@ -46,4 +46,6 @@ BIRYANI_API int biryani_reset();
 	BIRYANI_API std::vector<double>* getData_singleChannel_recent(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_seconds, int* length);
 	BIRYANI_API std::vector<double>* getData_singleChannel_sinceLastCall(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_max_seconds, int* length);
 	BIRYANI_API std::vector<double>** getData_allChannels_recent(double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_seconds, int* length);
+	BIRYANI_API std::vector<double>** getData_allChannels_sinceLastCall(double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_max_seconds, int* length);
+
 

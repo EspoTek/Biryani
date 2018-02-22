@@ -53,6 +53,7 @@ public:
     QPushButton *getSampleRateButton;
     QPushButton *getDataSinceLastCallButton;
     QPushButton *getAllChannelsButton;
+    QPushButton *plotSinceLastCallAllChannelsButton;
     QCustomPlot *plotAxes;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
@@ -62,7 +63,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(890, 472);
+        MainWindow->resize(890, 498);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         horizontalLayout_2 = new QHBoxLayout(centralWidget);
@@ -171,6 +172,11 @@ public:
 
         verticalLayout->addWidget(getAllChannelsButton);
 
+        plotSinceLastCallAllChannelsButton = new QPushButton(centralWidget);
+        plotSinceLastCallAllChannelsButton->setObjectName(QStringLiteral("plotSinceLastCallAllChannelsButton"));
+
+        verticalLayout->addWidget(plotSinceLastCallAllChannelsButton);
+
 
         horizontalLayout_2->addLayout(verticalLayout);
 
@@ -214,6 +220,7 @@ public:
         getSampleRateButton->setText(QApplication::translate("MainWindow", "Get Sample Rate", Q_NULLPTR));
         getDataSinceLastCallButton->setText(QApplication::translate("MainWindow", "Get Data Since Last Call", Q_NULLPTR));
         getAllChannelsButton->setText(QApplication::translate("MainWindow", "Get All Channels", Q_NULLPTR));
+        plotSinceLastCallAllChannelsButton->setText(QApplication::translate("MainWindow", "Plot Since Last Call All Channels", Q_NULLPTR));
     } // retranslateUi
 
 };

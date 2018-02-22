@@ -142,3 +142,8 @@ BIRYANI_API std::vector<double>** getData_allChannels_recent(double sampleRate_h
 	MACRO_VECTOR_RETURN_FUNCTION_CHECK_API_OBJECT_EXISTS;
 	return ptr_api->getData_allChannels_recent(sampleRate_hz, filter_mode, delay_seconds, timeWindow_seconds, length);
 }
+
+BIRYANI_API std::vector<double>** getData_allChannels_sinceLastCall(double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_max_seconds, int* length) {
+	MACRO_VECTOR_RETURN_FUNCTION_CHECK_API_OBJECT_EXISTS;
+	return ptr_api->getData_allChannels_sinceLastCall(sampleRate_hz, filter_mode, delay_seconds, timeWindow_max_seconds, length);
+}

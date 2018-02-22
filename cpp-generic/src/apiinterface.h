@@ -34,6 +34,7 @@ public:
     std::vector<double>* getData_singleChannel_recent(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_seconds, int* length);
     std::vector<double>* getData_singleChannel_sinceLastCall(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_max_seconds, int* length);
     std::vector<double>** getData_allChannels_recent(double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_seconds, int* length);
+    std::vector<double>** getData_allChannels_sinceLastCall(double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_max_seconds, int* length);
 private:
     //Hidden fucntions
     int configureSynamps2Device();

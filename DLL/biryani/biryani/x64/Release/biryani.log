@@ -5,6 +5,7 @@ C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\
   C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(769): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
 C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(1265): warning C4200: nonstandard extension used: zero-sized array in struct/union
   C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(1265): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
+  o1buffer.cpp
   phasetwohandler.cpp
 C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(738): warning C4200: nonstandard extension used: zero-sized array in struct/union
   C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\lib\win64\libusb\include\libusb-1.0\libusb.h(738): note: This member will be ignored by a defaulted constructor or copy/move assignment operator
@@ -22,16 +23,18 @@ C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\Qt\BIRYANI7\
 ..\..\..\cpp-generic\src\subpacketdecoder.cpp(170): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
 ..\..\..\cpp-generic\src\subpacketdecoder.cpp(173): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
 ..\..\..\cpp-generic\src\subpacketdecoder.cpp(194): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-..\..\..\cpp-generic\src\subpacketdecoder.cpp(223): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
+..\..\..\cpp-generic\src\subpacketdecoder.cpp(237): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+..\..\..\cpp-generic\src\subpacketdecoder.cpp(241): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+..\..\..\cpp-generic\src\subpacketdecoder.cpp(267): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
   biryani.cpp
 biryani.cpp(39): warning C4477: 'printf' : format string '%llx' requires an argument of type 'unsigned __int64', but variadic argument 1 has type 'apiInterface *'
 biryani.cpp(58): warning C4474: 'printf' : too many arguments passed for format string
   biryani.cpp(58): note: placeholders and their parameters expect 0 variadic arguments, but 1 were provided
      Creating library C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\DLL\biryani\x64\Release\biryani.lib and object C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\DLL\biryani\x64\Release\biryani.exp
   Generating code
-  16 of 417 functions ( 3.8%) were compiled, the rest were copied from previous compilation.
-    4 functions were new in current compilation
-    30 functions had inline decision re-evaluated but remain unchanged
+  24 of 421 functions ( 5.7%) were compiled, the rest were copied from previous compilation.
+    5 functions were new in current compilation
+    37 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   biryani.vcxproj -> C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\DLL\biryani\x64\Release\biryani.dll
   biryani.vcxproj -> C:\Users\cesposito\Documents\GitHub\H-CompumedicsDirectDataStreamer\DLL\biryani\x64\Release\biryani.pdb (Full PDB)

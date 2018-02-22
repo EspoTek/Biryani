@@ -46,8 +46,6 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 
     //Actually get the data.
     dll_return = getData_allChannels_recent(sampleRate_hz, filter_mode, delay_seconds, timeWindow_seconds, length_int);
-
-    mexPrintf("Dimensions: %d * %d\n", numChannelsIncludingRef, length_int[0]);
     
     //Abort now if there's no data!!!
     if(dll_return == NULL){

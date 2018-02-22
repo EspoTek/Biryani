@@ -1,4 +1,4 @@
-function [outputArray] = b7a_get_downsampled_data_double(channel, sampleRate_hz, filter_mode, delay_seconds, timeWindow_seconds)
+function [outputArray] = b7a_get_data_single_channel_recent(channel, sampleRate_hz, filter_mode, delay_seconds, timeWindow_seconds)
     
     if(mod(channel, 1)~=0)
         error('Value of channel must be a whole number');

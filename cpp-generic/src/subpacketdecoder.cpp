@@ -197,6 +197,50 @@ std::vector<double>** subPacketDecoder::getData_allChannels_recent(double sample
     return internalChannelStreams;
 }
 
+std::vector<double>** subPacketDecoder::getData_allChannels_sinceLastCall(double sampleRate_hz, int mode, double delay_seconds, double timeWindow_max_seconds, int* length){
+    printf_verbose("subPacketDecoder::getData_allChannels_sinceLastCall\n");
+
+    //First we need to make sure that every o1buffer has the same stream_index_at_last_call, and it must be the most recent one.
+    //Lock the mutex to make sure we don't get new data written halfway through loop.
+    read_write_mutex.lock();
+    int shortest_distance = NUM_SAMPLES_PER_CHANNEL;
+    int most_recent_index = 0;
+    for(int i=0; i<num_channels_including_ref; i++){
+        int temp_index = sampleBuffer_CH[i]->stream_index_at_last_call;
+        int temp_distance = sampleBuffer_CH[i]->distanceFromMostRecentAddress(temp_index);
+        if(temp_distance < shortest_distance){
+            shortest_distance = temp_distance;
+            most_recent_index = temp_index;
+            printf_debugging("most_recent_index = %d\n", most_recent_index);
+        }
+    }
+    read_write_mutex.unlock();
+    //Now we write our new best value to all channels
+    for(int i=0; i<num_channels_including_ref; i++){
+        sampleBuffer_CH[i]->stream_index_at_last_call = most_recent_index;
+    }
+
+    //Now we actually fetch the data
+    if(mode != 0){
+        fprintf(stderr, "Only mode 0 is supported ATM!!\n");
+    }
+
+    double feasible_window_begin = round((timeWindow_max_seconds + delay_seconds)*MAX_SAMPLES_PER_SECOND);
+    double feasible_window_end = round(delay_seconds*MAX_SAMPLES_PER_SECOND);
+    double interval_samples = round(MAX_SAMPLES_PER_SECOND / sampleRate_hz);
+
+    //Make sure sampleBuffer_CH[channel]->getSinceLast() doesn't freak out if the user puts in an infinite timeWindow.
+    if(feasible_window_begin >= NUM_SAMPLES_PER_CHANNEL) feasible_window_begin = NUM_SAMPLES_PER_CHANNEL-1;
+
+    read_write_mutex.lock();
+    for(int i=0; i<num_channels_including_ref; i++){
+        internalChannelStreams[i] = sampleBuffer_CH[i]->getSinceLast(feasible_window_begin, feasible_window_end, interval_samples);
+    }
+    read_write_mutex.unlock();
+    if(internalChannelStreams[0] == NULL) length[0] = 0;
+    else length[0] = internalChannelStreams[0]->size();
+    return internalChannelStreams;
+}
 
 int subPacketDecoder::measureSampleRate(){
     double numSeconds = 2;

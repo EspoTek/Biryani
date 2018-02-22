@@ -199,6 +199,21 @@ std::vector<double>** apiInterface::getData_allChannels_recent(double sampleRate
     return p2handler->getData_allChannels_recent(sampleRate_hz, filter_mode, delay_seconds, timeWindow_seconds, length);
 }
 
+//See definition of getData_singleChannel_sinceLastCall().
+//This functions much the same but returns all channels.
+//Some software trickery is used to ensure that there is no phase shift between channels (well, no phase shift introduced by the PC).
+//You can safely assume that sample n in channel i was taken at the same time as sample n in channel j.
+//Note that it will return the data received since the last call of getData_singleChannel_recent() on _any_ channel.
+//If you call getData_singleChannel_recent() on channel 0 (but not others), wait 2 seconds and call this function, you'll only get (at most) the last 2 seconds of data for _every channel_
+//So be careful, and don't mix singleChannel and allChannels calls unless you know what you're doing.
+std::vector<double>** apiInterface::getData_allChannels_sinceLastCall(double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_max_seconds, int* length){
+    if(getNumChannelsExcludingRef() == 0){
+        fprintf(stderr, "ERROR: It appears as though there are zero channels!\n");
+        return NULL;
+    }
+    return p2handler->getData_allChannels_sinceLastCall(sampleRate_hz, filter_mode, delay_seconds, timeWindow_max_seconds, length);
+}
+
 
 //getNumChannelsExcludingRef() returns the number of channels (excluding reference) from the .bcf file.
 //Returns -1 if no file is loaded

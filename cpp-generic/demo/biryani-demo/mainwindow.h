@@ -49,6 +49,8 @@ private slots:
 
     void on_getAllChannelsButton_clicked();
 
+    void on_plotSinceLastCallAllChannelsButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     apiInterface *generic_api;
