@@ -193,7 +193,7 @@ double phaseTwoHandler::getAverageLatency(){
 }
 
 
-std::vector<double> *phaseTwoHandler::getDownSampledChannelData_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_seconds, int *length){
+std::vector<double> *phaseTwoHandler::getData_singleChannel_recent(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_seconds, int *length){
     if(read_kms()){
         fprintf(stderr, "ERROR: Cannot get data.  System has shut down or is preparing for shutdown...\n");
         return NULL;
@@ -202,11 +202,11 @@ std::vector<double> *phaseTwoHandler::getDownSampledChannelData_double(int chann
         fprintf(stderr, "ERROR: No subpacket decoder detected.  Have you started the stream yet?\n");
         return NULL;
     } else {
-        return phaseTwoThreadData.decoder_sp->getDownSampledChannelData_double(channel, sampleRate_hz, filter_mode, delay_seconds, timeWindow_seconds, length);
+        return phaseTwoThreadData.decoder_sp->getData_singleChannel_recent(channel, sampleRate_hz, filter_mode, delay_seconds, timeWindow_seconds, length);
     }
 }
 
-std::vector<double> *phaseTwoHandler::getAllDownSampledChannelDataSinceLastCall_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_max_seconds, int* length){
+std::vector<double> *phaseTwoHandler::getData_singleChannel_sinceLastCall(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_max_seconds, int* length){
     if(read_kms()){
         fprintf(stderr, "ERROR: Cannot get data.  System has shut down or is preparing for shutdown...\n");
         return NULL;
@@ -215,7 +215,7 @@ std::vector<double> *phaseTwoHandler::getAllDownSampledChannelDataSinceLastCall_
         fprintf(stderr, "ERROR: No subpacket decoder detected.  Have you started the stream yet?\n");
         return NULL;
     } else {
-        return phaseTwoThreadData.decoder_sp->getAllDownSampledChannelDataSinceLastCall_double(channel, sampleRate_hz, filter_mode, delay_seconds, timeWindow_max_seconds, length);
+        return phaseTwoThreadData.decoder_sp->getData_singleChannel_sinceLastCall(channel, sampleRate_hz, filter_mode, delay_seconds, timeWindow_max_seconds, length);
     }
 }
 

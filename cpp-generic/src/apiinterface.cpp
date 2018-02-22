@@ -169,7 +169,7 @@ std::vector<double>* apiInterface::getData_singleChannel_recent(int channel, dou
         fprintf(stderr, "ERROR: Attempted to access nonexistant channel.\n");
         return NULL;
     }
-    return p2handler->getDownSampledChannelData_double(channel, sampleRate_hz, filter_mode, delay_seconds, timeWindow_seconds, length);
+    return p2handler->getData_singleChannel_recent(channel, sampleRate_hz, filter_mode, delay_seconds, timeWindow_seconds, length);
 }
 
 //See definition of getData_singleChannel_recent().
@@ -184,7 +184,7 @@ std::vector<double>* apiInterface::getData_singleChannel_sinceLastCall(int chann
         fprintf(stderr, "ERROR: Attempted to access nonexistant channel.\n");
         return NULL;
     }
-    return p2handler->getAllDownSampledChannelDataSinceLastCall_double(channel, sampleRate_hz, filter_mode, delay_seconds, timeWindow_max_seconds, length);
+    return p2handler->getData_singleChannel_sinceLastCall(channel, sampleRate_hz, filter_mode, delay_seconds, timeWindow_max_seconds, length);
 }
 
 //See definition of getData_singleChannel_recent().

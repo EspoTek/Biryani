@@ -130,7 +130,7 @@ int subPacketDecoder::count2int(unsigned char *ptr_count){
     return ptr_count[0] + 256 * ptr_count[1] + 65536 * ptr_count[2];
 }
 
-std::vector<double>* subPacketDecoder::getDownSampledChannelData_double(int channel, double sampleRate_hz, int mode, double delay_seconds, double timeWindow_seconds, int* length){
+std::vector<double>* subPacketDecoder::getData_singleChannel_recent(int channel, double sampleRate_hz, int mode, double delay_seconds, double timeWindow_seconds, int* length){
     printf_verbose("subPacketDecoder::getDownSampledChannelData\n");
     printf_debugging("Getting downsampled data counting backwards from sample index #%d\n", sampleBuffer_CH[0]->mostRecentAddress);
 
@@ -152,7 +152,7 @@ std::vector<double>* subPacketDecoder::getDownSampledChannelData_double(int chan
     return temp;
 }
 
-std::vector<double> *subPacketDecoder::getAllDownSampledChannelDataSinceLastCall_double(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_max_seconds, int* length){
+std::vector<double> *subPacketDecoder::getData_singleChannel_sinceLastCall(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_max_seconds, int* length){
     printf_verbose("subPacketDecoder::getAllDownSampledChannelDataSinceLastCall_double\n");
 
     if(filter_mode != 0){
