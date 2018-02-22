@@ -161,9 +161,12 @@ int apiInterface::stopStream(){
 //The first sample contains the value of the stream (delay_seconds + timeWindow_seconds) seconds ago.
 //The last samples contains the value of the stream delay_seconds seconds ago.
 //The samples in between are evenly spaced, temporally, with interval of (1/sampleRate_Hz) seconds per sample.
+//filter_mode controls the filtering mode (surprise!).  filter_mode = 1 will downsample using a moving average filter with a window size of 1/sampleRate_Hz, filter_mode = 0 just picks samples from the stream directly.
+//Both should work OK, but the filter is recommended as I think that's what Curry uses.
 //Note that the first channel has an index of 0.  Channel 1 is the second channel.
 //Returns NULL on error, otherwise returns the vector.
 //Please note that the pointer is freed upon the next call to getData_xxxx_xxxx()
+//If you want to work on data from any past call, make sure you make a copy.
 std::vector<double>* apiInterface::getData_singleChannel_recent(int channel, double sampleRate_hz, int filter_mode, double delay_seconds, double timeWindow_seconds, int* length){
     if(channel > getNumChannelsExcludingRef()){
         fprintf(stderr, "ERROR: Attempted to access nonexistant channel.\n");

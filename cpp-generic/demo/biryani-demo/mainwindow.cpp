@@ -271,7 +271,7 @@ void MainWindow::on_getAllChannelsButton_clicked()
 void MainWindow::on_plotSinceLastCallAllChannelsButton_clicked()
 {
     double sampleRate = 1000;
-    int filter_mode = 0;
+    int filter_mode = 1;
     double delay = 0.01;
     double timeWindow = 10;
     int length;

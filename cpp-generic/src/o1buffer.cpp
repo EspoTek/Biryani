@@ -51,7 +51,7 @@ void o1buffer::updateMostRecentAddress(int newAddress){
 
 //This function places samples in a buffer than can be plotted on the streamingDisplay.
 //A small delay, is added in case the packets arrive out of order.
-std::vector<double> *o1buffer::getMany_nofilter_double(int numToGet, int interval_samples, int delay_samples){
+std::vector<double> *o1buffer::getMany_double(int numToGet, int interval_samples, int delay_samples, int filter_mode){
     //Resize the vector
     convertedStream_double.resize(numToGet);
 
@@ -63,13 +63,13 @@ std::vector<double> *o1buffer::getMany_nofilter_double(int numToGet, int interva
             tempAddress += NUM_SAMPLES_PER_CHANNEL;
         }
         double *data = convertedStream_double.data();
-        data[i] = buffer[tempAddress];
+        data[i] = get_filtered_sample(tempAddress, filter_mode, interval_samples);
         //convertedStream_double.replace(i, buffer[tempAddress]);
     }
     return &convertedStream_double;
 }
 
-std::vector<double> *o1buffer::getSinceLast(int feasible_window_begin, int feasible_window_end, int interval_samples){
+std::vector<double> *o1buffer::getSinceLast(int feasible_window_begin, int feasible_window_end, int interval_samples, int filter_mode){
 
     //Calculate what sample the feasible window begins at
     printf_debugging("o1buffer::getSinceLast()\n")
@@ -98,11 +98,11 @@ std::vector<double> *o1buffer::getSinceLast(int feasible_window_begin, int feasi
     int tempAddress;
     for(int i=0;i<numToGet;i++){
         tempAddress = actual_start_point + (interval_samples * i);
-        if(tempAddress > NUM_SAMPLES_PER_CHANNEL){
+        if(tempAddress >= NUM_SAMPLES_PER_CHANNEL){
             tempAddress -= NUM_SAMPLES_PER_CHANNEL;
         }
         double *data = convertedStream_double.data();
-        data[numToGet-1-i] = buffer[tempAddress];
+        data[numToGet-1-i] = get_filtered_sample(tempAddress, filter_mode, interval_samples);
         //convertedStream_double.replace(i, buffer[tempAddress]);
     }
 
@@ -126,4 +126,31 @@ int o1buffer::distanceFromMostRecentAddress(int index){
 
     //I guess the other corner case is when the addresses are the same.
     return 0;
+}
+
+//replace with get_filtered_sample
+double o1buffer::get_filtered_sample(int index, int filter_type, int filter_size){
+    double accum = 0;
+    int currentPos = index - (filter_size / 2);
+    int end = currentPos + filter_size;
+
+    switch(filter_type){
+        case 0: //No filter
+            return buffer[index];
+        case 1: //Moving Average filter
+            if(currentPos < 0){
+                currentPos += NUM_SAMPLES_PER_CHANNEL;
+            }
+            if(end >= NUM_SAMPLES_PER_CHANNEL){
+                end -= NUM_SAMPLES_PER_CHANNEL;
+            }
+            while(currentPos != end){
+                accum += buffer[currentPos];
+                currentPos = (currentPos + 1) % NUM_SAMPLES_PER_CHANNEL;
+            }
+            return accum/((double)filter_size);
+        break;
+        default: //Default to "no filter"
+            return buffer[index];
+    }
 }
